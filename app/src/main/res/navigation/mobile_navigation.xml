@@ -7,19 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.nottumbler.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:name="com.example.nottumbler.fragments.HomeFragment"
+        android:label="home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.nottumbler.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_search"
+        android:name="com.example.nottumbler.fragments.SearchFragment"
+        android:label="search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.nottumbler.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_activity"
+        android:name="com.example.nottumbler.fragments.ActivityFragment"
+        android:label="activity"
+        tools:layout="@layout/fragment_activity" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.nottumbler.fragments.ProfileFragment"
+        android:label="profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

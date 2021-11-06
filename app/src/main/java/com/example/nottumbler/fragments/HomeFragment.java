@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.nottumblr.R;
+import com.example.nottumbler.R;
 
 public class HomeFragment extends Fragment {
 
