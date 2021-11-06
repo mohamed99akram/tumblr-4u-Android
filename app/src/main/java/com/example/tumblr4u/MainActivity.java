@@ -1,4 +1,4 @@
-package com.example.nottumbler;
+package com.example.tumblr4u;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,11 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.nottumbler.R;
-import com.example.nottumbler.fragments.ActivityFragment;
-import com.example.nottumbler.fragments.HomeFragment;
-import com.example.nottumbler.fragments.ProfileFragment;
-import com.example.nottumbler.fragments.SearchFragment;
+import com.example.tumblr4u.R;
+import com.example.tumblr4u.fragments.ActivityFragment;
+import com.example.tumblr4u.fragments.HomeFragment;
+import com.example.tumblr4u.fragments.ProfileFragment;
+import com.example.tumblr4u.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

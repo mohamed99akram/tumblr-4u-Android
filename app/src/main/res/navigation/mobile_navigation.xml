@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.nottumbler.fragments.HomeFragment"
+        android:name="com.example.tumblr4u.fragments.HomeFragment"
         android:label="home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.nottumbler.fragments.SearchFragment"
+        android:name="com.example.tumblr4u.fragments.SearchFragment"
         android:label="search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_activity"
-        android:name="com.example.nottumbler.fragments.ActivityFragment"
+        android:name="com.example.tumblr4u.fragments.ActivityFragment"
         android:label="activity"
         tools:layout="@layout/fragment_activity" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.nottumbler.fragments.ProfileFragment"
+        android:name="com.example.tumblr4u.fragments.ProfileFragment"
         android:label="profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.nottumbler.fragments;
+package com.example.tumblr4u.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.nottumbler.R;
+import com.example.tumblr4u.R;
 
 public class SearchFragment extends Fragment {
 

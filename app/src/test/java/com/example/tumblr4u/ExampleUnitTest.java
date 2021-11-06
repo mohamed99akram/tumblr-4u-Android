@@ -1,4 +1,4 @@
-package com.example.nottumbler;
+package com.example.tumblr4u;
 
 import org.junit.Test;
 
