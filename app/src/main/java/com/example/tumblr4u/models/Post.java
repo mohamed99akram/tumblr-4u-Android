@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 11/7/2021
  */
-class Post {
+public class Post {
     private int id;
     private String type;
     private ArrayList<String> imgsUrl;
@@ -20,6 +20,15 @@ class Post {
      */
     public Post(){
         type="NoMedia";
+    }
+
+    public Post(int id, String type, ArrayList<String> imgsUrl, String videoUrl, String text, ArrayList<String> tags) {
+        this.id = id;
+        this.type = type;
+        this.imgsUrl = imgsUrl;
+        this.videoUrl = videoUrl;
+        this.text = text;
+        this.tags = tags;
     }
 
     public int getId() {
