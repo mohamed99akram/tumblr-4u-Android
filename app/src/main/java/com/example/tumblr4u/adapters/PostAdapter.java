@@ -8,13 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tumblr4u.R;
+import com.example.tumblr4u.models.Post;
+import com.stfalcon.multiimageview.MultiImageView;
 
 import java.util.ArrayList;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolder> {
 
-    public PostAdapter() {
-
+    private ArrayList<Post> posts;
+    public PostAdapter(ArrayList<Post> p) {
+        posts=p;
     }
 
     @NonNull
@@ -34,13 +37,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
 
     @Override
     public int getItemCount() {
-        return 0;
+        return posts.size();
     }
 
     class PostsViewHolder extends RecyclerView.ViewHolder{
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
+            MultiImageView multiImageView=itemView.findViewById(R.id.following_posts_multi_img_view);
+
         }
         public void makeResult(int pos) {
 
