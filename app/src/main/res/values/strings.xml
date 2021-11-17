@@ -3,4 +3,6 @@
     <string name="sign_up_button">Sign up</string>
     <string name="log_in_button">Log in</string>
     <string name="header_text">Tumblr</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

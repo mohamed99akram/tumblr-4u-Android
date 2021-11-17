@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".authentication">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/login_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#a0f0f0"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,10 +31,12 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/signup_button"
             style="@style/authentication_buttons"
             android:text="@string/sign_up_button" />
 
         <Button
+            android:id="@+id/login_button"
             style="@style/authentication_buttons"
             android:text="@string/log_in_button" />
 
