@@ -39,9 +39,26 @@ public class authentication extends AppCompatActivity {
 
         LinearLayout signupButtons = (LinearLayout)findViewById(R.id.signup_buttons);
         LinearLayout loginButtons = (LinearLayout)findViewById(R.id.login_buttons);
+        LinearLayout authenticationButtons = (LinearLayout)findViewById(R.id.authentication_buttons);
 
         signupButtons.setVisibility(View.GONE);
         loginButtons.setVisibility(View.GONE);
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signupButtons.setVisibility(View.VISIBLE);
+                authenticationButtons.setVisibility(View.GONE);
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginButtons.setVisibility(View.VISIBLE);
+                authenticationButtons.setVisibility(View.GONE);
+            }
+        });
 
         viewPager = (ViewPager2)findViewById(R.id.login_viewPager);
         adapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());
