@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#161E54"
+    tools:context=".SignupWithEmail">
+
+    <EditText
+        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/age_field_edit_text"
+        android:hint="How old are you?"
+        android:inputType="number"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:textColorHint="#99A799"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:text="You're almost done. Enter your age, then tap the Next button
+                      to indicate that you've read the Privacy Policy and agree
+                      to the Terms of Service"/>
+
+</LinearLayout>

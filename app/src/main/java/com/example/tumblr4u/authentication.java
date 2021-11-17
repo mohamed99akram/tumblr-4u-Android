@@ -5,6 +5,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +60,15 @@ public class authentication extends AppCompatActivity {
                 authenticationButtons.setVisibility(View.GONE);
             }
         });
+
+        signupWithEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signupActivity = new Intent(getApplicationContext(), SignupWithEmail.class);
+                startActivity(signupActivity);
+            }
+        });
+
 
         viewPager = (ViewPager2)findViewById(R.id.login_viewPager);
         adapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());

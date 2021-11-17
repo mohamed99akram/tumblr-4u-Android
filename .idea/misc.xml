@@ -11,6 +11,7 @@
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/login_button_shape.xml" value="0.2203125" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_authentication.xml" value="0.25" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_signup_with_email.xml" value="0.1897644927536232" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login1.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login2.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login3.xml" value="0.1" />
@@ -26,10 +27,17 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1897644927536232" />
+      </ProjectState>
+    </option>
   </component>
 </project>
