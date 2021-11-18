@@ -52,22 +52,10 @@
         android:layout_marginLeft="40dp"
         android:background="@drawable/age_field_edit_text"
         android:hint="password"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:textSize="20sp"
         android:textColor="#ffffff"
         android:textColorHint="#99A799"
-        />
-
-    <Button
-        android:id="@+id/login_with_email_continue_button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:background="#03A9F4"
-        android:text="Continue"
-        android:textColor="#ffffff"
         />
 
 </LinearLayout>
