@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.tumblr4u">
         <activity
+            android:name=".LoginWithEmail"
+            android:exported="false" />
+        <activity
             android:name=".SignupWithEmail"
             android:exported="false" />
         <activity

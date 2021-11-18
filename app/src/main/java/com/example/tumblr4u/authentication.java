@@ -69,6 +69,14 @@ public class authentication extends AppCompatActivity {
             }
         });
 
+        loginWithEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signupActivity = new Intent(getApplicationContext(), LoginWithEmail.class);
+                startActivity(signupActivity);
+            }
+        });
+
 
         viewPager = (ViewPager2)findViewById(R.id.login_viewPager);
         adapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());
