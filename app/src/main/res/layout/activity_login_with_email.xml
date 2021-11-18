@@ -58,4 +58,16 @@
         android:textColorHint="#99A799"
         />
 
+    <TextView
+        android:id="@+id/login_with_email_wrong_message"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Incorrect email address or password. Please try agian"
+        android:textColor="#ff0000"/>
+
+
 </LinearLayout>

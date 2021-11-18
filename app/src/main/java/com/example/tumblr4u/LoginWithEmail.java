@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class LoginWithEmail extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class LoginWithEmail extends AppCompatActivity {
     private ImageButton mBack;
     private EditText mEmailField;
     private EditText mPasswordField;
+    private TextView mWrongMessage;
     private LoginWithEmailViewModel mViewModel;
 
     @Override
@@ -31,6 +33,7 @@ public class LoginWithEmail extends AppCompatActivity {
         mBack = (ImageButton) findViewById(R.id.login_with_email_back_button);
         mEmailField = (EditText) findViewById(R.id.login_with_email_email_field);
         mPasswordField = (EditText) findViewById(R.id.login_with_email_password_field);
+        mWrongMessage = (TextView) findViewById(R.id.login_with_email_wrong_message);
         mViewModel = new ViewModelProvider(this).get(LoginWithEmailViewModel.class);
         mLogin.setEnabled(false);
 
@@ -53,7 +56,10 @@ public class LoginWithEmail extends AppCompatActivity {
         mViewModel.isValidEmailAndPassword.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if(!mViewModel.isValidEmailAndPassword.getValue()) { return; }
+                if(!mViewModel.isValidEmailAndPassword.getValue()) {
+                    mWrongMessage.setVisibility(View.VISIBLE);
+                    return;
+                }
                 Intent home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(home);
             }

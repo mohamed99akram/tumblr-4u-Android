@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModel;
 public class LoginWithEmailViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> isValidEmailAndPassword = new MutableLiveData<>();
+    private Repository datebase = new Repository();
 
     public void login(String email, String password){
 
-        isValidEmailAndPassword.setValue(dataBaseLogin(email, password));
+        isValidEmailAndPassword.setValue(datebase.databaseLogin(email, password));
     }
 
-    private Boolean dataBaseLogin(String email, String password){
-        return true;
-    }
 }

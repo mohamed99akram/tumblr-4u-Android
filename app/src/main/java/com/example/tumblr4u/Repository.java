@@ -7,7 +7,7 @@ import com.example.tumblr4u.models.Post;
 import java.util.ArrayList;
 
 /**
- * @author Mahmoud Amr Nabil
+ * @author Android Team
  * @version 1.0
  * @since 11/8/2021
  */
@@ -28,5 +28,9 @@ public class Repository {
         temp.add(new Post(1,"multi_imgs",imgsUrl,"none","lady gaga eats kaka with donald trump and 4 others",tags));
         posts.setValue(temp);
         return posts;
+    }
+
+    public Boolean databaseLogin(String email, String password){
+        return email.equals("omar.ahmed314@hotmail.com") && password.equals("12345");
     }
 }
