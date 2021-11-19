@@ -1,8 +1,8 @@
-package com.example.tumblr4u;
+package com.example.tumblr4u.Repository;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.tumblr4u.models.Post;
+import com.example.tumblr4u.Models.Post;
 
 import java.util.ArrayList;
 

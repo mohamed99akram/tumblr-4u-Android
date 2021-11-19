@@ -1,4 +1,4 @@
-package com.example.tumblr4u;
+package com.example.tumblr4u.ViewModel;
 
 import androidx.lifecycle.ViewModel;
 

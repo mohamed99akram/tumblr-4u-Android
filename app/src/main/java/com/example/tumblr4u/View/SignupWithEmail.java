@@ -1,4 +1,4 @@
-package com.example.tumblr4u;
+package com.example.tumblr4u.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,14 +7,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import com.example.tumblr4u.additional.InputMinMaxFilter;
+import com.example.tumblr4u.GeneralPurpose.InputMinMaxFilter;
+import com.example.tumblr4u.R;
 
 public class SignupWithEmail extends AppCompatActivity {
 
@@ -56,7 +55,7 @@ public class SignupWithEmail extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent authenticationActivity = new Intent(getApplicationContext(), authentication.class);
+                Intent authenticationActivity = new Intent(getApplicationContext(), Authentication.class);
                 startActivity(authenticationActivity);
             }
         });

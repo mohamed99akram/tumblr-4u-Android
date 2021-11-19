@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#161E54"
-    tools:context=".SignupWithEmail">
+    tools:context=".View.SignupWithEmail">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"

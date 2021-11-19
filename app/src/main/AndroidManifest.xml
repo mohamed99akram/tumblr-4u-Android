@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.tumblr4u">
         <activity
-            android:name=".LoginWithEmail"
+            android:name=".View.LoginWithEmail"
             android:exported="false" />
         <activity
-            android:name=".SignupWithEmail"
+            android:name=".View.SignupWithEmail"
             android:exported="false" />
         <activity
-            android:name=".authentication"
+            android:name=".View.Authentication"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".View.MainActivity"
             android:exported="false"
             android:label="@string/app_name" />
     </application>

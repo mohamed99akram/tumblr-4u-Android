@@ -1,4 +1,4 @@
-package com.example.tumblr4u.adapters;
+package com.example.tumblr4u.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.tumblr4u.fragments.LoginFragment1;
-import com.example.tumblr4u.fragments.LoginFragment2;
-import com.example.tumblr4u.fragments.LoginFragment3;
+import com.example.tumblr4u.Fragments.LoginFragment1;
+import com.example.tumblr4u.Fragments.LoginFragment2;
+import com.example.tumblr4u.Fragments.LoginFragment3;
 
 public class loginPageAdapter extends FragmentStateAdapter{
 

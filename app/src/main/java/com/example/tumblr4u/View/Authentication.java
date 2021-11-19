@@ -1,8 +1,6 @@
-package com.example.tumblr4u;
+package com.example.tumblr4u.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -11,11 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.tumblr4u.adapters.loginPageAdapter;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.example.tumblr4u.Adapters.loginPageAdapter;
+import com.example.tumblr4u.R;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
-public class authentication extends AppCompatActivity {
+public class Authentication extends AppCompatActivity {
 
     Button loginButton;
     Button signupButton;

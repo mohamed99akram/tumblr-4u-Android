@@ -1,11 +1,10 @@
-package com.example.tumblr4u.fragments;
+package com.example.tumblr4u.ViewModel;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.tumblr4u.Repository;
-import com.example.tumblr4u.models.Post;
+import com.example.tumblr4u.Repository.Repository;
+import com.example.tumblr4u.Models.Post;
 
 import java.util.ArrayList;
 

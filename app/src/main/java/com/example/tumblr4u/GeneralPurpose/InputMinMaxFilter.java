@@ -1,4 +1,4 @@
-package com.example.tumblr4u.additional;
+package com.example.tumblr4u.GeneralPurpose;
 
 import android.text.InputFilter;
 import android.text.Spanned;

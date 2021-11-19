@@ -1,4 +1,4 @@
-package com.example.tumblr4u.models;
+package com.example.tumblr4u.Models;
 
 import java.util.ArrayList;
 

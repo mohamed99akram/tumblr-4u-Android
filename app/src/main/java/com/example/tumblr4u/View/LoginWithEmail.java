@@ -1,9 +1,8 @@
-package com.example.tumblr4u;
+package com.example.tumblr4u.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.tumblr4u.R;
+import com.example.tumblr4u.ViewModel.LoginWithEmailViewModel;
 
 public class LoginWithEmail extends AppCompatActivity {
 
@@ -41,7 +43,7 @@ public class LoginWithEmail extends AppCompatActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent authenticationActivity = new Intent(getApplicationContext(), authentication.class);
+                Intent authenticationActivity = new Intent(getApplicationContext(), Authentication.class);
                 startActivity(authenticationActivity);
             }
         });

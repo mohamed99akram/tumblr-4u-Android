@@ -1,4 +1,4 @@
-package com.example.tumblr4u.adapters;
+package com.example.tumblr4u.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tumblr4u.R;
-import com.example.tumblr4u.models.Post;
+import com.example.tumblr4u.Models.Post;
 import com.stfalcon.multiimageview.MultiImageView;
 
 import java.util.ArrayList;
