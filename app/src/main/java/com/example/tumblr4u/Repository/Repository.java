@@ -30,6 +30,12 @@ public class Repository {
         return posts;
     }
 
+    /**
+     * Sends a request to the back-end API with email and password to make sure that they exist
+     * @param email Email address for the user
+     * @param password Password for the user
+     * @return (true) if the user is authenticated and (false) if not
+     * */
     public Boolean databaseLogin(String email, String password) {
         return email.equals("omar.ahmed314@hotmail.com") && password.equals("12345");
     }
