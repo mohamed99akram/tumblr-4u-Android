@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/activity_main.xml" value="0.35104166666666664" />
+        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/activity_signup_with_email.xml" value="0.1" />
+        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/activity_write_post.xml" value="0.33" />
+        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/fragment_home.xml" value="0.32037037037037036" />
+        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/fragment_profile.xml" value="0.35104166666666664" />
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/layout/fragment_activity.xml" value="0.1" />
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/layout/fragment_home.xml" value="0.1921875" />
