@@ -30,10 +30,14 @@ public class WritePostActivity extends AppCompatActivity {
     private WritePostViewModel mWritePostViewModel;
     WritePostDataAdapter mWritePostDataAdapter;
     private static final String TAG = "WritePostActivity";
+
+    /**
+     * This function is called when creating a new activity, it overrides the onCreate in its
+     * parent, AppCompatActivity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_write_post);
         addImageButtonListener();
         addClosePostListener();
@@ -65,25 +69,28 @@ public class WritePostActivity extends AppCompatActivity {
 
 
     /**
-     * Auxiliary Function to add button listener
+     * Auxiliary Function to add image button listener that will let the user choose the image to
+     * their post
      */
     private void addImageButtonListener() {
-        ImageButton pickImage =findViewById(R.id.add_image);
+        ImageButton pickImage = findViewById(R.id.add_image);
         pickImage.setOnClickListener(view -> {
             requestPermission();
             makeIntent();
         });
     }
+
     /**
-     * mimic back button
-     * */
-    private void addClosePostListener(){
-        ImageButton closePost =findViewById(R.id.close_post);
+     * mimic back button (x) button at the top left of the editor
+     */
+    private void addClosePostListener() {
+        ImageButton closePost = findViewById(R.id.close_post);
         closePost.setOnClickListener(view -> {
             // TODO save state to draft
             this.onBackPressed();
         });
     }
+
     /**
      * auxiliary function to check if permission is granted to access storage
      */
@@ -106,6 +113,11 @@ public class WritePostActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * - This function is called when the intent returns data. - According to the user request, it
+     * will perform its actions - It is overridden from its parent - Here, it will prepare bitmaps
+     * of the chosen images
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -145,7 +157,9 @@ public class WritePostActivity extends AppCompatActivity {
     }
 
     /**
-     * Show images
+     * Add images to the adapter list and notify it to update the screen
+     *
+     * @param bitmaps the list of bitmaps of images that will be displayed on the editor
      */
     private void attachBitmapsToList(List<Bitmap> bitmaps) {
         for (Bitmap bitmap : bitmaps) {

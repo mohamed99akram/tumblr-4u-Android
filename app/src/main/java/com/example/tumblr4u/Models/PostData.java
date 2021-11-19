@@ -6,10 +6,11 @@ import android.view.View;
 
 /**
  * This is an abstract parent class. AdapterArray's elements are children from this class.
+ *
  * @author Mohamed Akram
  * @version 1.0
- * @Date 19-Nov-2021
- * */
+ * @since 19-11, 2021
+ */
 public abstract class PostData {
     protected int mListLayoutId;
     protected int mViewType;
@@ -32,11 +33,14 @@ public abstract class PostData {
     public void setListItemId(int listItemId) {
         mListLayoutId = listItemId;
     }
+
     /**
-     * The adapter will use this method to create views according to the child
-     * Each child will have its own implementation
+     * The adapter will use this method to create views according to the child Each child will have
+     * its own implementation
+     *
+     * @param context      it is needed in text, to access resources like font and dimensions
      * @param listItemView is the View that will be filled by children & it is initialized in
      *                     AdapterArray
-     * */
+     */
     public abstract View getView(Context context, View listItemView);
 }
