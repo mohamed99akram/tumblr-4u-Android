@@ -46,6 +46,9 @@ public class WritePostViewModel extends ViewModel {
      * @implNote Use notifyDataSetChanged after this method.
      */
     public void addPostDataToList(PostData postData) {
+        if(postData==null){
+            return;
+        }
         mPostData.add(postData);
     }
 

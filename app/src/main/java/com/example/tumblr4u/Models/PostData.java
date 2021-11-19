@@ -14,7 +14,7 @@ import android.view.View;
 public abstract class PostData {
     protected int mListLayoutId;
     protected int mViewType;
-
+    //TODO add itemId (editor_item) protected member
     protected final int IMAGE_TYPE = 1;
     protected final int TEXT_TYPE = 2;
 
