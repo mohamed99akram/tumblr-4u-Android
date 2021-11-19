@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.tumblr4u.R;
 
+/**
+ * Third fragment of the authentication page that runs in background
+ * @author Omar Ahmed
+ * @version 1.0
+ * */
 
 public class LoginFragment3 extends Fragment {
 

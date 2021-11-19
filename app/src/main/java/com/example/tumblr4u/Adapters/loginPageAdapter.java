@@ -10,12 +10,23 @@ import com.example.tumblr4u.Fragments.LoginFragment1;
 import com.example.tumblr4u.Fragments.LoginFragment2;
 import com.example.tumblr4u.Fragments.LoginFragment3;
 
+/**
+ * Login page fragments adapter that manages the current viewed fragment
+ * @author Omar Ahmed
+ * @version 1.0
+ * */
+
 public class loginPageAdapter extends FragmentStateAdapter{
 
     public loginPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
+    /**
+     * Return the needed fragment to the view pager to be viewed
+     * @param position The position of the needed fragment
+     * @return The fragment to be viewed
+     * */
     @NonNull
     @Override
     public Fragment createFragment(int position) {
@@ -32,6 +43,10 @@ public class loginPageAdapter extends FragmentStateAdapter{
         }
     }
 
+    /**
+     * Get the total number of fragments
+     * @return The total number of fragments
+     * */
     @Override
     public int getItemCount() {
         return 3;

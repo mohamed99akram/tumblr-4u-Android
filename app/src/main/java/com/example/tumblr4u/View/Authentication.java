@@ -1,4 +1,9 @@
 package com.example.tumblr4u.View;
+/**
+* First page in the app (authentication page) that contains the signup and login buttons
+* @author Omar Ahmed
+* @version 1.0
+* */
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -15,60 +20,82 @@ import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 public class Authentication extends AppCompatActivity {
 
-    Button loginButton;
-    Button signupButton;
-    Button loginWithGoogleButton;
-    Button signupWithGoogleButton;
-    Button loginWithEmailButton;
-    Button signupWithEmailButton;
-    ViewPager2 viewPager;
-    loginPageAdapter adapter;
-    SpringDotsIndicator mDotsIndicator;
+    private Button mLoginButton;
+    private Button mSignupButton;
+    private Button mLoginWithGoogleButton;
+    private Button mSignupWithGoogleButton;
+    private Button mLoginWithEmailButton;
+    private Button mSignupWithEmailButton;
+    private ViewPager2 mViewPager;
+    private loginPageAdapter mAdapter;
+    private SpringDotsIndicator mDotsIndicator;
+    private LinearLayout mSignupButtons;
+    private LinearLayout mLoginButtons;
+    private LinearLayout mAuthenticationButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
-        loginButton = (Button)findViewById(R.id.login_button);
-        signupButton = (Button)findViewById(R.id.signup_button);
+        initViews();
+        initOnClickListeners();
 
-        loginWithEmailButton = (Button)findViewById(R.id.login_with_email_button);
-        loginWithGoogleButton = (Button)findViewById(R.id.login_with_google_button);
+        mSignupButtons.setVisibility(View.GONE);
+        mLoginButtons.setVisibility(View.GONE);
 
-        signupWithEmailButton = (Button)findViewById(R.id.signup_with_email_button);
-        signupWithGoogleButton = (Button)findViewById(R.id.signup_with_google_button);
+        mAdapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());
+        mViewPager.setAdapter(mAdapter);
+        mDotsIndicator.setViewPager2(mViewPager);
 
-        LinearLayout signupButtons = (LinearLayout)findViewById(R.id.signup_buttons);
-        LinearLayout loginButtons = (LinearLayout)findViewById(R.id.login_buttons);
-        LinearLayout authenticationButtons = (LinearLayout)findViewById(R.id.authentication_buttons);
 
-        signupButtons.setVisibility(View.GONE);
-        loginButtons.setVisibility(View.GONE);
+    }
+
+    /**
+     * This function assign the views in the page to their xml files using findById function
+     * @return void
+    * */
+    private void initViews(){
+
+        mLoginButton = (Button)findViewById(R.id.login_button);
+        mSignupButton = (Button)findViewById(R.id.signup_button);
+
+        mLoginWithEmailButton = (Button)findViewById(R.id.login_with_email_button);
+        mLoginWithGoogleButton = (Button)findViewById(R.id.login_with_google_button);
+
+        mSignupWithEmailButton = (Button)findViewById(R.id.signup_with_email_button);
+        mSignupWithGoogleButton = (Button)findViewById(R.id.signup_with_google_button);
+
+        mSignupButtons = (LinearLayout)findViewById(R.id.signup_buttons);
+        mLoginButtons = (LinearLayout)findViewById(R.id.login_buttons);
+        mAuthenticationButtons = (LinearLayout)findViewById(R.id.authentication_buttons);
 
         mDotsIndicator = (SpringDotsIndicator)findViewById(R.id.authentication_dots_indicator);
-        viewPager = (ViewPager2)findViewById(R.id.login_viewPager);
-        adapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());
-        viewPager.setAdapter(adapter);
-        mDotsIndicator.setViewPager2(viewPager);
+        mViewPager = (ViewPager2)findViewById(R.id.login_viewPager);
+    }
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
+    /**
+     * This function assign the views in the page to their click listeners
+     * @return void
+     * */
+    private void initOnClickListeners(){
+        mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signupButtons.setVisibility(View.VISIBLE);
-                authenticationButtons.setVisibility(View.GONE);
+                mSignupButtons.setVisibility(View.VISIBLE);
+                mAuthenticationButtons.setVisibility(View.GONE);
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginButtons.setVisibility(View.VISIBLE);
-                authenticationButtons.setVisibility(View.GONE);
+                mLoginButtons.setVisibility(View.VISIBLE);
+                mAuthenticationButtons.setVisibility(View.GONE);
             }
         });
 
-        signupWithEmailButton.setOnClickListener(new View.OnClickListener() {
+        mSignupWithEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent signupActivity = new Intent(getApplicationContext(), SignupWithEmail.class);
@@ -76,15 +103,12 @@ public class Authentication extends AppCompatActivity {
             }
         });
 
-        loginWithEmailButton.setOnClickListener(new View.OnClickListener() {
+        mLoginWithEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent signupActivity = new Intent(getApplicationContext(), LoginWithEmail.class);
                 startActivity(signupActivity);
             }
         });
-
-
-
     }
 }

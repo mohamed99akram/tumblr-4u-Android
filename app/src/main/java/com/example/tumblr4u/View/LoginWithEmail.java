@@ -1,5 +1,11 @@
 package com.example.tumblr4u.View;
 
+/**
+ * Login with email activity
+ * @author Omar Ahmed
+ * @version 1.0
+ * */
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,15 +37,33 @@ public class LoginWithEmail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_with_email);
 
+        initViews();
+        initOnClickListener();
+        initObservers();
+        initOnChangedListner();
+        mLogin.setEnabled(false);
+
+
+    }
+
+    /**
+     * Assign the views with their xml files
+     * @return void
+     * */
+    public void initViews(){
         mLogin = (Button)findViewById(R.id.login_with_email_login_button);
         mBack = (ImageButton) findViewById(R.id.login_with_email_back_button);
         mEmailField = (EditText) findViewById(R.id.login_with_email_email_field);
         mPasswordField = (EditText) findViewById(R.id.login_with_email_password_field);
         mWrongMessage = (TextView) findViewById(R.id.login_with_email_wrong_message);
         mViewModel = new ViewModelProvider(this).get(LoginWithEmailViewModel.class);
-        mLogin.setEnabled(false);
+    }
 
-        // set the buttons event listner
+    /**
+     * Assign the views with their click listners
+     * @return void
+     * */
+    public void initOnClickListener(){
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +79,13 @@ public class LoginWithEmail extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Set the views to the container of the data they waiting for, after demanding it from view model
+     * @return void
+     * */
+    public void initObservers(){
         mViewModel.isValidEmailAndPassword.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
@@ -67,6 +98,13 @@ public class LoginWithEmail extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Assign the views to their change listners
+     * @return void
+     * */
+    public void initOnChangedListner(){
         mEmailField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
