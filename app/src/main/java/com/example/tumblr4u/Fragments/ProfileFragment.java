@@ -21,7 +21,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_profile, container, false);
-        Button writePostButton = root.findViewById(R.id.write_post_button_home_fragment);
+        Button writePostButton = root.findViewById(R.id.write_post_button_profile_fragment);
         writePostButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WritePostActivity.class);
             startActivity(intent);

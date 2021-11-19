@@ -36,7 +36,7 @@ public class WritePostActivity extends AppCompatActivity {
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_write_post);
         addImageButtonListener();
-
+        addClosePostListener();
         ArrayList<PostData> postData = new ArrayList<>();
 
         mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
@@ -74,7 +74,16 @@ public class WritePostActivity extends AppCompatActivity {
             makeIntent();
         });
     }
-
+    /**
+     * mimic back button
+     * */
+    private void addClosePostListener(){
+        ImageButton closePost =findViewById(R.id.close_post);
+        closePost.setOnClickListener(view -> {
+            // TODO save state to draft
+            this.onBackPressed();
+        });
+    }
     /**
      * auxiliary function to check if permission is granted to access storage
      */
