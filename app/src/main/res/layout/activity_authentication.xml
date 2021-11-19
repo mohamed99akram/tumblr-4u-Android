@@ -10,17 +10,29 @@
         android:id="@+id/login_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:background="#a0f0f0"/>
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
         android:text="@string/header_text"
-        android:textSize="50sp" />
+        android:textSize="70sp"
+        android:textStyle="bold"/>
+
+    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+        android:id="@+id/authentication_dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="230dp"
+        app:dotsColor="@android:color/darker_gray"
+        app:selectedDotColor="#ffffff"
+        app:dotsSize="10dp"
+        app:progressMode="true"/>
 
     <LinearLayout
         android:id="@+id/authentication_buttons"

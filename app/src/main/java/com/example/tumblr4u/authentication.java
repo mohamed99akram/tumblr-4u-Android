@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.tumblr4u.adapters.loginPageAdapter;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 public class authentication extends AppCompatActivity {
 
@@ -23,6 +25,7 @@ public class authentication extends AppCompatActivity {
     Button signupWithEmailButton;
     ViewPager2 viewPager;
     loginPageAdapter adapter;
+    SpringDotsIndicator mDotsIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,12 @@ public class authentication extends AppCompatActivity {
 
         signupButtons.setVisibility(View.GONE);
         loginButtons.setVisibility(View.GONE);
+
+        mDotsIndicator = (SpringDotsIndicator)findViewById(R.id.authentication_dots_indicator);
+        viewPager = (ViewPager2)findViewById(R.id.login_viewPager);
+        adapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());
+        viewPager.setAdapter(adapter);
+        mDotsIndicator.setViewPager2(viewPager);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,10 +87,6 @@ public class authentication extends AppCompatActivity {
         });
 
 
-        viewPager = (ViewPager2)findViewById(R.id.login_viewPager);
-        adapter = new loginPageAdapter(getSupportFragmentManager(), getLifecycle());
-
-        viewPager.setAdapter(adapter);
 
     }
 }
