@@ -1,5 +1,7 @@
 package com.example.tumblr4u;
 
+import static org.junit.Assert.assertEquals;
+
 import android.content.Context;
 
 import androidx.test.platform.app.InstrumentationRegistry;

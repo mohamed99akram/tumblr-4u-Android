@@ -12,7 +12,10 @@ public class WritePostRepository {
         mPostData = postData;
     }
 
-
+    /**
+     * Gets one instance of the repo, using Singleton pattern
+     * @return repository of WritePost module
+     * */
     public static WritePostRepository getInstance(){
         if(instance == null){
             instance = new WritePostRepository();
