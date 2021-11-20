@@ -1,0 +1,89 @@
+[33mcommit f30f6d606a79818a52ea6e5a1838e5510fa60d26[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/development[m[33m)[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Mon Nov 8 17:34:39 2021 +0200
+
+    add HomeFragmetViewModel to attach live data to HomeFragment
+
+[33mcommit de0520ef516d78f47a9f8c3445933d1d333e55b6[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Mon Nov 8 16:53:52 2021 +0200
+
+    add repositiry to get live data
+
+[33mcommit 2907577c4f18839e85711006b2b397b0cb4fbfb5[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Mon Nov 8 16:07:09 2021 +0200
+
+    add view for post ,attach it to home recycler view
+
+[33mcommit 0e47d3796e95c0310cc8025320ac0ecd1b3a39ca[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Mon Nov 8 10:33:29 2021 +0200
+
+    add view for home
+
+[33mcommit dd934c6dc575d2c562307f31251c5feef8b66c1a[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Sun Nov 7 22:44:55 2021 +0200
+
+    add model for Post
+
+[33mcommit d2e9ac39f65fa49fea663e221e37934504e645d0[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: c8962e2 854cfb2
+Author: Mohamed Akram <69890013+mohamed99akram@users.noreply.github.com>
+Date:   Sat Nov 6 18:19:49 2021 +0200
+
+    Merge pull request #2 from mohamed99akram/development
+    
+    build changes
+
+[33mcommit 854cfb2ddc91f1c46cd76d0a2b1f752d58f362f4[m
+Author: mohamed99akram <mohamed1999akram@gmail.com>
+Date:   Sat Nov 6 18:17:50 2021 +0200
+
+    build changes
+
+[33mcommit c8962e24a5977ec0a67d8546fa15a75b21a932fa[m
+Merge: c7efe5f 144c00a
+Author: Mohamed Akram <69890013+mohamed99akram@users.noreply.github.com>
+Date:   Sat Nov 6 15:35:56 2021 +0200
+
+    Merge pull request #1 from mohamed99akram/development
+    
+    change build, nottumbr -> tumblr4u
+
+[33mcommit 144c00a59cab59bb882570c2a1d764f50fa1eebd[m
+Author: mohamed99akram <mohamed1999akram@gmail.com>
+Date:   Sat Nov 6 14:00:22 2021 +0200
+
+    change build, nottumbr -> tumblr4u
+
+[33mcommit c7efe5f700d2ea091946922d0ea849e066813005[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Sat Nov 6 11:49:56 2021 +0200
+
+    change project name
+
+[33mcommit 85acdb34d63b0205d919d484f4c007d423510af1[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Sat Nov 6 11:36:27 2021 +0200
+
+    add main activity and handle navigation
+
+[33mcommit 9694c97c4f07dad164b0608c41d8c2b7d8276d2e[m
+Author: mahmoud amr nabil <manamw222@gmail.com>
+Date:   Sat Nov 6 11:09:17 2021 +0200
+
+    add main fragments
+
+[33mcommit 3de4283f5558388b262971c7f6f82279808fc608[m
+Author: Mohamed Akram <69890013+mohamed99akram@users.noreply.github.com>
+Date:   Thu Nov 4 19:28:26 2021 +0200
+
+    Update README.md
+
+[33mcommit e03f4b768e21b786cffdb50cb1b42080b2c06f24[m
+Author: mohamed99akram <mohamed1999akram@gmail.com>
+Date:   Thu Nov 4 19:27:21 2021 +0200
+
+    first commit

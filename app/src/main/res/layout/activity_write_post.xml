@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.WritePostActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top_bar">
+
+        <Button
+            android:id="@+id/publish_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#1E90FF"
+            android:textAllCaps="false"
+            android:text="Post"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <ImageButton
+            android:id="@+id/close_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:backgroundTint="@color/tumblr_white"
+            android:padding="10dp"
+            android:src="@drawable/outline_close_black_24" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_blog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="user name"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_keyboard_arrow_down_black_20" />
+
+    </LinearLayout>
+
+    <!--    Here goes the Recycler View / ListView-->
+    <!--    Here are control buttons-->
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/action_buttons"
+        android:layout_below="@id/choose_blog"
+        android:layout_marginTop="5dp"
+        android:descendantFocusability="afterDescendants"
+        android:drawSelectorOnTop="true">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/action_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/add_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="3dp"
+            android:padding="10dp"
+            android:src="@drawable/outline_tag_black_24" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/text_size_font"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:backgroundTint="@color/tumblr_white"
+                android:padding="10dp"
+                android:src="@drawable/outline_text_fields_black_24" />
+
+            <ImageButton
+                android:id="@+id/add_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/tumblr_white"
+                android:padding="10dp"
+                android:src="@drawable/link_icon_24" />
+
+            <ImageButton
+                android:id="@+id/add_gif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/tumblr_white"
+                android:padding="10dp"
+                android:src="@drawable/outline_gif_box_black_24" />
+
+            <ImageButton
+                android:id="@+id/add_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/tumblr_white"
+                android:padding="10dp"
+                android:src="@drawable/outline_collections_black_24" />
+
+            <ImageButton
+                android:id="@+id/add_audio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/tumblr_white"
+                android:padding="10dp"
+                android:src="@drawable/outline_headphones_black_24" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

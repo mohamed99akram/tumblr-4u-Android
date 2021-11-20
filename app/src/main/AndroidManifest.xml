@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tumblr4u">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,15 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.tumblr4u">
         <activity
-            android:name="com.example.tumblr4u.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:name=".View.WritePostActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".View.LoginWithEmail"
+            android:exported="false" />
+        <activity
+            android:name=".View.SignupWithEmail"
+            android:exported="false" />
+        <activity
+            android:name=".View.Authentication"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".View.MainActivity"
+            android:exported="false"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

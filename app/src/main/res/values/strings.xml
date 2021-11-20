@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">tumblr4u</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="log_in_button">Log in</string>
+    <string name="header_text">tumblr</string>
+    <string name="signup_with_google_button">Signup with google</string>
+    <string name="signup_with_email_button">Signup with email</string>
+    <string name="login_with_google_button">Login with google</string>
+    <string name="login_with_email_button">Login with email</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.tumblr4u.fragments;
+package com.example.tumblr4u.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
