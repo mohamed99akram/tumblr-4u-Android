@@ -1,11 +1,13 @@
 package com.example.tumblr4u.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -62,13 +65,11 @@ public class WritePostActivity extends AppCompatActivity {
         // listView & adapter
         mWritePostDataAdapter = new WritePostDataAdapter(this, postData);
 
-        mListView= findViewById(R.id.list);
+        mListView = findViewById(R.id.list);
 
         mListView.setAdapter(mWritePostDataAdapter);
         mListView.setItemsCanFocus(true);
         // initial editor
-        addEditor();
-        addEditor();
         addEditor();
     }
 
@@ -111,7 +112,47 @@ public class WritePostActivity extends AppCompatActivity {
         ImageButton imageButton = findViewById(R.id.text_size_font);
         imageButton.setOnClickListener(v -> {
             RichEditor currentFocus = getCurrentFocus().findViewById(R.id.editor_item);
-            currentFocus.setFontSize(7);
+
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(WritePostActivity.this);
+            builder.setTitle("Choose Style");
+
+            //TODO make it with an XML layout
+
+            // add a list
+            String[] styles =
+                    {"Small", "Bigger", "Biggest", "   •Bullets", "    1. Numbered", "Bold"};
+            builder.setItems(styles, (dialog, which) -> {
+                switch (which) {
+                    case 0: // regular
+                        Log.i(TAG, "Small");
+                        currentFocus.setFontSize(2);
+                        break;
+                    case 1: // bigger
+                        Log.i(TAG, "Bigger");
+                        currentFocus.setFontSize(4);
+                        break;
+                    case 2: // biggest
+                        Log.i(TAG, "Biggest");
+                        currentFocus.setFontSize(6);
+                        break;
+                    case 3: // bullets
+                        Log.i(TAG, "Bullets");
+                        currentFocus.setIndent();
+                        break;
+                    case 4: // numbered
+                        Log.i(TAG, "Numbered");
+                        currentFocus.setNumbers();
+                        break;
+                    case 5: //bold
+                        Log.i(TAG, "Bold");
+                        currentFocus.setBold();
+                        break;
+                }
+            });
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
@@ -182,6 +223,7 @@ public class WritePostActivity extends AppCompatActivity {
 
     /**
      * Add images to the adapter list and notify it to update the screen
+     * after all images added, add an editor
      *
      * @param bitmaps the list of bitmaps of images that will be displayed on the editor
      */
@@ -189,7 +231,10 @@ public class WritePostActivity extends AppCompatActivity {
         for (Bitmap bitmap : bitmaps) {
             mWritePostViewModel.addPostDataToList(
                     new PostEditor(R.layout.editor_list_item, bitmap));
-            mWritePostDataAdapter.notifyDataSetChanged();
         }
+//        if(!bitmaps.isEmpty()){
+//            addEditor();
+//        }
+        mWritePostDataAdapter.notifyDataSetChanged();
     }
 }
