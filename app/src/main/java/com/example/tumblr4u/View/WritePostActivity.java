@@ -12,6 +12,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -26,9 +29,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.richeditor.RichEditor;
+
 public class WritePostActivity extends AppCompatActivity {
     private WritePostViewModel mWritePostViewModel;
     WritePostDataAdapter mWritePostDataAdapter;
+    private ListView mListView;
     private static final String TAG = "WritePostActivity";
 
     /**
@@ -39,21 +45,28 @@ public class WritePostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_post);
+
+        // button event listeners
         addImageButtonListener();
         addClosePostListener();
+        addSizeFontButtonListener();
+
+        // ViewModel
         ArrayList<PostData> postData = new ArrayList<>();
 
         mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
 
         mWritePostViewModel.init(postData);
 
+
+        // listView & adapter
         mWritePostDataAdapter = new WritePostDataAdapter(this, postData);
 
-        ListView listView = findViewById(R.id.list);
+        mListView= findViewById(R.id.list);
 
-        listView.setAdapter(mWritePostDataAdapter);
-        listView.setItemsCanFocus(true);
-
+        mListView.setAdapter(mWritePostDataAdapter);
+        mListView.setItemsCanFocus(true);
+        // initial editor
         addEditor();
         addEditor();
         addEditor();
@@ -88,6 +101,17 @@ public class WritePostActivity extends AppCompatActivity {
         closePost.setOnClickListener(view -> {
             // TODO save state to draft
             this.onBackPressed();
+        });
+    }
+
+    /**
+     * This function handles clicking on the change font/size button
+     */
+    private void addSizeFontButtonListener() {
+        ImageButton imageButton = findViewById(R.id.text_size_font);
+        imageButton.setOnClickListener(v -> {
+            RichEditor currentFocus = getCurrentFocus().findViewById(R.id.editor_item);
+            currentFocus.setFontSize(7);
         });
     }
 
