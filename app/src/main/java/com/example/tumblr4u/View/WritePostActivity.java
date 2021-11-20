@@ -1,17 +1,23 @@
 package com.example.tumblr4u.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -26,9 +32,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.richeditor.RichEditor;
+
 public class WritePostActivity extends AppCompatActivity {
     private WritePostViewModel mWritePostViewModel;
     WritePostDataAdapter mWritePostDataAdapter;
+    private ListView mListView;
     private static final String TAG = "WritePostActivity";
 
     /**
@@ -39,23 +48,28 @@ public class WritePostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_post);
+
+        // button event listeners
         addImageButtonListener();
         addClosePostListener();
+        addSizeFontButtonListener();
+
+        // ViewModel
         ArrayList<PostData> postData = new ArrayList<>();
 
         mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
 
         mWritePostViewModel.init(postData);
 
+
+        // listView & adapter
         mWritePostDataAdapter = new WritePostDataAdapter(this, postData);
 
-        ListView listView = findViewById(R.id.list);
+        mListView = findViewById(R.id.list);
 
-        listView.setAdapter(mWritePostDataAdapter);
-        listView.setItemsCanFocus(true);
-
-        addEditor();
-        addEditor();
+        mListView.setAdapter(mWritePostDataAdapter);
+        mListView.setItemsCanFocus(true);
+        // initial editor
         addEditor();
     }
 
@@ -88,6 +102,57 @@ public class WritePostActivity extends AppCompatActivity {
         closePost.setOnClickListener(view -> {
             // TODO save state to draft
             this.onBackPressed();
+        });
+    }
+
+    /**
+     * This function handles clicking on the change font/size button
+     */
+    private void addSizeFontButtonListener() {
+        ImageButton imageButton = findViewById(R.id.text_size_font);
+        imageButton.setOnClickListener(v -> {
+            RichEditor currentFocus = getCurrentFocus().findViewById(R.id.editor_item);
+
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(WritePostActivity.this);
+            builder.setTitle("Choose Style");
+
+            //TODO make it with an XML layout
+
+            // add a list
+            String[] styles =
+                    {"Small", "Bigger", "Biggest", "   •Bullets", "    1. Numbered", "Bold"};
+            builder.setItems(styles, (dialog, which) -> {
+                switch (which) {
+                    case 0: // regular
+                        Log.i(TAG, "Small");
+                        currentFocus.setFontSize(2);
+                        break;
+                    case 1: // bigger
+                        Log.i(TAG, "Bigger");
+                        currentFocus.setFontSize(4);
+                        break;
+                    case 2: // biggest
+                        Log.i(TAG, "Biggest");
+                        currentFocus.setFontSize(6);
+                        break;
+                    case 3: // bullets
+                        Log.i(TAG, "Bullets");
+                        currentFocus.setIndent();
+                        break;
+                    case 4: // numbered
+                        Log.i(TAG, "Numbered");
+                        currentFocus.setNumbers();
+                        break;
+                    case 5: //bold
+                        Log.i(TAG, "Bold");
+                        currentFocus.setBold();
+                        break;
+                }
+            });
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
@@ -158,6 +223,7 @@ public class WritePostActivity extends AppCompatActivity {
 
     /**
      * Add images to the adapter list and notify it to update the screen
+     * after all images added, add an editor
      *
      * @param bitmaps the list of bitmaps of images that will be displayed on the editor
      */
@@ -165,7 +231,10 @@ public class WritePostActivity extends AppCompatActivity {
         for (Bitmap bitmap : bitmaps) {
             mWritePostViewModel.addPostDataToList(
                     new PostEditor(R.layout.editor_list_item, bitmap));
-            mWritePostDataAdapter.notifyDataSetChanged();
         }
+//        if(!bitmaps.isEmpty()){
+//            addEditor();
+//        }
+        mWritePostDataAdapter.notifyDataSetChanged();
     }
 }

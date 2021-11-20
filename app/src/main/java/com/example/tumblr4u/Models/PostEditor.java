@@ -17,9 +17,10 @@ public class PostEditor extends PostData {
     private String mImageBase64;
     // TODO should I delete this?
     boolean mISInitialized = false;
+
     /**
      * This constructor is used for text fields in the write post part
-     * */
+     */
     public PostEditor(int listLayoutId) {
         super(listLayoutId);
         mViewType = super.TEXT_TYPE;
@@ -47,6 +48,13 @@ public class PostEditor extends PostData {
 
     public RichEditor getEditor() {
         return mEditor;
+    }
+
+    public String getDataAsHtml() {
+        if (mEditor == null) {
+            return "";
+        }
+        return mEditor.getHtml();
     }
 
     /**
