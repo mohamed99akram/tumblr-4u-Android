@@ -26,4 +26,12 @@ public class LoginWithEmailViewModel extends ViewModel {
         isValidEmailAndPassword.setValue(datebase.databaseLogin(email, password));
     }
 
+    /**
+     * Get the status of validation of email and password
+     * @return The validation of email and password
+     * */
+    public Boolean getEmailAndPasswordStatus(){
+        return isValidEmailAndPassword.getValue();
+    }
+
 }

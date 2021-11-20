@@ -37,6 +37,7 @@ public class Repository {
      * @return (true) if the user is authenticated and (false) if not
      * */
     public Boolean databaseLogin(String email, String password) {
+        if(email == null | password == null) {return false;}
         return email.equals("omar.ahmed314@hotmail.com") && password.equals("12345");
     }
 }
