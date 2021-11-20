@@ -71,6 +71,8 @@ public class WritePostActivity extends AppCompatActivity {
         mListView.setItemsCanFocus(true);
         // initial editor
         addEditor();
+//        addEditor();
+//        addEditor();
     }
 
     /**
@@ -231,10 +233,10 @@ public class WritePostActivity extends AppCompatActivity {
         for (Bitmap bitmap : bitmaps) {
             mWritePostViewModel.addPostDataToList(
                     new PostEditor(R.layout.editor_list_item, bitmap));
+            mWritePostDataAdapter.notifyDataSetChanged();
         }
 //        if(!bitmaps.isEmpty()){
 //            addEditor();
 //        }
-        mWritePostDataAdapter.notifyDataSetChanged();
     }
 }
