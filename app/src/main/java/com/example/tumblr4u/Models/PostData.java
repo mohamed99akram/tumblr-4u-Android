@@ -30,6 +30,8 @@ public abstract class PostData {
         return mViewType;
     }
 
+    public abstract String getDataAsHtml();
+
     public void setListItemId(int listItemId) {
         mListLayoutId = listItemId;
     }

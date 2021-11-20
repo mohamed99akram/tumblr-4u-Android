@@ -23,7 +23,7 @@ public class WritePostRepository {
         return instance;
     }
 
-    public void publishPostToDatabase(){
+    public void publishPostToDatabase(String dataAsHtml){
 
     }
 }
