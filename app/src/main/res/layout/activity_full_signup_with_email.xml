@@ -63,6 +63,7 @@
             android:background="@drawable/age_field_edit_text"
             android:hint="How old are you?"
             android:inputType="number"
+            android:focusedByDefault="true"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:textColorHint="#99A799"
@@ -80,6 +81,17 @@
             android:textColor="#ffffff"
             android:textColorHint="#99A799"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/full_signup_with_email_invalid_email_message"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:text="This email address isn't correct. Please try again."
+            android:textColor="#ff0000"/>
 
         <EditText
             android:id="@+id/full_signup_with_email_password_field"

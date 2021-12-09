@@ -44,6 +44,17 @@
         android:textColorHint="#99A799"
         />
 
+    <TextView
+        android:id="@+id/login_with_email_invalid_email_message"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:text="This email address isn't correct. Please try again."
+        android:textColor="#ff0000"/>
+
     <EditText
         android:id="@+id/login_with_email_password_field"
         android:layout_height="70dp"

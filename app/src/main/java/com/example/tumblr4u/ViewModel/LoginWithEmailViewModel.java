@@ -1,11 +1,10 @@
 package com.example.tumblr4u.ViewModel;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.tumblr4u.ApiData.LoginResponse;
+import com.example.tumblr4u.GeneralPurpose.Services;
 import com.example.tumblr4u.Repository.Repository;
 
 import retrofit2.Call;
@@ -21,7 +20,9 @@ import retrofit2.Response;
 public class LoginWithEmailViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> isValidEmailAndPassword = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isValidEmail = new MutableLiveData<>();
     private Repository datebase = Repository.INSTANTIATE();
+    private Services services = new Services();
 
     /**
      * Calls the database to get the authentication status and assign it to the status variable
@@ -29,12 +30,21 @@ public class LoginWithEmailViewModel extends ViewModel {
      * @param password The password of the user
      * */
     public void login(String email, String password){
-
+        if(!services.isValidEmail(email)){
+            isValidEmail.setValue(false);
+            return;
+        }
         Call<LoginResponse> response = datebase.databaseLogin(email, password);
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Log.e("loginclass5555555555555", response.toString());
+
+                int statusCode = response.body().getMeta().getStatus();
+                if(statusCode >= 200 && statusCode <= 299) {
+                    isValidEmailAndPassword.setValue(true);
+                } else {
+                    isValidEmailAndPassword.setValue(false);
+                }
             }
 
             @Override

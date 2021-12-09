@@ -1,29 +1,26 @@
 package com.example.tumblr4u.ApiData;
 
 public class SignupRequest {
-    private String Email;
-    private String Password;
-    private String Blog_Name;
-    private String Age;
-    private String Stuff;
+    private String email;
+    private String password;
+    private String blogName;
+    private String age;
 
     public SignupRequest(String age, String email, String password, String blogName){
-        this.Email = email;
-        this.Password = password;
-        this.Blog_Name = blogName;
-        this.Age = age;
+        this.email = email;
+        this.password = password;
+        this.blogName = blogName;
+        this.age = age;
     }
 
-    public String getEmail(){ return Email; }
-    public String getPassword(){ return Password; }
-    public String getBlog_Name(){ return Blog_Name;}
-    public String getAge(){ return Age;}
-    public String getStuff() { return Stuff; }
+    public String getEmail(){ return email; }
+    public String getPassword(){ return password; }
+    public String getBlog_Name(){ return blogName;}
+    public String getAge(){ return age;}
 
-    public void setEmail(String email){Email = email;}
-    public void setPassword(String password){Password = password;}
-    public void setBlog_Name(String blogName){Blog_Name = blogName;}
-    public void setAge(String age){Age = age;}
-    public void setStuff(String stuff){Stuff = stuff;}
+    public void setEmail(String email){this.email = email;}
+    public void setPassword(String password){this.password = password;}
+    public void setBlog_Name(String blogName){this.blogName = blogName;}
+    public void setAge(String age){this.age = age;}
 
 }

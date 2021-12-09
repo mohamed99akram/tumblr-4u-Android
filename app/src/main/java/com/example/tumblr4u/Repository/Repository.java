@@ -14,6 +14,7 @@ import com.example.tumblr4u.View.LoginWithEmail;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import co.infinum.retromock.Retromock;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +60,11 @@ public class Repository {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+        Retromock retromock = new Retromock.Builder()
+                .retrofit(retrofit)
+                .build();
+
         apiInterface =  retrofit.create(ApiInterface.class);
     }
 
@@ -92,12 +98,7 @@ public class Repository {
      * @return A response from the back-end server as an json class object
      * */
     public Call<LoginResponse> databaseSignup(String age, String email, String password, String name){
-       // SignupRequest request = new SignupRequest(age, email, password, name);
-        HashMap<Object, Object> request = new HashMap<>();
-        request.put("Age", age);
-        request.put("Email", email);
-        request.put("Password", password);
-        request.put("Name", name);
+        SignupRequest request = new SignupRequest(age, email, password, name);
         return apiInterface.Signup(request);
     }
 
