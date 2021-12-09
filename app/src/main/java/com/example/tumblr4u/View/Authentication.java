@@ -98,7 +98,7 @@ public class Authentication extends AppCompatActivity {
         mSignupWithEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signupActivity = new Intent(getApplicationContext(), SignupWithEmail.class);
+                Intent signupActivity = new Intent(getApplicationContext(), FullSignupWithEmail.class);
                 startActivity(signupActivity);
             }
         });
