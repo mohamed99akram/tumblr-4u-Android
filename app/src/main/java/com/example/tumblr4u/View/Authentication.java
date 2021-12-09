@@ -22,8 +22,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
@@ -143,10 +145,13 @@ public class Authentication extends AppCompatActivity {
     private void initClient(){
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
+        // TODO change this
+        String serverClientId = "648954387473-a7v2qlqj2557l9bsiu3lje13ce8vhaph.apps.googleusercontent.com";
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(serverClientId)
                 .requestEmail()
                 .build();
-
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -173,6 +178,10 @@ public class Authentication extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            //todo save to shared preferences
+            String token = account.getIdToken();
+
             // Signed in successfully, show authenticated UI.
             startActivity(new Intent(Authentication.this, MainActivity.class));
         } catch (ApiException e) {
