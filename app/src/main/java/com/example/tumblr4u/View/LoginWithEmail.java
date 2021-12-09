@@ -31,6 +31,7 @@ public class LoginWithEmail extends AppCompatActivity {
     private EditText mPasswordField;
     private TextView mWrongMessage;
     private LoginWithEmailViewModel mViewModel;
+    private TextView mInvalidEmailMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class LoginWithEmail extends AppCompatActivity {
         mEmailField = (EditText) findViewById(R.id.login_with_email_email_field);
         mPasswordField = (EditText) findViewById(R.id.login_with_email_password_field);
         mWrongMessage = (TextView) findViewById(R.id.login_with_email_wrong_message);
+        mInvalidEmailMessage = (TextView) findViewById(R.id.login_with_email_invalid_email_message);
         mViewModel = new ViewModelProvider(this).get(LoginWithEmailViewModel.class);
     }
 
@@ -91,10 +93,21 @@ public class LoginWithEmail extends AppCompatActivity {
             public void onChanged(Boolean aBoolean) {
                 if(!mViewModel.isValidEmailAndPassword.getValue()) {
                     mWrongMessage.setVisibility(View.VISIBLE);
+                    mInvalidEmailMessage.setVisibility(View.GONE);
                     return;
                 }
                 Intent home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(home);
+            }
+        });
+
+        mViewModel.isValidEmail.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(!mViewModel.isValidEmail.getValue()){
+                    mInvalidEmailMessage.setVisibility(View.VISIBLE);
+                    mWrongMessage.setVisibility(View.GONE);
+                }
             }
         });
 

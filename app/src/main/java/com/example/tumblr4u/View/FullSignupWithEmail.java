@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tumblr4u.GeneralPurpose.InputMinMaxFilter;
@@ -37,6 +38,7 @@ public class FullSignupWithEmail extends AppCompatActivity {
     private EditText mEmail;
     private EditText mPassword;
     private EditText mName;
+    private TextView mInvalidEmail;
     private SignupWithEmailViewModel mViewModel;
 
     @Override
@@ -47,6 +49,7 @@ public class FullSignupWithEmail extends AppCompatActivity {
         initView();
         initOnChangeListner();
         initOnClickListner();
+        initObservers();
 
         mDoneButton.setEnabled(false);
         mAge.setFilters(new InputFilter[] {new InputMinMaxFilter(1, 100)});
@@ -59,6 +62,7 @@ public class FullSignupWithEmail extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.full_signup_with_email_email_field);
         mPassword = (EditText) findViewById(R.id.full_signup_with_email_password_field);
         mName = (EditText) findViewById(R.id.full_signup_with_email_name_field);
+        mInvalidEmail = (TextView) findViewById(R.id.full_signup_with_email_invalid_email_message);
         mViewModel = new ViewModelProvider(this).get(SignupWithEmailViewModel.class);
     }
 
@@ -72,6 +76,12 @@ public class FullSignupWithEmail extends AppCompatActivity {
                 }
                 Intent home = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(home);
+            }
+        });
+        mViewModel.isValidEmail.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(!mViewModel.isValidEmail.getValue()){ mInvalidEmail.setVisibility(View.VISIBLE); }
             }
         });
 
