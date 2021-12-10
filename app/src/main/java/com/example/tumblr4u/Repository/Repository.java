@@ -4,6 +4,8 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.LoginRequest;
 import com.example.tumblr4u.ApiData.LoginResponse;
 import com.example.tumblr4u.ApiData.SignupRequest;
@@ -65,7 +67,8 @@ public class Repository {
                 .retrofit(retrofit)
                 .build();
 
-        apiInterface =  retrofit.create(ApiInterface.class);
+//        apiInterface =  retrofit.create(ApiInterface.class);
+        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
     /**
@@ -102,4 +105,20 @@ public class Repository {
         return apiInterface.Signup(request);
     }
 
+    /**
+     * send request to backend API to signup with google
+     *
+     * */
+    public Call<LoginResponse> databaseSignupWithGoogle(int age, String name, String token){
+        GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
+        return apiInterface.googleSignup(request);
+    }
+
+    /**
+     * send request to backend API to login with google
+     * */
+    public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
+        GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
+        return apiInterface.googleLogin(request);
+    }
 }

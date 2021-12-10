@@ -6,6 +6,7 @@ package com.example.tumblr4u.View;
 * */
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.tumblr4u.Adapters.loginPageAdapter;
 import com.example.tumblr4u.R;
+import com.example.tumblr4u.ViewModel.SignInWithGoogleViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -51,7 +53,8 @@ public class Authentication extends AppCompatActivity {
 
     // signup with google
     private Button mSignupWithGoogleButton;
-
+    // login with google
+    private SignInWithGoogleViewModel mSignInWithGoogleViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class Authentication extends AppCompatActivity {
 
         // google sign in client init
         initClient();
+        initGoogleObserver();
 
         initOnClickListeners();
 
@@ -98,6 +102,8 @@ public class Authentication extends AppCompatActivity {
 
         mDotsIndicator = (SpringDotsIndicator)findViewById(R.id.authentication_dots_indicator);
         mViewPager = (ViewPager2)findViewById(R.id.login_viewPager);
+        // Google
+        mSignInWithGoogleViewModel = new ViewModelProvider(this).get(SignInWithGoogleViewModel.class);
     }
 
     /**
@@ -152,6 +158,14 @@ public class Authentication extends AppCompatActivity {
     }
 
     // ------------ Login with Google functions: ---------------
+    private void initGoogleObserver(){
+        mSignInWithGoogleViewModel.successfulSignup.observe(this,aBoolean -> {
+            if (!mSignInWithGoogleViewModel.successfulSignup.getValue()) {
+                return;
+            }
+            startActivity(new Intent(Authentication.this, MainActivity.class));
+        });
+    }
     private void initClient(){
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -189,15 +203,11 @@ public class Authentication extends AppCompatActivity {
 
             //todo save to shared preferences
             String token = account.getIdToken();
-
-            // share token everywhere
-            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
-            editor.putString("token",token);
-            editor.apply();
+            Log.e("AUTHENTICATION", "GoogleIdToken = "+ token);
 
             // Signed in successfully, show authenticated UI.
-            startActivity(new Intent(Authentication.this, MainActivity.class));
-        } catch (ApiException e) {
+            mSignInWithGoogleViewModel.login(token);
+             } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());

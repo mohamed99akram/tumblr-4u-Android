@@ -1,0 +1,10 @@
+{
+  "meta": {
+    "status": 201,
+    "msg": "CREATED"
+  },
+  "res": {
+    "message": "sign up successfully",
+    "data": "token"
+  }
+}
