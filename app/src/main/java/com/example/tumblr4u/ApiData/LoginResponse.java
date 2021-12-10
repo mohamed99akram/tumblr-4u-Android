@@ -1,10 +1,17 @@
 package com.example.tumblr4u.ApiData;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * This class is the template for the login response
  * */
 public class LoginResponse {
+    @SerializedName("meta")
+    @Expose
     private Meta meta;
+    @SerializedName("res")
+    @Expose
     private Response res;
 
     /**

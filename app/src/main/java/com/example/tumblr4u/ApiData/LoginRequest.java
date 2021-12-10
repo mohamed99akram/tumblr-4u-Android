@@ -1,11 +1,17 @@
 package com.example.tumblr4u.ApiData;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The login request class is the template of the request API
  * */
 public class LoginRequest {
-
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("password")
+    @Expose
     private String password;
 
     /**

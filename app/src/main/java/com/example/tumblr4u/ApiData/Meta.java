@@ -1,10 +1,17 @@
 package com.example.tumblr4u.ApiData;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Meta class is the meta data sent from the back-end API
  * */
 public class Meta {
+    @SerializedName("status")
+    @Expose
     private int status; // status of the response 200 --> success 400 --> failure
+    @SerializedName("msg")
+    @Expose
     private String msg; // message that describes the response
 
     /**
