@@ -1,12 +1,23 @@
 package com.example.tumblr4u.ApiData;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Class of the signup request template
  * */
 public class SignupRequest {
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("password")
+    @Expose
     private String password;
+    @SerializedName("blogName")
+    @Expose
     private String blogName;
+    @SerializedName("age")
+    @Expose
     private String age;
 
     /**

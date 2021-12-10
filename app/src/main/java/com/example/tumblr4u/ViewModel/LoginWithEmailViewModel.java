@@ -40,6 +40,7 @@ public class LoginWithEmailViewModel extends ViewModel {
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                Log.e("signin", "response.body() = "+(response.body()!=null?response.body().getResponse().getMessage():"null"));
 
                 Log.e("sign in", response.toString());
                 int statusCode = response.code();
