@@ -1,5 +1,7 @@
 package com.example.tumblr4u.ViewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -39,7 +41,8 @@ public class LoginWithEmailViewModel extends ViewModel {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                int statusCode = response.body().getMeta().getStatus();
+                Log.e("sign in", response.toString());
+                int statusCode = response.code();
                 if(statusCode >= 200 && statusCode <= 299) {
                     isValidEmailAndPassword.setValue(true);
                 } else {

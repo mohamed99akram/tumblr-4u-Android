@@ -5,8 +5,8 @@ package com.example.tumblr4u.ApiData;
  * */
 public class LoginRequest {
 
-    private String Email;
-    private String Password;
+    private String email;
+    private String password;
 
     /**
      * The constructor of the login request
@@ -14,8 +14,8 @@ public class LoginRequest {
      * @param Password The password of the user
      * */
     public LoginRequest(String Email, String Password){
-        this.Email = Email;
-        this.Password = Password;
+        this.email = Email;
+        this.password = Password;
     }
 
     /**
@@ -23,7 +23,7 @@ public class LoginRequest {
      * @param email The email of the user
      * */
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     /**
@@ -31,7 +31,7 @@ public class LoginRequest {
      * @param password The password of the user
      * */
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     /**
@@ -39,7 +39,7 @@ public class LoginRequest {
      * @return The email of the user
      * */
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     /**
@@ -47,6 +47,6 @@ public class LoginRequest {
      * @return The password of the user
      * */
     public String getPassword() {
-        return Password;
+        return password;
     }
 }
