@@ -1,10 +1,26 @@
 package com.example.tumblr4u.Repository;
 
+import android.widget.Toast;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.LoginRequest;
+import com.example.tumblr4u.ApiData.LoginResponse;
+import com.example.tumblr4u.ApiData.SignupRequest;
+import com.example.tumblr4u.ApiInterfaces.ApiInterface;
 import com.example.tumblr4u.Models.Post;
+import com.example.tumblr4u.View.LoginWithEmail;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import co.infinum.retromock.Retromock;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.Converter.Factory.*;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author Android Team
@@ -12,6 +28,12 @@ import java.util.ArrayList;
  * @since 11/8/2021
  */
 public class Repository {
+
+    // The base url used in the back-end API
+    private static final String BASE_URL = "http://tumblr4u.eastus.cloudapp.azure.com:5000/";
+    private static Repository INSTANCE = null;
+    private ApiInterface apiInterface;
+
     public MutableLiveData<ArrayList<Post>> requestHolidays() {
         MutableLiveData<ArrayList<Post>> posts = new MutableLiveData<>();
         ArrayList<Post> temp = new ArrayList<>();
@@ -31,13 +53,53 @@ public class Repository {
     }
 
     /**
+     * The Constructor of the repository class
+     * */
+    public Repository(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Retromock retromock = new Retromock.Builder()
+                .retrofit(retrofit)
+                .build();
+
+        apiInterface =  retrofit.create(ApiInterface.class);
+    }
+
+    /**
+     * This static method is responsible for instantiating the repository if it doesn't exist
+     * @return The repo which already instantiated
+     * */
+    public static Repository INSTANTIATE(){
+        if(null == INSTANCE){ INSTANCE = new Repository(); }
+        return INSTANCE;
+    }
+
+    /**
      * Sends a request to the back-end API with email and password to make sure that they exist
      * @param email Email address for the user
      * @param password Password for the user
-     * @return (true) if the user is authenticated and (false) if not
+     * @return (Call<Login Response>) The response from the beck-end server as an class object
      * */
-    public Boolean databaseLogin(String email, String password) {
-        if(email == null | password == null) {return false;}
-        return email.equals("omar.ahmed314@hotmail.com") && password.equals("12345");
+    public Call<LoginResponse> databaseLogin(String email, String password) {
+        LoginRequest request = new LoginRequest(email, password);
+        return apiInterface.Login(request);
+
     }
+
+    /**
+     * Sends a request to the back-end API to sign up
+     * @param age The age of the user
+     * @param email The email eddress of the user
+     * @param password A plain text password of the user
+     * @param name The user name
+     * @return A response from the back-end server as an json class object
+     * */
+    public Call<LoginResponse> databaseSignup(String age, String email, String password, String name){
+        SignupRequest request = new SignupRequest(age, email, password, name);
+        return apiInterface.Signup(request);
+    }
+
 }

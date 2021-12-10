@@ -9,21 +9,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.tumblr4u.Adapters.loginPageAdapter;
 import com.example.tumblr4u.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.tasks.Task;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 public class Authentication extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mSignupButton;
-    private Button mLoginWithGoogleButton;
-    private Button mSignupWithGoogleButton;
     private Button mLoginWithEmailButton;
     private Button mSignupWithEmailButton;
     private ViewPager2 mViewPager;
@@ -33,12 +43,26 @@ public class Authentication extends AppCompatActivity {
     private LinearLayout mLoginButtons;
     private LinearLayout mAuthenticationButtons;
 
+    // sign in with google
+    int RC_SIGN_IN = 0; // request code of the intent
+//    SignInButton mLoginWithGoogleButton;
+    private Button mLoginWithGoogleButton;
+    GoogleSignInClient mGoogleSignInClient;
+
+    // signup with google
+    private Button mSignupWithGoogleButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
         initViews();
+
+        // google sign in client init
+        initClient();
+
         initOnClickListeners();
 
         mSignupButtons.setVisibility(View.GONE);
@@ -61,7 +85,9 @@ public class Authentication extends AppCompatActivity {
         mSignupButton = (Button)findViewById(R.id.signup_button);
 
         mLoginWithEmailButton = (Button)findViewById(R.id.login_with_email_button);
-        mLoginWithGoogleButton = (Button)findViewById(R.id.login_with_google_button);
+
+        // login with google
+        mLoginWithGoogleButton = findViewById(R.id.login_with_google_button);
 
         mSignupWithEmailButton = (Button)findViewById(R.id.signup_with_email_button);
         mSignupWithGoogleButton = (Button)findViewById(R.id.signup_with_google_button);
@@ -98,7 +124,7 @@ public class Authentication extends AppCompatActivity {
         mSignupWithEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signupActivity = new Intent(getApplicationContext(), SignupWithEmail.class);
+                Intent signupActivity = new Intent(getApplicationContext(), FullSignupWithEmail.class);
                 startActivity(signupActivity);
             }
         });
@@ -110,5 +136,84 @@ public class Authentication extends AppCompatActivity {
                 startActivity(signupActivity);
             }
         });
+
+        // login with Google:
+        mLoginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
+
+        // signup with google
+        mSignupWithGoogleButton.setOnClickListener(v -> {
+            startActivity(new Intent(Authentication.this, SignupWithGoogle.class));
+        });
     }
+
+    // ------------ Login with Google functions: ---------------
+    private void initClient(){
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            //todo save to shared preferences
+            String token = account.getIdToken();
+
+            // share token everywhere
+            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
+            editor.putString("token",token);
+            editor.apply();
+
+            // Signed in successfully, show authenticated UI.
+            startActivity(new Intent(Authentication.this, MainActivity.class));
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
+            Toast.makeText(Authentication.this, "Failed", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null) {
+            startActivity(new Intent(Authentication.this, MainActivity.class));
+        }
+        super.onStart();
+    }
+
 }
