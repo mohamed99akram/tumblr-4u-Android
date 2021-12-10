@@ -148,12 +148,7 @@ public class SignupWithGoogle extends AppCompatActivity {
             //todo save to shared preferences
             String token = account.getIdToken();
 
-            // share token everywhere
-            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
-            editor.putString("token",token);
-            editor.apply();
-
-            mViewModel.signup(mAge.getText().toString(),mName.getText().toString());
+            mViewModel.signup(mAge.getText().toString(),mName.getText().toString(),token);
             // Signed in successfully, show authenticated UI.
 //            startActivity(new Intent(SignupWithGoogle.this, MainActivity.class));
         } catch (ApiException e) {
