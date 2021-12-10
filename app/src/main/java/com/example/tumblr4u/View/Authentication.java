@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,8 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
@@ -31,7 +34,6 @@ public class Authentication extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mSignupButton;
-    private Button mSignupWithGoogleButton;
     private Button mLoginWithEmailButton;
     private Button mSignupWithEmailButton;
     private ViewPager2 mViewPager;
@@ -43,8 +45,13 @@ public class Authentication extends AppCompatActivity {
 
     // sign in with google
     int RC_SIGN_IN = 0; // request code of the intent
-    SignInButton mLoginWithGoogleButton;
+//    SignInButton mLoginWithGoogleButton;
+    private Button mLoginWithGoogleButton;
     GoogleSignInClient mGoogleSignInClient;
+
+    // signup with google
+    private Button mSignupWithGoogleButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,16 +144,22 @@ public class Authentication extends AppCompatActivity {
                 signIn();
             }
         });
+
+        // signup with google
+        mSignupWithGoogleButton.setOnClickListener(v -> {
+            startActivity(new Intent(Authentication.this, SignupWithGoogle.class));
+        });
     }
 
     // ------------ Login with Google functions: ---------------
     private void initClient(){
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
-
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -173,6 +186,15 @@ public class Authentication extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            //todo save to shared preferences
+            String token = account.getIdToken();
+
+            // share token everywhere
+            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
+            editor.putString("token",token);
+            editor.apply();
+
             // Signed in successfully, show authenticated UI.
             startActivity(new Intent(Authentication.this, MainActivity.class));
         } catch (ApiException e) {

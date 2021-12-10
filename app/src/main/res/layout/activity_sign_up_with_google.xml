@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161E54"
+    android:orientation="vertical"
+    tools:context=".View.FullSignupWithEmail">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<!--        <Button-->
+<!--            android:id="@+id/signup_with_google_done_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:text="Done"-->
+<!--            android:textColor="#4ECCDC" />-->
+
+        <ImageButton
+            android:id="@+id/signup_with_google_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="What should we call\nyou?"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="You'll need a name to make\nyour own posts, Customize\nyour blog, and message\npeople."
+        android:textColor="#dadada"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/signup_with_google_name_field"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/age_field_edit_text"
+            android:hint="Name"
+            android:inputType="text"
+            android:textColor="#ffffff"
+            android:textColorHint="#99A799"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/signup_with_google_age_field"
+            android:layout_height="70dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/age_field_edit_text"
+            android:hint="How old are you?"
+            android:inputType="number"
+            android:focusedByDefault="true"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:textColorHint="#99A799"
+            />
+
+        <Button
+            android:id="@+id/choose_account"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            style="@style/authentication_buttons"
+            android:text="Choose Account" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="20dp"
+        android:layout_gravity="center"
+        android:gravity="center|bottom"
+        android:text="Already have an account?\nLogin in\nPrivacy dashboard"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+</LinearLayout>
