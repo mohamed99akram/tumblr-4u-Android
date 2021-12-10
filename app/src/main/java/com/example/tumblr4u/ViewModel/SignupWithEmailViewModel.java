@@ -38,20 +38,26 @@ public class SignupWithEmailViewModel extends ViewModel {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
 
-                //int statusCode = response.body().getMeta().getStatus();
+//                Log.e("sign up", response.body()!=null?response.body().toString():"null");
+//                int statusCode = response.body().getMeta().getStatus();
                 Log.e("sign up", response.toString());
-                /*
+                Log.e("signup",response.message());
+                Log.e("signup",response.isSuccessful()+"");
+                Log.e("signup",response.code()+"");
+
+                int statusCode = response.code();
                 if(statusCode >= 200 && statusCode <= 299) {
                     successfulSignup.setValue(true);
                 } else {
                     successfulSignup.setValue(false);
                 }
-                 */
+
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+                Log.e("Sign up", "failed to make the request");
+                Log.e("sign up",t.getMessage());
             }
         });
     }

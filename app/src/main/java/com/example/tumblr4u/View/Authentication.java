@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +34,6 @@ public class Authentication extends AppCompatActivity {
 
     private Button mLoginButton;
     private Button mSignupButton;
-    private Button mSignupWithGoogleButton;
     private Button mLoginWithEmailButton;
     private Button mSignupWithEmailButton;
     private ViewPager2 mViewPager;
@@ -45,8 +45,13 @@ public class Authentication extends AppCompatActivity {
 
     // sign in with google
     int RC_SIGN_IN = 0; // request code of the intent
-    SignInButton mLoginWithGoogleButton;
+//    SignInButton mLoginWithGoogleButton;
+    private Button mLoginWithGoogleButton;
     GoogleSignInClient mGoogleSignInClient;
+
+    // signup with google
+    private Button mSignupWithGoogleButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +144,11 @@ public class Authentication extends AppCompatActivity {
                 signIn();
             }
         });
+
+        // signup with google
+        mSignupWithGoogleButton.setOnClickListener(v -> {
+            startActivity(new Intent(Authentication.this, SignupWithGoogle.class));
+        });
     }
 
     // ------------ Login with Google functions: ---------------
@@ -146,10 +156,8 @@ public class Authentication extends AppCompatActivity {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
 
-        // TODO change this
-        String serverClientId = "648954387473-a7v2qlqj2557l9bsiu3lje13ce8vhaph.apps.googleusercontent.com";
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(serverClientId)
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
@@ -181,6 +189,11 @@ public class Authentication extends AppCompatActivity {
 
             //todo save to shared preferences
             String token = account.getIdToken();
+
+            // share token everywhere
+            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
+            editor.putString("token",token);
+            editor.apply();
 
             // Signed in successfully, show authenticated UI.
             startActivity(new Intent(Authentication.this, MainActivity.class));

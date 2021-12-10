@@ -2,27 +2,27 @@ package com.example.tumblr4u.ApiData;
 
 public class LoginRequest {
 
-    private String Email;
-    private String Password;
+    private String email;
+    private String password;
 
     public LoginRequest(String Email, String Password){
-        this.Email = Email;
-        this.Password = Password;
+        this.email = Email;
+        this.password = Password;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 }
