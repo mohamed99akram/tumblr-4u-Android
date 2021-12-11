@@ -32,6 +32,7 @@ public class SignupWithGoogleViewModel extends ViewModel {
                 //TODO store this token somehwere
                 String token = response.body().getResponse().getData();
                 Log.i("SignUp Google","TOKEN: "+token);
+                Log.i("SignUp Google","message = "+response.body().getResponse().getMessage());
                 Log.i("SignUp Google", "response code:"+ response.code());
                 int statusCode = response.code();
                 if(statusCode >= 200 && statusCode <= 299) {
