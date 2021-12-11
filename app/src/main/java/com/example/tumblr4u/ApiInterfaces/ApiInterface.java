@@ -4,7 +4,6 @@ package com.example.tumblr4u.ApiInterfaces;
  * @author Omar Ahmed
  * @version 1.0
  * */
-import androidx.annotation.NonNull;
 
 import com.example.tumblr4u.ApiData.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.GoogleSignupRequest;
@@ -12,11 +11,6 @@ import com.example.tumblr4u.ApiData.LoginRequest;
 import com.example.tumblr4u.ApiData.LoginResponse;
 import com.example.tumblr4u.ApiData.SignupRequest;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import co.infinum.retromock.BodyFactory;
 import co.infinum.retromock.meta.Mock;
 import co.infinum.retromock.meta.MockResponse;
 import retrofit2.Call;
@@ -41,6 +35,7 @@ public interface ApiInterface {
     // TODO change this
     @Mock
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")
+//    @MockResponse(body = "google_login_response.json")
     @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
     @POST("googleSignUpAndroid")
     public Call<LoginResponse> googleSignup(@Body GoogleSignupRequest request);
@@ -51,15 +46,4 @@ public interface ApiInterface {
 
     @POST("googleLoginAndroid")
     public Call<LoginResponse> googleLogin(@Body GoogleLoginRequest request);
-}
-
-// this class is for reading mocking JSON files from resources directory
-final class ResourceBodyFactory implements BodyFactory {
-
-    @Override
-    public InputStream create(@NonNull final String input) throws IOException {
-        return new FileInputStream(
-                ResourceBodyFactory.class.getClassLoader().getResource(input).getFile()
-        );
-    }
 }

@@ -4,7 +4,7 @@
     "msg": "CREATED"
   },
   "res": {
-    "message": "sign up successfully",
+    "message": "sign up successfully from file",
     "data": "token"
   }
 }
