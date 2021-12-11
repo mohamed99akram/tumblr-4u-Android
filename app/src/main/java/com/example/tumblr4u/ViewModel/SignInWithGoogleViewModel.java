@@ -26,17 +26,19 @@ public class SignInWithGoogleViewModel extends ViewModel {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                //TODO store this token somehwere
-                String token = response.body().getResponse().getData();
-                Log.e("SignIn Google","TOKEN: "+token);
                 Log.e("SignIn Google", "response code = "+response.code());
+                successfulSignup.setValue(true);
 
-                int statusCode = response.code();
-                if(statusCode >= 200 && statusCode <= 299) {
-                    successfulSignup.setValue(true);
-                } else {
-                    successfulSignup.setValue(false);
-                }
+                //TODO store this token somehwere
+//                String token = response.body().getResponse().getData();
+//                Log.e("SignIn Google","TOKEN: "+token);
+//
+//                int statusCode = response.code();
+//                if(statusCode >= 200 && statusCode <= 299) {
+//                    successfulSignup.setValue(true);
+//                } else {
+//                    successfulSignup.setValue(false);
+//                }
             }
 
             @Override
