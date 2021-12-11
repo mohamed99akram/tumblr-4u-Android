@@ -2,6 +2,7 @@ package com.example.tumblr4u.Repository;
 
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tumblr4u.ApiData.GoogleLoginRequest;
@@ -13,9 +14,13 @@ import com.example.tumblr4u.ApiInterfaces.ApiInterface;
 import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.View.LoginWithEmail;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import co.infinum.retromock.BodyFactory;
 import co.infinum.retromock.Retromock;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,6 +71,7 @@ public class Repository {
 
         Retromock retromock = new Retromock.Builder()
                 .retrofit(retrofit)
+//                .defaultBodyFactory(new ResourceBodyFactory())
                 .build();
 
         //apiInterface =  retrofit.create(ApiInterface.class);
@@ -109,9 +115,11 @@ public class Repository {
     /**
      * send request to backend API to signup with google
      * @param age The age of the user
-     * @param name The name of the user
-     * @param token The token <TODO>
-     * @return The signup response
+     * @param name the user name
+     * @param token - the google token is provided by the google API in the user's mobile phone
+     *              and it will be sent to the server to be exchanged with server's token.
+     *              - server's token will then be used for actions that need authorization
+     *              to check that the user can have access to some resource
      * */
     public Call<LoginResponse> databaseSignupWithGoogle(int age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
@@ -120,11 +128,28 @@ public class Repository {
 
     /**
      * send request to backend API to login with google
-     * @param googleIdToken The token <TODO>
-     * @return The login response
+     * @param googleIdToken - the google token is provided by the google API in the user's mobile phone
+     *                      and it will be sent to the server to be exchanged with server's token.
+     *                      - server's token will then be used for actions that need authorization
+     *                      to check that the user can have access to some resource
      * */
     public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
         GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
         return apiInterface.googleLogin(request);
+    }
+}
+
+/**
+ * This class may be used by retro-mock to load json files from resources directory
+ * an instance of it is passed to the defaultBodyFactory when creating an instance of
+ * retro-mock
+ * */
+final class ResourceBodyFactory implements BodyFactory {
+
+    @Override
+    public InputStream create(@NonNull final String input) throws IOException {
+        return new FileInputStream(
+                ResourceBodyFactory.class.getClassLoader().getResource(input).getFile()
+        );
     }
 }
