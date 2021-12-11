@@ -55,6 +55,10 @@ public class FullSignupWithEmail extends AppCompatActivity {
         mAge.setFilters(new InputFilter[] {new InputMinMaxFilter(1, 100)});
     }
 
+    /**
+     * Assign the views with their xml files
+     * @return void
+     * */
     private void initView() {
         mDoneButton = (Button) findViewById(R.id.full_signup_with_email_done_button);
         mBackButton = (ImageButton) findViewById(R.id.full_signup_with_email_back_button);
@@ -66,6 +70,10 @@ public class FullSignupWithEmail extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this).get(SignupWithEmailViewModel.class);
     }
 
+    /**
+     * Set the views to the container of the data they waiting for, after demanding it from view model
+     * @return void
+     * */
     public void initObservers(){
         mViewModel.successfulSignup.observe(this, new Observer<Boolean>() {
             @Override

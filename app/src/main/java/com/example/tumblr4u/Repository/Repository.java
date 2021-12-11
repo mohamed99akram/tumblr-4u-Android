@@ -33,6 +33,7 @@ public class Repository {
 
     // The base url used in the back-end API
     private static final String BASE_URL = "http://tumblr4u.eastus.cloudapp.azure.com:5000/";
+    // The instance of the repository class and it static variable so that the class can be instantiated once
     private static Repository INSTANCE = null;
     private ApiInterface apiInterface;
 
@@ -67,7 +68,7 @@ public class Repository {
                 .retrofit(retrofit)
                 .build();
 
-//        apiInterface =  retrofit.create(ApiInterface.class);
+        //apiInterface =  retrofit.create(ApiInterface.class);
         apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
@@ -107,7 +108,10 @@ public class Repository {
 
     /**
      * send request to backend API to signup with google
-     *
+     * @param age The age of the user
+     * @param name The name of the user
+     * @param token The token <TODO>
+     * @return The signup response
      * */
     public Call<LoginResponse> databaseSignupWithGoogle(int age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
@@ -116,6 +120,8 @@ public class Repository {
 
     /**
      * send request to backend API to login with google
+     * @param googleIdToken The token <TODO>
+     * @return The login response
      * */
     public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
         GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
