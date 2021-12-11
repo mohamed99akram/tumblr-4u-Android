@@ -2,8 +2,11 @@ package com.example.tumblr4u.Repository;
 
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.LoginRequest;
 import com.example.tumblr4u.ApiData.LoginResponse;
 import com.example.tumblr4u.ApiData.SignupRequest;
@@ -11,9 +14,13 @@ import com.example.tumblr4u.ApiInterfaces.ApiInterface;
 import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.View.LoginWithEmail;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import co.infinum.retromock.BodyFactory;
 import co.infinum.retromock.Retromock;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +38,7 @@ public class Repository {
 
     // The base url used in the back-end API
     private static final String BASE_URL = "http://tumblr4u.eastus.cloudapp.azure.com:5000/";
+    // The instance of the repository class and it static variable so that the class can be instantiated once
     private static Repository INSTANCE = null;
     private ApiInterface apiInterface;
 
@@ -63,9 +71,11 @@ public class Repository {
 
         Retromock retromock = new Retromock.Builder()
                 .retrofit(retrofit)
+//                .defaultBodyFactory(new ResourceBodyFactory())
                 .build();
 
-        apiInterface =  retrofit.create(ApiInterface.class);
+        //apiInterface =  retrofit.create(ApiInterface.class);
+        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
     /**
@@ -102,4 +112,44 @@ public class Repository {
         return apiInterface.Signup(request);
     }
 
+    /**
+     * send request to backend API to signup with google
+     * @param age The age of the user
+     * @param name the user name
+     * @param token - the google token is provided by the google API in the user's mobile phone
+     *              and it will be sent to the server to be exchanged with server's token.
+     *              - server's token will then be used for actions that need authorization
+     *              to check that the user can have access to some resource
+     * */
+    public Call<LoginResponse> databaseSignupWithGoogle(int age, String name, String token){
+        GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
+        return apiInterface.googleSignup(request);
+    }
+
+    /**
+     * send request to backend API to login with google
+     * @param googleIdToken - the google token is provided by the google API in the user's mobile phone
+     *                      and it will be sent to the server to be exchanged with server's token.
+     *                      - server's token will then be used for actions that need authorization
+     *                      to check that the user can have access to some resource
+     * */
+    public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
+        GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
+        return apiInterface.googleLogin(request);
+    }
+}
+
+/**
+ * This class may be used by retro-mock to load json files from resources directory
+ * an instance of it is passed to the defaultBodyFactory when creating an instance of
+ * retro-mock
+ * */
+final class ResourceBodyFactory implements BodyFactory {
+
+    @Override
+    public InputStream create(@NonNull final String input) throws IOException {
+        return new FileInputStream(
+                ResourceBodyFactory.class.getClassLoader().getResource(input).getFile()
+        );
+    }
 }

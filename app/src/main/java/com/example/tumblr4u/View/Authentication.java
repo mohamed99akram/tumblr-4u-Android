@@ -1,11 +1,13 @@
 package com.example.tumblr4u.View;
 /**
-* First page in the app (authentication page) that contains the signup and login buttons
-* @author Omar Ahmed
-* @version 1.0
-* */
+ * First page in the app (authentication page) that contains the signup and login buttons
+ *
+ * @author Omar Ahmed
+ * @version 1.0
+ */
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.tumblr4u.Adapters.loginPageAdapter;
 import com.example.tumblr4u.R;
+import com.example.tumblr4u.ViewModel.SignInWithGoogleViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,13 +48,14 @@ public class Authentication extends AppCompatActivity {
 
     // sign in with google
     int RC_SIGN_IN = 0; // request code of the intent
-//    SignInButton mLoginWithGoogleButton;
+    //    SignInButton mLoginWithGoogleButton;
     private Button mLoginWithGoogleButton;
     GoogleSignInClient mGoogleSignInClient;
 
     // signup with google
     private Button mSignupWithGoogleButton;
-
+    // login with google
+    private SignInWithGoogleViewModel mSignInWithGoogleViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class Authentication extends AppCompatActivity {
 
         // google sign in client init
         initClient();
+        initGoogleObserver();
 
         initOnClickListeners();
 
@@ -78,33 +83,36 @@ public class Authentication extends AppCompatActivity {
     /**
      * This function assign the views in the page to their xml files using findById function
      * @return void
-    * */
-    private void initViews(){
+     * */
+    private void initViews() {
 
-        mLoginButton = (Button)findViewById(R.id.login_button);
-        mSignupButton = (Button)findViewById(R.id.signup_button);
+        mLoginButton = (Button) findViewById(R.id.login_button);
+        mSignupButton = (Button) findViewById(R.id.signup_button);
 
-        mLoginWithEmailButton = (Button)findViewById(R.id.login_with_email_button);
+        mLoginWithEmailButton = (Button) findViewById(R.id.login_with_email_button);
 
         // login with google
         mLoginWithGoogleButton = findViewById(R.id.login_with_google_button);
 
-        mSignupWithEmailButton = (Button)findViewById(R.id.signup_with_email_button);
-        mSignupWithGoogleButton = (Button)findViewById(R.id.signup_with_google_button);
+        mSignupWithEmailButton = (Button) findViewById(R.id.signup_with_email_button);
+        mSignupWithGoogleButton = (Button) findViewById(R.id.signup_with_google_button);
 
-        mSignupButtons = (LinearLayout)findViewById(R.id.signup_buttons);
-        mLoginButtons = (LinearLayout)findViewById(R.id.login_buttons);
-        mAuthenticationButtons = (LinearLayout)findViewById(R.id.authentication_buttons);
+        mSignupButtons = (LinearLayout) findViewById(R.id.signup_buttons);
+        mLoginButtons = (LinearLayout) findViewById(R.id.login_buttons);
+        mAuthenticationButtons = (LinearLayout) findViewById(R.id.authentication_buttons);
 
-        mDotsIndicator = (SpringDotsIndicator)findViewById(R.id.authentication_dots_indicator);
-        mViewPager = (ViewPager2)findViewById(R.id.login_viewPager);
+        mDotsIndicator = (SpringDotsIndicator) findViewById(R.id.authentication_dots_indicator);
+        mViewPager = (ViewPager2) findViewById(R.id.login_viewPager);
+        // Google
+        mSignInWithGoogleViewModel = new ViewModelProvider(this).get(
+                SignInWithGoogleViewModel.class);
     }
 
     /**
      * This function assign the views in the page to their click listeners
      * @return void
      * */
-    private void initOnClickListeners(){
+    private void initOnClickListeners() {
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +132,8 @@ public class Authentication extends AppCompatActivity {
         mSignupWithEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signupActivity = new Intent(getApplicationContext(), FullSignupWithEmail.class);
+                Intent signupActivity = new Intent(getApplicationContext(),
+                        FullSignupWithEmail.class);
                 startActivity(signupActivity);
             }
         });
@@ -152,11 +161,30 @@ public class Authentication extends AppCompatActivity {
     }
 
     // ------------ Login with Google functions: ---------------
-    private void initClient(){
+
+    /**
+     * observe changes in view model to see if there is a successful sign in.
+     * if there is, give the user access to the home page
+     * */
+    private void initGoogleObserver() {
+        mSignInWithGoogleViewModel.successfulSignup.observe(this, aBoolean -> {
+            if (!mSignInWithGoogleViewModel.successfulSignup.getValue()) {
+                return;
+            }
+            startActivity(new Intent(Authentication.this, MainActivity.class));
+        });
+    }
+
+    /**
+     * helper function to initialize client
+     * client will be used to make the Google Sign in intent
+     * */
+    private void initClient() {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .build();
@@ -165,11 +193,17 @@ public class Authentication extends AppCompatActivity {
 
     }
 
+    /**
+     * Let the user choose account to sign in
+     * */
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+     * process result of the intent
+     * */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -183,20 +217,20 @@ public class Authentication extends AppCompatActivity {
         }
     }
 
+    /**
+     * get the google token from the signed in user
+     * then login from viewModel and pass this token to get the response with the server's token
+     * */
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             //todo save to shared preferences
             String token = account.getIdToken();
-
-            // share token everywhere
-            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
-            editor.putString("token",token);
-            editor.apply();
+            Log.e("AUTHENTICATION", "GoogleIdToken = " + token);
 
             // Signed in successfully, show authenticated UI.
-            startActivity(new Intent(Authentication.this, MainActivity.class));
+            mSignInWithGoogleViewModel.login(token);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -205,12 +239,20 @@ public class Authentication extends AppCompatActivity {
         }
     }
 
+    /**
+     * At each start, check if the user is signed in by google before or not.
+     * if the user is signed in, continue and go to home screen
+     *
+     * */
+    //  TODO: some mess happens when signup fails and then you return back here, it will redirect
+    //  TODO: you the MainActivity and it shouldn't
     @Override
     protected void onStart() {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null) {
+        // TODO: account != null and signup.successful != false
+        if (account != null) {
             startActivity(new Intent(Authentication.this, MainActivity.class));
         }
         super.onStart();

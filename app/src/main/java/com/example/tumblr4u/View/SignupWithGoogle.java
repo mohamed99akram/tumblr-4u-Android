@@ -53,6 +53,9 @@ public class SignupWithGoogle extends AppCompatActivity {
         mChooseAccountButton.setEnabled(false);
     }
 
+    /**
+     * initialize views
+     * */
     public void initView() {
         mChooseAccountButton = findViewById(R.id.choose_account);
         mBackButton = findViewById(R.id.signup_with_google_back_button);
@@ -62,6 +65,9 @@ public class SignupWithGoogle extends AppCompatActivity {
 
     }
 
+    /**
+     * tell buttons where to go
+     * */
     public void initOnClickListener() {
         mChooseAccountButton.setOnClickListener(v -> {
             signUp();
@@ -74,6 +80,9 @@ public class SignupWithGoogle extends AppCompatActivity {
         });
     }
 
+    /**
+     * link to the ViewModel with observers
+     * */
     public void initObservers() {
         mViewModel.successfulSignup.observe(this, aBoolean ->
         {
@@ -89,12 +98,9 @@ public class SignupWithGoogle extends AppCompatActivity {
 
     private class customTextWatcher implements TextWatcher {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
         public void afterTextChanged(Editable s) {
@@ -103,6 +109,9 @@ public class SignupWithGoogle extends AppCompatActivity {
         }
     }
 
+    /**
+     * if data entered is correct, enable the button from the class customTextWatcher
+     * */
     public void initOnChangeListener() {
         mAge.addTextChangedListener(new customTextWatcher());
         mName.addTextChangedListener(new customTextWatcher());
@@ -148,12 +157,7 @@ public class SignupWithGoogle extends AppCompatActivity {
             //todo save to shared preferences
             String token = account.getIdToken();
 
-            // share token everywhere
-            SharedPreferences.Editor editor = getSharedPreferences("token", MODE_PRIVATE).edit();
-            editor.putString("token",token);
-            editor.apply();
-
-            mViewModel.signup(mAge.getText().toString(),mName.getText().toString());
+            mViewModel.signup(mAge.getText().toString(),mName.getText().toString(),token);
             // Signed in successfully, show authenticated UI.
 //            startActivity(new Intent(SignupWithGoogle.this, MainActivity.class));
         } catch (ApiException e) {
