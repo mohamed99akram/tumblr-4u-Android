@@ -91,6 +91,7 @@ public class SignupWithGoogle extends AppCompatActivity {
             if (!mViewModel.successfulSignup.getValue()) {
 //                Toast.makeText(SignupWithGoogle.this, "unsuccessful signup",
 //                        Toast.LENGTH_SHORT).show();
+                mGoogleSignInClient.signOut();
                 return;
             }
             Intent home = new Intent(getApplicationContext(), MainActivity.class);

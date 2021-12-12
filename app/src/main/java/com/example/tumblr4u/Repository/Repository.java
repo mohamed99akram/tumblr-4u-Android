@@ -121,7 +121,7 @@ public class Repository {
      *              - server's token will then be used for actions that need authorization
      *              to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseSignupWithGoogle(int age, String name, String token){
+    public Call<LoginResponse> databaseSignupWithGoogle(String age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
         return apiInterface.googleSignup(request);
     }

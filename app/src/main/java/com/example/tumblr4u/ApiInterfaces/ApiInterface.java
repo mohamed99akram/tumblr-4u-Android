@@ -22,7 +22,7 @@ import retrofit2.http.POST;
  * */
 public interface ApiInterface {
     @Mock
-    @MockResponse(body = "{\"meta\":{\"status\":300, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
+    @MockResponse(body = "{\"meta\":{\"status\":200, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")
     @POST("login")
     public Call<LoginResponse> Login(@Body LoginRequest request);
@@ -36,14 +36,14 @@ public interface ApiInterface {
     @Mock
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")
 //    @MockResponse(body = "google_login_response.json")
-    @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
-    @POST("googleSignUpAndroid")
+    @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"YourToken\"}}")
+    @POST("/google/info")
     public Call<LoginResponse> googleSignup(@Body GoogleSignupRequest request);
 
     @Mock
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")
-    @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
+    @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"YourToken\"}}")
 
-    @POST("googleLoginAndroid")
+    @POST("androidSignUpWithGoogle")
     public Call<LoginResponse> googleLogin(@Body GoogleLoginRequest request);
 }

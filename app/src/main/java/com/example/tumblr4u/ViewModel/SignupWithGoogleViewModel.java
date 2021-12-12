@@ -17,37 +17,56 @@ import retrofit2.Response;
 public class SignupWithGoogleViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> successfulSignup = new MutableLiveData<>(false);
-    private Repository database = Repository.INSTANTIATE();
+    private final Repository database = Repository.INSTANTIATE();
 
-    public void signup(String age, String name, String googleIdToken){
+    public void signup(String age, String name, String googleIdToken) {
 
-//       // important --------TODO ----- remove this
-//        successfulSignup.setValue(false);
-        Call<LoginResponse> response = database.databaseSignupWithGoogle(Integer.parseInt(age),name,googleIdToken );
+        Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
 
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                Log.i("SignUp Google", "response code:"+ response.code());
-                successfulSignup.setValue(true);
+                Log.i("SignUp Google", "response code:" + response.code());
+                if (response.isSuccessful()) {
+                    String token = null;
+                    if (response.body() != null) {
+                        // TODO store this token somewhere
+                        token = response.body().getResponse().getData();
+                    }
+                    Log.i("SignUp Google", "TOKEN: " + token);
+                    Log.i("SignUp Google",
+                            "message = " + response.body().getResponse().getMessage());
 
-                //TODO store this token somehwere
-//                String token = response.body().getResponse().getData();
-//                Log.i("SignUp Google","TOKEN: "+token);
-//                Log.i("SignUp Google","message = "+response.body().getResponse().getMessage());
-//                Log.i("SignUp Google", "response code:"+ response.code());
-//                int statusCode = response.code();
-//                if(statusCode >= 200 && statusCode <= 299) {
-//                    successfulSignup.setValue(true);
-//                } else {
-//                    successfulSignup.setValue(false);
-//                }
+                    //------------------- inner request ---------------
+                    Call<LoginResponse> response2 = database.databaseSignupWithGoogle(age, name,
+                            token);
+                    response2.enqueue(new Callback<LoginResponse>() {
+                        @Override
+                        public void onResponse(Call<LoginResponse> call,
+                                Response<LoginResponse> response) {
+                            if (response.isSuccessful()) {
+                                Log.i("SignUp Google",
+                                        "Signed Up Successfully and sent age and name");
+                                successfulSignup.setValue(true);
+                            } else {
+                                successfulSignup.setValue(false);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoginResponse> call, Throwable t) {
+                            Log.e("Sign Up Google (inner)", t.getMessage());
+                        }
+                    });
+                } else {
+                    successfulSignup.setValue(false);
+                }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e("SignUp Google", t.getMessage());
+                Log.e("SignUp Google (outer)", t.getMessage());
             }
         });
     }

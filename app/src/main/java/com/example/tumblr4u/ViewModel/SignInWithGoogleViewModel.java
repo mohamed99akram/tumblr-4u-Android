@@ -13,13 +13,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInWithGoogleViewModel extends ViewModel {
-    public MutableLiveData<Boolean> successfulSignup = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> successfulSignIn = new MutableLiveData<>(false);
     private Repository database = Repository.INSTANTIATE();
 
     public void login(String googleIdToken){
 
-//       // important --------TODO ----- remove this
-//        successfulSignup.setValue(false);
         Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken );
 
         response.enqueue(new Callback<LoginResponse>() {
@@ -27,18 +25,21 @@ public class SignInWithGoogleViewModel extends ViewModel {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
                 Log.e("SignIn Google", "response code = "+response.code());
-                successfulSignup.setValue(true);
-
-                //TODO store this token somehwere
-//                String token = response.body().getResponse().getData();
-//                Log.e("SignIn Google","TOKEN: "+token);
-//
-//                int statusCode = response.code();
-//                if(statusCode >= 200 && statusCode <= 299) {
-//                    successfulSignup.setValue(true);
-//                } else {
-//                    successfulSignup.setValue(false);
-//                }
+                if(response.isSuccessful()){
+                    String token;
+                    if (response.body() != null) {
+                        // TODO store this token somewhere
+                        token = response.body().getResponse().getData();
+                        successfulSignIn.setValue(true);
+                        Log.e("Sign In Google", "Token = " + token);
+                    }
+                    else{
+                        successfulSignIn.setValue(false);
+                    }
+                }
+                else{
+                    successfulSignIn.setValue(false);
+                }
             }
 
             @Override

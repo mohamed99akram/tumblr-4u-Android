@@ -167,8 +167,8 @@ public class Authentication extends AppCompatActivity {
      * if there is, give the user access to the home page
      * */
     private void initGoogleObserver() {
-        mSignInWithGoogleViewModel.successfulSignup.observe(this, aBoolean -> {
-            if (!mSignInWithGoogleViewModel.successfulSignup.getValue()) {
+        mSignInWithGoogleViewModel.successfulSignIn.observe(this, aBoolean -> {
+            if (!mSignInWithGoogleViewModel.successfulSignIn.getValue()) {
                 return;
             }
             startActivity(new Intent(Authentication.this, MainActivity.class));

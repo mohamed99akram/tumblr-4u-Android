@@ -4,37 +4,37 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GoogleSignupRequest {
-    @SerializedName("googleToken")
+    @SerializedName("Token")
     @Expose
-    private String googleToken;
+    private String Token;
 
     @SerializedName("age")
     @Expose
-    private int age;
+    private String age;
 
     @SerializedName("blogName")
     @Expose
     private String blogName;
 
-    public GoogleSignupRequest(String googleToken, int age, String blogName) {
-        this.googleToken = googleToken;
+    public GoogleSignupRequest(String Token, String age, String blogName) {
+        this.Token = Token;
         this.age = age;
         this.blogName = blogName;
     }
 
-    public String getGoogleToken() {
-        return googleToken;
+    public String getToken() {
+        return Token;
     }
 
-    public void setGoogleToken(String googleToken) {
-        this.googleToken = googleToken;
+    public void setToken(String Token) {
+        this.Token = Token;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
