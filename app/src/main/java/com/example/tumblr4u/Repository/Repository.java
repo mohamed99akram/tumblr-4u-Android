@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.tumblr4u.ApiData.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.GoogleSignupRequest;
+import com.example.tumblr4u.ApiData.HomePostsRequest;
+import com.example.tumblr4u.ApiData.HomePostsResponse;
 import com.example.tumblr4u.ApiData.LoginRequest;
 import com.example.tumblr4u.ApiData.LoginResponse;
 import com.example.tumblr4u.ApiData.SignupRequest;
@@ -42,15 +44,11 @@ public class Repository {
     private static Repository INSTANCE = null;
     private ApiInterface apiInterface;
 
-    public MutableLiveData<ArrayList<Post>> requestHolidays() {
-        MutableLiveData<ArrayList<Post>> posts = new MutableLiveData<>();
-        return posts;
-    }
 
     /**
      * The Constructor of the repository class
      * */
-    public Repository(){
+    private Repository(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -124,6 +122,15 @@ public class Repository {
         GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
         return apiInterface.googleLogin(request);
     }
+
+    /**
+     * request home posts
+     * */
+    public Call<HomePostsResponse> requestHomePosts() {
+        HomePostsRequest request = new HomePostsRequest();
+        return apiInterface.getHomePosts(request);
+    }
+
 }
 
 /**

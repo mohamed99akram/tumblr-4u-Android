@@ -75,4 +75,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
                     notesCount == 0 ? "" : notesCount == 1 ? "1 note" : notesCount + " notes");
         }
     }
+    /**
+     * Update adapter's list to show the list in the recycler view
+     * @param postsList list of posts to put in recyclerView, it is updated in the ViewModel,
+     *                  and is set in the View
+     * */
+    public void setList(List<Post> postsList){
+        this.posts = postsList;
+        notifyDataSetChanged();
+    }
 }

@@ -28,6 +28,9 @@ public class Post {
     }
 
     public String getBlogImageUrl() {
+        if(mBlogImageUrl.isEmpty()){
+            return "https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25-Salsburg_Liverpool-83.jpg.jpg";
+        }
         return mBlogImageUrl;
     }
 

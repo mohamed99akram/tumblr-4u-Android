@@ -7,6 +7,8 @@ package com.example.tumblr4u.ApiInterfaces;
 
 import com.example.tumblr4u.ApiData.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.GoogleSignupRequest;
+import com.example.tumblr4u.ApiData.HomePostsRequest;
+import com.example.tumblr4u.ApiData.HomePostsResponse;
 import com.example.tumblr4u.ApiData.LoginRequest;
 import com.example.tumblr4u.ApiData.LoginResponse;
 import com.example.tumblr4u.ApiData.SignupRequest;
@@ -46,4 +48,10 @@ public interface ApiInterface {
 
     @POST("androidSignUpWithGoogle")
     public Call<LoginResponse> googleLogin(@Body GoogleLoginRequest request);
+
+
+    // ----------------- Home Posts --------------
+
+    @POST("dashboard")
+    public Call<HomePostsResponse> getHomePosts(@Body HomePostsRequest request);
 }
