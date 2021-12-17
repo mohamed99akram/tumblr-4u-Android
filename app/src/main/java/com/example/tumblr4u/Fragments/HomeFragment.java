@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView posts;
 
 
-    @SuppressLint("FragmentLiveDataObserve")
+//    @SuppressLint("FragmentLiveDataObserve")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_home, container, false);
