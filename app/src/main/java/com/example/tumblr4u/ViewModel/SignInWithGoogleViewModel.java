@@ -30,8 +30,8 @@ public class SignInWithGoogleViewModel extends ViewModel {
                     if (response.body() != null) {
                         // TODO store this token somewhere
                         token = response.body().getResponse().getData();
-                        successfulSignIn.setValue(true);
                         Log.e("Sign In Google", "Token = " + token);
+                        successfulSignIn.setValue(true);
                     }
                     else{
                         successfulSignIn.setValue(false);
