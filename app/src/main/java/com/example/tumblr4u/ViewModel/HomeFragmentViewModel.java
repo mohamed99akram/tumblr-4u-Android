@@ -21,16 +21,23 @@ import retrofit2.Response;
  * @since 11/8,2021
  */
 public class HomeFragmentViewModel extends ViewModel {
-    private Repository repository = Repository.INSTANTIATE();;
-    public MutableLiveData<List<Post>> postsList = new MutableLiveData<>();;
+    private Repository repository = Repository.INSTANTIATE();
+    ;
+    public MutableLiveData<List<Post>> postsList = new MutableLiveData<>();
+    ;
 
     public void getposts() {
         List<Post> tempList = new ArrayList<>();
-        tempList.add(new Post(1, "type","<h1>post 1</h1>",null,0,"","akram"));
-        tempList.add(new Post(1, "type","<h1>post 2</h1>",null,0,"","akram"));
-        tempList.add(new Post(1, "type","<h1>post 3</h1>",null,0,"","akram"));
-        tempList.add(new Post(1, "type","<h1>post 4</h1>",null,0,"","akram"));
-        tempList.add(new Post(1, "type","<h1>post 5</h1>",null,0,"","akram"));
+        tempList.add(new Post(1, "type", "<h1>post 1</h1>", null, 0, "", "akram"));
+        tempList.add(new Post(1, "type", "<h1>post 2</h1>", null, 0, "", "akram"));
+        tempList.add(new Post(1, "type", "<h1>post 3</h1>", null, 0, "", "akram"));
+        tempList.add(new Post(1, "type", "<h1>post 4</h1>"
+                +"<br>"
+                + "<img src=\"https://lh4.googleusercontent"
+                + ".com/-eyNmG5kC7tA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnmoqzcEbugxMxTAp-6skbZvokADw"
+                + "/photo.jpg?sz=256\">",
+                null, 0, "", "akram"));
+        tempList.add(new Post(1, "type", "<h1>post 5</h1>", null, 0, "", "akram"));
 
         postsList.setValue(tempList);
 //        repository.requestHomePosts().enqueue(new Callback<HomePostsResponse>() {

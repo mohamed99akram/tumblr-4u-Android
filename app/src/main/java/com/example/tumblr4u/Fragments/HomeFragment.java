@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -50,11 +51,39 @@ public class HomeFragment extends Fragment {
 
         // Prepare Recycler view
         mRecyclerView = mRoot.findViewById(R.id.posts_following);
-        PostAdapter adapter = new PostAdapter();
+        PostAdapter adapter = new PostAdapter(new PostAdapter.OnItemClickListener() {
+            @Override
+            public void onEditClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Edit Pressed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCommentClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Add Comment Pressed", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onLikeClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Like Pressed", Toast.LENGTH_SHORT).show();}
+            @Override
+            public void onShareClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Share Pressed", Toast.LENGTH_SHORT).show();}
+            @Override
+            public void onReblogClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Reblog Pressed", Toast.LENGTH_SHORT).show();}
+            @Override
+            public void onNotesClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Notes Pressed", Toast.LENGTH_SHORT).show();}
+            @Override
+            public void onRemoveClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Remove Pressed", Toast.LENGTH_SHORT).show();}
+            @Override
+            public void onImageOrNameClickListener(Post post) {
+                Toast.makeText(mRoot.getContext(), "Image or Name Pressed", Toast.LENGTH_SHORT).show();}
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
 
-        //TODO ViewModel
+        // ViewModel
 //        HomeFragmentViewModel = ViewModelProviders.of(this).get(HomeFragmentViewModel.class);
 
         mHomeFragmentViewModel = new ViewModelProvider(this).get(
