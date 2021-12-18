@@ -73,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="16dp"
+                android:layout_marginBottom="60dp"
                 android:paddingTop="4dp" />
         </FrameLayout>
     </androidx.core.widget.NestedScrollView>
