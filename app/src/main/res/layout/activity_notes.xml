@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.NotesActivity"
+    android:background="@color/tumblr_white"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/notes_toolbar"
@@ -78,38 +79,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-        <TextView
-            android:id="@+id/notes_add_at_letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="\@"
-            android:backgroundTint="@color/tumblr_white"
-            android:layout_marginStart="5dp"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+    <Button
+        android:id="@+id/reply_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@color/tumblr_white"
+        android:text="Reply"/>
+            <TextView
+                android:id="@+id/notes_add_at_letter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="\@"
+                android:backgroundTint="@color/tumblr_white"
+                android:layout_marginStart="5dp"
+                android:layout_centerVertical="true"
+                />
             <EditText
                 android:id="@+id/notes_add_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_toLeftOf="@id/reply_button"
+                android:layout_toRightOf="@id/notes_add_at_letter"
                 android:hint="Say something nice"
                 />
-<!--            <Button-->
-<!--                android:id="@+id/reply_button"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Reply"/>-->
-            </LinearLayout>
-        </LinearLayout>
+
+<!--        </LinearLayout>-->
     </RelativeLayout>
 </RelativeLayout>
