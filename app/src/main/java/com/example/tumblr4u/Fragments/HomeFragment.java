@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tumblr4u.Adapters.PostAdapter;
 import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.R;
+import com.example.tumblr4u.View.NotesActivity;
 import com.example.tumblr4u.View.WritePostActivity;
 import com.example.tumblr4u.ViewModel.HomeFragmentViewModel;
 
@@ -59,7 +60,12 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCommentClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Add Comment Pressed", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mRoot.getContext(), "Add Comment Pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), NotesActivity.class);
+                intent.putExtra("postId", post.getPostId());
+                intent.putExtra("blogId", post.getBlog_id());
+                intent.putExtra("notesCount", post.getNotesCount());
+                startActivity(intent);
             }
             @Override
             public void onLikeClickListener(Post post) {

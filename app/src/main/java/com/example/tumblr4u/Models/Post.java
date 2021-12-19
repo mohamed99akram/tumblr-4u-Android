@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * @since 17-12-2021
  */
 public class Post {
-    private int blog_id;
+    private String postId;
+    private String blog_id;
     private String mType;
     private String mHtml;
     private ArrayList<String> mTags;
@@ -16,8 +17,25 @@ public class Post {
     private String mBlogImageUrl;
     private String mBlogName;
 
-    public Post(int blog_id, String type, String html, ArrayList<String> tags, int notesCount,
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public void setBlog_id(String blog_id) {
+        this.blog_id = blog_id;
+    }
+
+    public String getBlog_id() {
+        return blog_id;
+    }
+
+    public Post(String postId, String blog_id, String type, String html, ArrayList<String> tags, int notesCount,
             String blogImageUrl, String blogName) {
+        this.postId = postId;
         this.blog_id = blog_id;
         mType = type;
         mHtml = html;
@@ -46,10 +64,6 @@ public class Post {
         mBlogName = blogName;
     }
 
-    public int getBlog_id() {
-        return blog_id;
-    }
-
     public String getType() {
         return mType;
     }
@@ -68,10 +82,6 @@ public class Post {
 
     public ArrayList<String> getTags() {
         return mTags;
-    }
-
-    public void setBlog_id(int blog_id) {
-        this.blog_id = blog_id;
     }
 
     public void setType(String type) {

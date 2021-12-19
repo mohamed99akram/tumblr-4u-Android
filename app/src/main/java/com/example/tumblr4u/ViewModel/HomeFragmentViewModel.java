@@ -28,16 +28,16 @@ public class HomeFragmentViewModel extends ViewModel {
 
     public void getposts() {
         List<Post> tempList = new ArrayList<>();
-        tempList.add(new Post(1, "type", "<h1>post 1</h1>", null, 0, "", "akram"));
-        tempList.add(new Post(1, "type", "<h1>post 2</h1>", null, 0, "", "akram"));
-        tempList.add(new Post(1, "type", "<h1>post 3</h1>", null, 0, "", "akram"));
-        tempList.add(new Post(1, "type", "<h1>post 4</h1>"
+        tempList.add(new Post("1", "1","type", "<h1>post 1</h1>", null, 34, "", "akram"));
+        tempList.add(new Post("2", "1", "type", "<h1>post 2</h1>", null, 12, "", "akram"));
+        tempList.add(new Post("3", "1","type", "<h1>post 3</h1>", null, 45, "", "akram"));
+        tempList.add(new Post("4", "1","type", "<h1>post 4</h1>"
                 +"<br>"
                 + "<img src=\"https://lh4.googleusercontent"
                 + ".com/-eyNmG5kC7tA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnmoqzcEbugxMxTAp-6skbZvokADw"
                 + "/photo.jpg?sz=256\">",
-                null, 0, "", "akram"));
-        tempList.add(new Post(1, "type", "<h1>post 5</h1>", null, 0, "", "akram"));
+                null, 12, "", "akram"));
+        tempList.add(new Post("5", "1", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
 
         postsList.setValue(tempList);
 //        repository.requestHomePosts().enqueue(new Callback<HomePostsResponse>() {
