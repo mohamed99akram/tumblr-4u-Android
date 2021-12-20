@@ -119,6 +119,16 @@ public class CommentsAdapter extends RecyclerView.Adapter {
             mBlogName.setText(currentComment.getUserName());
             // change comment text
             mCommentText.setText(currentComment.getCommentText());
+            // onClickListeners
+            setOnClickListeners(currentComment);
+        }
+        public void setOnClickListeners(Comment comment){
+            itemView.findViewById(R.id.comment_blog_image).setOnClickListener(v -> {
+                mListener.onImageClickListener(comment);
+            });
+            itemView.findViewById(R.id.comment_user_name).setOnClickListener(v -> {
+                mListener.onUserNameClickListener(comment);
+            });
         }
     }
     public void setList(List<Comment> comments){

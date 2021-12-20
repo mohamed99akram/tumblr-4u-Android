@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +24,7 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        // get data from calling activity
+        // get data from calling activity (comments button of post)
         Bundle extras = getIntent().getExtras();
         String postId;
         String blogId;
@@ -41,6 +42,19 @@ public class NotesActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.notes_count_notes_activity);
         textView.setText(notesCount + "");
 
+        TextView textView1 = findViewById(R.id.notes_likes_count);
+        textView1.setText(" - Likes"); // TODO where to get likes count?
+
+        TextView textView2 = findViewById(R.id.notes_reblogs_count);
+        textView2.setText(" - Reblogs");// TODO where to get reblogs count?
+
+        // set on click listener to go to LikesReblogs page
+        findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
+            Intent intent = new Intent(this, LikesReblogsActivity.class);
+            intent.putExtra("postId", postId);
+            intent.putExtra("notesCount", notesCount);
+            startActivity(intent);
+        });
         // prepare recycler view
         mRecyclerView = findViewById(R.id.comments_recycler_view);
         CommentsAdapter adapter = new CommentsAdapter(this,

@@ -11,6 +11,9 @@
         android:theme="@style/Theme.tumblr4u"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".View.LikesReblogsActivity"
+            android:exported="false" />
+        <activity
             android:name=".View.NotesActivity"
             android:exported="false" />
         <activity
@@ -43,8 +46,8 @@
             android:exported="false"
             android:label="@string/app_name" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
