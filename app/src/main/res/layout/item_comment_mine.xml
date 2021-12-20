@@ -7,7 +7,7 @@
     android:layoutDirection="rtl"
     android:orientation="horizontal">
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/comment_others_blog_image"
+        android:id="@+id/comment_blog_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginLeft="10dp"
@@ -24,7 +24,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/comment_others_text"
+            android:id="@+id/comment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -35,7 +35,7 @@
             android:layout_marginBottom="5dp"
             />
         <TextView
-            android:id="@+id/comment_others_user_name"
+            android:id="@+id/comment_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

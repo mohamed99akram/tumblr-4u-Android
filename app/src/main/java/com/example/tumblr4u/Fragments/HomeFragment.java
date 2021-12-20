@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
         // Prepare Recycler view
         mRecyclerView = mRoot.findViewById(R.id.posts_following);
-        PostAdapter adapter = new PostAdapter(new PostAdapter.OnItemClickListener() {
+        PostAdapter adapter = new PostAdapter(getActivity(), new PostAdapter.OnItemClickListener() {
             @Override
             public void onEditClickListener(Post post) {
                 Toast.makeText(mRoot.getContext(), "Edit Pressed", Toast.LENGTH_SHORT).show();
@@ -60,31 +60,45 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCommentClickListener(Post post) {
-//                Toast.makeText(mRoot.getContext(), "Add Comment Pressed", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mRoot.getContext(), "Add Comment Pressed", Toast.LENGTH_SHORT)
+//                .show();
                 Intent intent = new Intent(getActivity(), NotesActivity.class);
                 intent.putExtra("postId", post.getPostId());
                 intent.putExtra("blogId", post.getBlog_id());
                 intent.putExtra("notesCount", post.getNotesCount());
                 startActivity(intent);
             }
+
             @Override
             public void onLikeClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Like Pressed", Toast.LENGTH_SHORT).show();}
+                Toast.makeText(mRoot.getContext(), "Like Pressed", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onShareClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Share Pressed", Toast.LENGTH_SHORT).show();}
+                Toast.makeText(mRoot.getContext(), "Share Pressed", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onReblogClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Reblog Pressed", Toast.LENGTH_SHORT).show();}
+                Toast.makeText(mRoot.getContext(), "Reblog Pressed", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onNotesClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Notes Pressed", Toast.LENGTH_SHORT).show();}
+                Toast.makeText(mRoot.getContext(), "Notes Pressed", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onRemoveClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Remove Pressed", Toast.LENGTH_SHORT).show();}
+                Toast.makeText(mRoot.getContext(), "Remove Pressed", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onImageOrNameClickListener(Post post) {
-                Toast.makeText(mRoot.getContext(), "Image or Name Pressed", Toast.LENGTH_SHORT).show();}
+                Toast.makeText(mRoot.getContext(), "Image or Name Pressed",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
@@ -93,7 +107,7 @@ public class HomeFragment extends Fragment {
 //        HomeFragmentViewModel = ViewModelProviders.of(this).get(HomeFragmentViewModel.class);
 
         mHomeFragmentViewModel = new ViewModelProvider(this).get(
-                com.example.tumblr4u.ViewModel.HomeFragmentViewModel.class);
+                HomeFragmentViewModel.class);
         mHomeFragmentViewModel.getposts();
         //TODO move data between recycler view and view model - observers
         mHomeFragmentViewModel.postsList.observe(getViewLifecycleOwner(),

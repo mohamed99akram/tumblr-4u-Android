@@ -1,5 +1,7 @@
 package com.example.tumblr4u.Adapters;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,14 +46,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
     /**
      * data
      */
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> mPosts = new ArrayList<>();
     private OnItemClickListener listener;
+    private Context mContext;
 
     /**
      * Constructor
      */
-    public PostAdapter(OnItemClickListener listener) {
+    public PostAdapter(Context context, OnItemClickListener listener) {
         this.listener = listener;
+        mContext = context;
     }
 
     /**
@@ -73,20 +77,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
      */
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.PostsViewHolder holder, int position) {
-        holder.bind(posts.get(position), position);
+        holder.bind(mPosts.get(position));
     }
+
     /**
      * 25 January
-     * */
+     */
     @Override
     public int getItemCount() {
-        return posts.size();
+        return mPosts.size();
     }
 
     /**
      * Every view that is an item, will be like this
-     *
-     * */
+     */
     class PostsViewHolder extends RecyclerView.ViewHolder {
         WebView mWebView;
         TextView mNotesCountTextView;
@@ -103,14 +107,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
 
         /**
          * Action taken when recycling a view Load data from the list to the post View
-         * @param pos the position where the view will be put
+         *
+         * @param currentPost the current post in the list
          */
-        public void bind(Post currentPost, int pos) {
+        public void bind(Post currentPost) {
             // load post data
             mWebView.loadDataWithBaseURL(null, currentPost.getHtml(), "text/html", "utf-8",
                     null);
             // load profile image
-            Glide.with(mBlogImage.getContext()).load(posts.get(pos).getBlogImageUrl()).into(
+            Glide.with(mContext).load(currentPost.getBlogImageUrl()).into(
                     mBlogImage);
             // blog name
             mBlogName.setText(currentPost.getBlogName());
@@ -118,8 +123,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
             int notesCount = currentPost.getNotesCount();
             mNotesCountTextView.setText(
                     notesCount == 0 ? "" : notesCount == 1 ? "1 note" : notesCount + " notes");
+            // if this blog is mine, show edit & remove
+            hideEdit_RemoveIfNotMine(currentPost);
             // onClickListeners
             setOnClickListeners(currentPost);
+        }
+
+        /**
+         * This method should hide edit, remove icons if post is not mine
+         */
+        private void hideEdit_RemoveIfNotMine(Post currentPost) {
+            // user's blogId
+            String activeBlogId = mContext.getSharedPreferences("userDetails",
+                    Context.MODE_PRIVATE).getString(mContext.getString(R.string.myBlogId), "234352");
+            if (activeBlogId.equals(currentPost.getBlog_id())) {
+                itemView.findViewById(R.id.edit_button).setVisibility(View.VISIBLE);
+                itemView.findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
+                Log.i("PostAdapter", "mine, sharedBlogId = "+activeBlogId);
+            }
+            else{
+                itemView.findViewById(R.id.edit_button).setVisibility(View.GONE);
+                itemView.findViewById(R.id.delete_button).setVisibility(View.GONE);
+                Log.i("PostAdapter", "others, sharedBlogId = "+activeBlogId);
+            }
         }
 
         public void setOnClickListeners(Post post) {
@@ -161,7 +187,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
      *                  set in the View
      */
     public void setList(List<Post> postsList) {
-        this.posts = postsList;
+        this.mPosts = postsList;
         notifyDataSetChanged();
     }
 }

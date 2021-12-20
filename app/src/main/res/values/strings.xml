@@ -11,4 +11,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="server_client_id">633147263244-84kumvs7scjqm6ps8im6b5lvhili7hur.apps.googleusercontent.com</string>
+
+    <!-- Shared Preferences key-->
+    <string name="Token">Token</string>
+    <string name="myBlogId">myBlogId</string>
 </resources>

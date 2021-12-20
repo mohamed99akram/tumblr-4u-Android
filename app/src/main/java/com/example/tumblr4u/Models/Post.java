@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @since 17-12-2021
  */
 public class Post {
-    private boolean isMine; // answered in ViewModel when comparing userId with sharedPreferences
+//    private boolean isMine; // answered in ViewModel when comparing userId with sharedPreferences
     private String postId;
     private String blog_id;
     private String mType;
@@ -18,13 +18,13 @@ public class Post {
     private String mBlogImageUrl;
     private String mBlogName;
 
-    public boolean isMine() {
-        return isMine;
-    }
-
-    public void setMine(boolean mine) {
-        isMine = mine;
-    }
+//    public boolean isMine() {
+//        return isMine;
+//    }
+//
+//    public void setMine(boolean mine) {
+//        isMine = mine;
+//    }
 
     public String getPostId() {
         return postId;
@@ -42,9 +42,9 @@ public class Post {
         return blog_id;
     }
 
-    public Post(boolean isMine, String postId, String blog_id, String type, String html, ArrayList<String> tags, int notesCount,
+    public Post( String postId, String blog_id, String type, String html, ArrayList<String> tags, int notesCount,
             String blogImageUrl, String blogName) {
-        this.isMine = isMine;
+//        this.isMine = isMine;
         this.postId = postId;
         this.blog_id = blog_id;
         mType = type;
