@@ -17,6 +17,7 @@ import co.infinum.retromock.meta.Mock;
 import co.infinum.retromock.meta.MockResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
@@ -40,7 +41,7 @@ public interface ApiInterface {
 //    @MockResponse(body = "google_login_response.json")
     @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, \"res\":{\"message\":\"sign up successfully\", \"data\": \"YourToken\"}}")
     @POST("/google/info")
-    public Call<LoginResponse> googleSignup(@Body GoogleSignupRequest request);
+    public Call<LoginResponse> googleSignup(@Header("Token") String token, @Body GoogleSignupRequest request);
 
     @Mock
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")

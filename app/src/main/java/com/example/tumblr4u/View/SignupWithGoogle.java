@@ -76,6 +76,7 @@ public class SignupWithGoogle extends AppCompatActivity {
         });
 
         mBackButton.setOnClickListener(v -> {
+            mGoogleSignInClient.signOut(); // in case signin failed
             Intent authenticationActivity = new Intent(getApplicationContext(),
                     Authentication.class);
             startActivity(authenticationActivity);

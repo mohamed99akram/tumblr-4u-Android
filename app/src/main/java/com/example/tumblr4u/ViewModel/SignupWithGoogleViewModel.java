@@ -46,11 +46,18 @@ public class SignupWithGoogleViewModel extends ViewModel {
                         public void onResponse(Call<LoginResponse> call,
                                 Response<LoginResponse> response) {
                             if (response.isSuccessful()) {
+                                successfulSignup.setValue(true);
                                 Log.i("SignUp Google",
                                         "Signed Up Successfully and sent age and name");
-                                successfulSignup.setValue(true);
+                                Log.i("SignUp Google",
+                                        "message = " + response.body().getResponse().getMessage());
+
                             } else {
                                 successfulSignup.setValue(false);
+                                Log.i("SignUp Google",
+                                        "Signup with google failed @age and name");
+                                Log.i("SignUp Google",
+                                        "message = " + response.toString());
                             }
                         }
 

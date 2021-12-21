@@ -4,9 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GoogleSignupRequest {
-    @SerializedName("Token")
-    @Expose
-    private String Token;
 
     @SerializedName("age")
     @Expose
@@ -16,19 +13,11 @@ public class GoogleSignupRequest {
     @Expose
     private String blogName;
 
-    public GoogleSignupRequest(String Token, String age, String blogName) {
-        this.Token = Token;
+    public GoogleSignupRequest(String age, String blogName) {
         this.age = age;
         this.blogName = blogName;
     }
 
-    public String getToken() {
-        return Token;
-    }
-
-    public void setToken(String Token) {
-        this.Token = Token;
-    }
 
     public String getAge() {
         return age;

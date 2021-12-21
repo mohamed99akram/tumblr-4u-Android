@@ -107,8 +107,8 @@ public class Repository {
      *              to check that the user can have access to some resource
      * */
     public Call<LoginResponse> databaseSignupWithGoogle(String age, String name, String token){
-        GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
-        return apiInterface.googleSignup(request);
+        GoogleSignupRequest request = new GoogleSignupRequest( age, name);
+        return apiInterface.googleSignup(token, request);
     }
 
     /**
