@@ -79,7 +79,7 @@ public class WritePostViewModel extends ViewModel {
     public String getFinalHtml() {
         StringBuilder sentHtml = new StringBuilder();
         for (int i = 0; i < mPostData.size(); i++) {
-            String tempHtml = mPostData.get(i).getDataAsHtml();
+            String tempHtml = (String)mPostData.get(i).getData();
             if (!tempHtml.isEmpty()) {
                 sentHtml.append(tempHtml);
                 sentHtml.append("<br>");

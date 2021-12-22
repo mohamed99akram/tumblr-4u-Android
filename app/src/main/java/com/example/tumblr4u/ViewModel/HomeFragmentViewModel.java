@@ -56,9 +56,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         tempList.add(new Post("3", "4", "type", "<h1>post 3</h1>", null, 45, "", "akram"));
         tempList.add(new Post("4", "3", "type", "<h1>post 4</h1>"
                 + "<br>"
-                + "<img src=\"https://lh4.googleusercontent"
-                + ".com/-eyNmG5kC7tA/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnmoqzcEbugxMxTAp-6skbZvokADw"
-                + "/photo.jpg?sz=256\">",
+                ,
                 null, 12, "", "akram"));
         tempList.add(new Post("5", "2", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
 
