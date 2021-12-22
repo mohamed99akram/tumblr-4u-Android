@@ -120,7 +120,11 @@ public class WritePostActivity extends AppCompatActivity {
     private void addSizeFontButtonListener() {
         ImageButton imageButton = findViewById(R.id.text_size_font);
         imageButton.setOnClickListener(v -> {
-            RichEditor currentFocus = getCurrentFocus().findViewById(R.id.editor_item);
+            View cFocus = getCurrentFocus();
+            if(cFocus == null){
+                return;
+            }
+            RichEditor currentFocus = cFocus.findViewById(R.id.editor_item);
 
             // setup the alert builder
             AlertDialog.Builder builder = new AlertDialog.Builder(WritePostActivity.this);
