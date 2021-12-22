@@ -2,6 +2,7 @@ package com.example.tumblr4u.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.tumblr4u.Models.PostData;
+import com.example.tumblr4u.R;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.richeditor.RichEditor;
 
 public class WritePostDataAdapter extends ArrayAdapter<PostData> {
     public WritePostDataAdapter(Activity context, ArrayList<PostData> postData) {
@@ -37,16 +41,39 @@ public class WritePostDataAdapter extends ArrayAdapter<PostData> {
 
 
         // supposed to inflate if new
-
-        //TODO add this:
-        // || listItemView.findViewById(currentPostData.getItemId()) == null
-        // and add getItemId function to the abstract class and to constructor
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(context).inflate(currentPostData.getListItemId(),
+        if (listItemView == null || ((int)listItemView.getTag()!=position)) {
+            listItemView = LayoutInflater.from(context).inflate(R.layout.editor_list_item,
                     parent, false);
         }
-        return currentPostData.getView(context, listItemView);
+        listItemView.setTag(position);
+        RichEditor editor =(RichEditor) listItemView.findViewById(R.id.editor_item);
+        editor.setPadding(10, 10, 10, 10);
+        editor.setEditorFontSize(22);
+        if (currentPostData.getViewType() == PostData.TEXT_TYPE) {
+            editor.setHtml((String) currentPostData.getData());
+        } else if (currentPostData.getViewType() == PostData.IMAGE_TYPE) {
+            editor.setHtml("");
+            editor.loadDataWithBaseURL("file:///android_asset/", (String) currentPostData.getData(),
+                    "text/html", "utf-8", "");
+        }
+        editor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
+            @Override
+            public void onTextChange(String text) {
+                currentPostData.storeData(text);
+            }
+        });
+        return editor;
     }
+
+//    @Override
+//    public long getItemId(int position) {
+//        return (long)position;
+//    }
+
+//    @Override
+//    public int getViewTypeCount() {
+//        return getCount();
+//    }
 
     @Override
     public int getItemViewType(int position) {

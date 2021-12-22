@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -38,6 +39,7 @@ public class WritePostActivity extends AppCompatActivity {
     private WritePostViewModel mWritePostViewModel;
     WritePostDataAdapter mWritePostDataAdapter;
     private ListView mListView;
+//    private RichEditor mCurrentRichEditor;
     private static final String TAG = "WritePostActivity";
 
     /**
@@ -53,6 +55,7 @@ public class WritePostActivity extends AppCompatActivity {
         addImageButtonListener();
         addClosePostListener();
         addSizeFontButtonListener();
+        addPostButtonListener();
 
         // ViewModel
         ArrayList<PostData> postData = new ArrayList<>();
@@ -65,12 +68,16 @@ public class WritePostActivity extends AppCompatActivity {
         // listView & adapter
         mWritePostDataAdapter = new WritePostDataAdapter(this, postData);
 
+//        mCurrentRichEditor = (RichEditor) findViewById(R.id.rich_editor);
+//
+//        mCurrentRichEditor.setEditorHeight(200);
+//        mCurrentRichEditor.setEditorFontSize(22);
         mListView = findViewById(R.id.list);
 
-        mListView.setAdapter(mWritePostDataAdapter);
-        mListView.setItemsCanFocus(true);
         // initial editor
         addEditor();
+        mListView.setAdapter(mWritePostDataAdapter);
+        mListView.setItemsCanFocus(true);
 //        addEditor();
 //        addEditor();
     }
@@ -79,7 +86,7 @@ public class WritePostActivity extends AppCompatActivity {
      * Auxiliary function to add a new Rich Editor to ArrayList and update adapter
      */
     private void addEditor() {
-        mWritePostViewModel.addPostDataToList(new PostEditor(R.layout.editor_list_item));
+        mWritePostViewModel.addPostDataToList(new PostEditor(PostData.TEXT_TYPE));
         mWritePostDataAdapter.notifyDataSetChanged();
     }
 
@@ -157,6 +164,17 @@ public class WritePostActivity extends AppCompatActivity {
             dialog.show();
         });
     }
+    /**
+     * When the user clicks Post Button
+     * */
+    public void addPostButtonListener(){
+        Button publishPostButton = findViewById(R.id.publish_post);
+        publishPostButton.setOnClickListener(v -> {
+            // TODO: send in the ViewModel & return back when finished
+            Log.i(TAG, mWritePostViewModel.getFinalHtml());
+            onBackPressed();
+        });
+    }
 
     /**
      * auxiliary function to check if permission is granted to access storage
@@ -232,11 +250,13 @@ public class WritePostActivity extends AppCompatActivity {
     private void attachBitmapsToList(List<Bitmap> bitmaps) {
         for (Bitmap bitmap : bitmaps) {
             mWritePostViewModel.addPostDataToList(
-                    new PostEditor(R.layout.editor_list_item, bitmap));
+                    new PostEditor(bitmap));
             mWritePostDataAdapter.notifyDataSetChanged();
         }
-//        if(!bitmaps.isEmpty()){
-//            addEditor();
-//        }
+        Log.i(TAG, mWritePostViewModel.getFinalHtml());
+        if(!bitmaps.isEmpty()){
+            addEditor();
+            mWritePostDataAdapter.notifyDataSetChanged();
+        }
     }
 }

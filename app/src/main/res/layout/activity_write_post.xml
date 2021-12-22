@@ -85,7 +85,13 @@
         android:drawSelectorOnTop="true">
 
     </ListView>
-
+<!--    <jp.wasabeef.richeditor.RichEditor-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_above="@id/action_buttons"-->
+<!--        android:layout_below="@id/choose_blog"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/rich_editor"-->
+<!--        />-->
     <RelativeLayout
         android:id="@+id/action_buttons"
         android:layout_width="match_parent"
