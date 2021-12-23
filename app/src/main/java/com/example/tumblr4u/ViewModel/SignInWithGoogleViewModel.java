@@ -39,7 +39,7 @@ public class SignInWithGoogleViewModel extends AndroidViewModel {
 
                         // ----------- store this token ------------
                         Prefs.storeToken(getApplication(),token);
-
+                        Log.i("SignInGoogle","Make sure token is stored: token ="+Prefs.getToken(getApplication()));
 
                         Log.e("Sign In Google", "Token = " + token);
                         successfulSignIn.setValue(true);

@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
-import com.example.tumblr4u.ApiData.ViewPost.SinglePostResponse;
+import com.example.tumblr4u.ApiData.ViewPost.PostsToShow;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
 import com.example.tumblr4u.Models.Post;
@@ -44,7 +44,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
 
         //--------- delete this ---------
         // this should be set when the user chooses the current blog or when the user signs in
-        Prefs.storeMyBlogId(getApplication(), "1");
+//        Prefs.storeMyBlogId(getApplication(), "1");
         // testing data
 //        tempList.add(new Post("1", "1", "type", "<h1>post 1</h1>", null, 34, "", "akram"));
 //        tempList.add(new Post("2", "1", "type", "<h1>post 2</h1>", null, 12, "", "akram"));
@@ -56,34 +56,35 @@ public class HomeFragmentViewModel extends AndroidViewModel {
 //        tempList.add(new Post("5", "2", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
 //
 //        postsList.setValue(tempList);
+        Log.i(TAG, "Token in "+TAG+ " = "+Prefs.getToken(getApplication()));
         repository.requestHomePosts(Prefs.getToken(getApplication())).enqueue(
                 new Callback<HomePostsResponse>() {
                     @Override
                     public void onResponse(Call<HomePostsResponse> call,
                             Response<HomePostsResponse> response) {
                         if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                List<SinglePostResponse> singlePostResponses =
-                                        response.body().getResponse().getData();
-                                List<Post> tempList = new ArrayList<>();
-                                for (SinglePostResponse sPR : singlePostResponses) {
-                                    tempList.add(
-                                            new Post(
-                                                    sPR.getId(),
-                                                    sPR.getBlogId(),
-                                                    sPR.getType(),
-                                                    sPR.getPostHtml(),
-                                                    null,
-                                                    34,
-                                                    "",
-                                                    "akram"));
-                                }
-                                postsList.setValue(tempList);
-                            } else {
-                                Log.e(TAG, "response body is null");
+                            if (response.body() == null) {
+                                Log.e(TAG, "Response.body() is null");
+                                return;
                             }
+                            // store my blog id
+                            String myBlogId = response.body().getRes().getBlog().getId();
+                            Prefs.storeMyBlogId(getApplication(), myBlogId);
+
+                            // initialize posts
+
+                            List<PostsToShow> postsToShows =
+                                    response.body().getRes().getPostsToShow();
+                            List<Post> tempList = new ArrayList<>();
+                            for (PostsToShow post : postsToShows) {
+                                //TODO get blog name, notes count
+                                tempList.add(
+                                        new Post(post.getId(), post.getBlogId(), post.getType(),
+                                                post.getPostHtml(), post.getTags(), 0, "", "Name"));
+                            }
+                            postsList.setValue(tempList);
                         } else {
-                            Log.e(TAG, "response was not successful");
+                            Log.e(TAG, "Response is not successful");
                         }
                     }
 
@@ -91,6 +92,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                     public void onFailure(Call<HomePostsResponse> call, Throwable t) {
                         Log.e(TAG, t.getMessage());
                     }
-                });
+                }
+        );
     }
 }

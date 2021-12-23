@@ -1,9 +1,11 @@
+
 package com.example.tumblr4u.ApiData.ViewPost;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SinglePostResponse {
+public class PostsToShow {
 
     @SerializedName("_id")
     @Expose
@@ -19,7 +21,16 @@ public class SinglePostResponse {
     private String type;
     @SerializedName("state")
     @Expose
-    private String published;
+    private String state;
+    @SerializedName("tags")
+    @Expose
+    private List<String> tags = null;
+    @SerializedName("notesId")
+    @Expose
+    private String notesId;
+    @SerializedName("__v")
+    @Expose
+    private Integer v;
 
     public String getId() {
         return id;
@@ -53,11 +64,36 @@ public class SinglePostResponse {
         this.type = type;
     }
 
-    public String getPublished() {
-        return published;
+    public String getState() {
+        return state;
     }
 
-    public void setPublished(String published) {
-        this.published = published;
+    public void setState(String state) {
+        this.state = state;
     }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getNotesId() {
+        return notesId;
+    }
+
+    public void setNotesId(String notesId) {
+        this.notesId = notesId;
+    }
+
+    public Integer getV() {
+        return v;
+    }
+
+    public void setV(Integer v) {
+        this.v = v;
+    }
+
 }

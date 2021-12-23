@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
-import com.example.tumblr4u.ApiData.ViewPost.HomePostsRequest;
-import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
+import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 import com.example.tumblr4u.ApiInterfaces.ApiInterface;
@@ -127,8 +126,7 @@ public class Repository {
      * request home posts
      * */
     public Call<HomePostsResponse> requestHomePosts(String token) {
-        HomePostsRequest request = new HomePostsRequest(token);
-        return apiInterface.getHomePosts(request);
+        return apiInterface.getHomePosts("Bearer "+token);
     }
 
     /**

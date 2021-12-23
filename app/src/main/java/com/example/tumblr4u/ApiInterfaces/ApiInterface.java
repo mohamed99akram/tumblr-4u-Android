@@ -7,11 +7,10 @@ package com.example.tumblr4u.ApiInterfaces;
 
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
-import com.example.tumblr4u.ApiData.ViewPost.HomePostsRequest;
-import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
+import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 
@@ -19,8 +18,8 @@ import co.infinum.retromock.meta.Mock;
 import co.infinum.retromock.meta.MockResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -62,55 +61,11 @@ public interface ApiInterface {
 
 
     // ----------------- Home Posts --------------
-    @Mock
-    @MockResponse(body = "{\n"
-            + "  \"meta\": {\n"
-            + "    \"status\": 201,\n"
-            + "    \"msg\": \"Successful\"\n"
-            + "  },\n"
-            + "  \"res\": {\n"
-            + "    \"message\": \"Dashboard Got Successfully\",\n"
-            + "    \"data\": [\n"
-            + "      {\n"
-            + "        \"_id\": \"1\",\n"
-            + "        \"blogId\": \"1\",\n"
-            + "        \"postHtml\": \"<h1>post 1 Mocked</h1>\",\n"
-            + "        \"type\": \"link\",\n"
-            + "        \"state\": \"published\"\n"
-            + "      },\n"
-            + "      {\n"
-            + "        \"_id\": \"2\",\n"
-            + "        \"blogId\": \"1\",\n"
-            + "        \"postHtml\": \"<h1>post 2 Mocked</h1>\",\n"
-            + "        \"type\": \"link\",\n"
-            + "        \"state\": \"published\"\n"
-            + "      },\n"
-            + "      {\n"
-            + "        \"_id\": \"3\",\n"
-            + "        \"blogId\": \"4\",\n"
-            + "        \"postHtml\": \"<h1>post 3 Mocked</h1>\",\n"
-            + "        \"type\": \"link\",\n"
-            + "        \"state\": \"published\"\n"
-            + "      },\n"
-            + "      {\n"
-            + "        \"_id\": \"4\",\n"
-            + "        \"blogId\": \"3\",\n"
-            + "        \"postHtml\": \"<h1>post 4 Mocked</h1>\",\n"
-            + "        \"type\": \"link\",\n"
-            + "        \"state\": \"published\"\n"
-            + "      },\n"
-            + "      {\n"
-            + "        \"_id\": \"5\",\n"
-            + "        \"blogId\": \"2\",\n"
-            + "        \"postHtml\": \"<h1>post 5 Mocked</h1>\",\n"
-            + "        \"type\": \"link\",\n"
-            + "        \"state\": \"published\"\n"
-            + "      }\n"
-            + "    ]\n"
-            + "  }\n"
-            + "}")
-    @POST("dashboard") //TODO make token in header
-    public Call<HomePostsResponse> getHomePosts(@Body HomePostsRequest request);
+//    @Mock
+//    @MockResponse(body =
+    @GET("dashboard") //TODO make token in header
+    public Call<HomePostsResponse> getHomePosts(@Header("Authorization")String token);
+
 
     @Mock
     @MockResponse(body = "{\n"
