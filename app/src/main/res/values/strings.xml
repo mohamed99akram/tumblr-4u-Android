@@ -15,4 +15,5 @@
     <!-- Shared Preferences key-->
     <string name="Token">Token</string>
     <string name="myBlogId">myBlogId</string>
+    <string name="userDetails">userDetails</string>
 </resources>

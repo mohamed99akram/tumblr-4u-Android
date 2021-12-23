@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Models.Comment;
 import com.example.tumblr4u.R;
 
@@ -58,8 +59,7 @@ public class CommentsAdapter extends RecyclerView.Adapter {
         Comment currentComment = mComments.get(position);
 
         // user's blogId
-        String activeBlogId = mContext.getSharedPreferences("userDetails",
-                Context.MODE_PRIVATE).getString(mContext.getString(R.string.myBlogId), "23445");
+        String activeBlogId = Prefs.getMyBlogId(mContext);
         // if this comment is mine -> COMMENT_MINE
         if (activeBlogId.equals(currentComment.getBlogId())) {
             return COMMENT_MINE;
@@ -87,7 +87,7 @@ public class CommentsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((CommentViewHolder)holder).bind(mComments.get(position));
+        ((CommentViewHolder) holder).bind(mComments.get(position));
     }
 
 
@@ -95,7 +95,8 @@ public class CommentsAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mComments.size();
     }
-//    public class CommentMineViewHolder extends RecyclerView.ViewHolder{
+
+    //    public class CommentMineViewHolder extends RecyclerView.ViewHolder{
 //
 //        public CommentMineViewHolder(@NonNull View itemView) {
 //            super(itemView);
@@ -112,7 +113,8 @@ public class CommentsAdapter extends RecyclerView.Adapter {
             mBlogImage = itemView.findViewById(R.id.comment_blog_image);
             mBlogName = itemView.findViewById(R.id.comment_user_name);
         }
-        public void bind(Comment currentComment){
+
+        public void bind(Comment currentComment) {
             // load blog image
             Glide.with(mContext).load(currentComment.getImageUrl()).into(mBlogImage);
             // change blog name
@@ -122,7 +124,8 @@ public class CommentsAdapter extends RecyclerView.Adapter {
             // onClickListeners
             setOnClickListeners(currentComment);
         }
-        public void setOnClickListeners(Comment comment){
+
+        public void setOnClickListeners(Comment comment) {
             itemView.findViewById(R.id.comment_blog_image).setOnClickListener(v -> {
                 mListener.onImageClickListener(comment);
             });
@@ -131,7 +134,8 @@ public class CommentsAdapter extends RecyclerView.Adapter {
             });
         }
     }
-    public void setList(List<Comment> comments){
+
+    public void setList(List<Comment> comments) {
         this.mComments = comments;
         notifyDataSetChanged();
     }

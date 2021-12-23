@@ -1,17 +1,15 @@
 package com.example.tumblr4u.ViewModel;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.tumblr4u.ApiData.HomePostsResponse;
-import com.example.tumblr4u.R;
+import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.ViewPost.SinglePostResponse;
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
 import com.example.tumblr4u.Models.Post;
 
@@ -32,6 +30,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Post>> postsList = new MutableLiveData<>();
 
+    private static final String TAG = "HomeFragmentViewModel";
+
     /**
      * This is to access sharedPreferences and get Token (AndroidViewModel)
      */
@@ -41,37 +41,56 @@ public class HomeFragmentViewModel extends AndroidViewModel {
 
 
     public void getposts() {
-        List<Post> tempList = new ArrayList<>();
 
         //--------- delete this ---------
         // this should be set when the user chooses the current blog or when the user signs in
-        SharedPreferences userDetails = getApplication().getSharedPreferences("userDetails",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = userDetails.edit();
-        edit.putString(getApplication().getString(R.string.myBlogId), "1");
-        edit.apply();
+        Prefs.storeMyBlogId(getApplication(), "1");
         // testing data
-        tempList.add(new Post("1", "1", "type", "<h1>post 1</h1>", null, 34, "", "akram"));
-        tempList.add(new Post("2", "1", "type", "<h1>post 2</h1>", null, 12, "", "akram"));
-        tempList.add(new Post("3", "4", "type", "<h1>post 3</h1>", null, 45, "", "akram"));
-        tempList.add(new Post("4", "3", "type", "<h1>post 4</h1>"
-                + "<br>"
-                ,
-                null, 12, "", "akram"));
-        tempList.add(new Post("5", "2", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
+//        tempList.add(new Post("1", "1", "type", "<h1>post 1</h1>", null, 34, "", "akram"));
+//        tempList.add(new Post("2", "1", "type", "<h1>post 2</h1>", null, 12, "", "akram"));
+//        tempList.add(new Post("3", "4", "type", "<h1>post 3</h1>", null, 45, "", "akram"));
+//        tempList.add(new Post("4", "3", "type", "<h1>post 4</h1>"
+//                + "<br>"
+//                ,
+//                null, 12, "", "akram"));
+//        tempList.add(new Post("5", "2", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
+//
+//        postsList.setValue(tempList);
+        repository.requestHomePosts(Prefs.getToken(getApplication())).enqueue(
+                new Callback<HomePostsResponse>() {
+                    @Override
+                    public void onResponse(Call<HomePostsResponse> call,
+                            Response<HomePostsResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                List<SinglePostResponse> singlePostResponses =
+                                        response.body().getResponse().getData();
+                                List<Post> tempList = new ArrayList<>();
+                                for (SinglePostResponse sPR : singlePostResponses) {
+                                    tempList.add(
+                                            new Post(
+                                                    sPR.getId(),
+                                                    sPR.getBlogId(),
+                                                    sPR.getType(),
+                                                    sPR.getPostHtml(),
+                                                    null,
+                                                    34,
+                                                    "",
+                                                    "akram"));
+                                }
+                                postsList.setValue(tempList);
+                            } else {
+                                Log.e(TAG, "response body is null");
+                            }
+                        } else {
+                            Log.e(TAG, "response was not successful");
+                        }
+                    }
 
-        postsList.setValue(tempList);
-//        repository.requestHomePosts().enqueue(new Callback<HomePostsResponse>() {
-//            @Override
-//            public void onResponse(Call<HomePostsResponse> call,
-//                    Response<HomePostsResponse> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<HomePostsResponse> call, Throwable t) {
-//
-//            }
-//        });
+                    @Override
+                    public void onFailure(Call<HomePostsResponse> call, Throwable t) {
+                        Log.e(TAG, t.getMessage());
+                    }
+                });
     }
 }

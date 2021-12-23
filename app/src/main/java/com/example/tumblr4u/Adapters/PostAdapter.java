@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.Models.Post;
 import com.stfalcon.multiimageview.MultiImageView;
@@ -134,17 +135,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostsViewHolde
          */
         private void hideEdit_RemoveIfNotMine(Post currentPost) {
             // user's blogId
-            String activeBlogId = mContext.getSharedPreferences("userDetails",
-                    Context.MODE_PRIVATE).getString(mContext.getString(R.string.myBlogId), "234352");
+            String activeBlogId = Prefs.getMyBlogId(mContext);
+
             if (activeBlogId.equals(currentPost.getBlog_id())) {
                 itemView.findViewById(R.id.edit_button).setVisibility(View.VISIBLE);
                 itemView.findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
-                Log.i("PostAdapter", "mine, sharedBlogId = "+activeBlogId);
-            }
-            else{
+                Log.i("PostAdapter", "mine, sharedBlogId = " + activeBlogId);
+            } else {
                 itemView.findViewById(R.id.edit_button).setVisibility(View.GONE);
                 itemView.findViewById(R.id.delete_button).setVisibility(View.GONE);
-                Log.i("PostAdapter", "others, sharedBlogId = "+activeBlogId);
+                Log.i("PostAdapter", "others, sharedBlogId = " + activeBlogId);
             }
         }
 

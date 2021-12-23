@@ -1,43 +1,52 @@
 package com.example.tumblr4u.ViewModel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.tumblr4u.ApiData.LoginResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignInWithGoogleViewModel extends ViewModel {
+public class SignInWithGoogleViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> successfulSignIn = new MutableLiveData<>(false);
     private Repository database = Repository.INSTANTIATE();
 
-    public void login(String googleIdToken){
+    public SignInWithGoogleViewModel(@NonNull Application application) {
+        super(application);
+    }
 
-        Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken );
+    public void login(String googleIdToken) {
+
+        Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
 
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                Log.e("SignIn Google", "response code = "+response.code());
-                if(response.isSuccessful()){
+                Log.e("SignIn Google", "response code = " + response.code());
+                if (response.isSuccessful()) {
                     String token;
                     if (response.body() != null) {
-                        // TODO store this token somewhere
                         token = response.body().getResponse().getData();
+
+                        // ----------- store this token ------------
+                        Prefs.storeToken(getApplication(),token);
+
+
                         Log.e("Sign In Google", "Token = " + token);
                         successfulSignIn.setValue(true);
-                    }
-                    else{
+                    } else {
                         successfulSignIn.setValue(false);
                     }
-                }
-                else{
+                } else {
                     successfulSignIn.setValue(false);
                 }
             }

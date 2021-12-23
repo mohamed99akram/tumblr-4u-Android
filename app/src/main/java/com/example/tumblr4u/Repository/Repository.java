@@ -1,34 +1,26 @@
 package com.example.tumblr4u.Repository;
 
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.tumblr4u.ApiData.GoogleLoginRequest;
-import com.example.tumblr4u.ApiData.GoogleSignupRequest;
-import com.example.tumblr4u.ApiData.HomePostsRequest;
-import com.example.tumblr4u.ApiData.HomePostsResponse;
-import com.example.tumblr4u.ApiData.LoginRequest;
-import com.example.tumblr4u.ApiData.LoginResponse;
-import com.example.tumblr4u.ApiData.SignupRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
+import com.example.tumblr4u.ApiData.ViewPost.HomePostsRequest;
+import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiInterfaces.ApiInterface;
-import com.example.tumblr4u.Models.Post;
-import com.example.tumblr4u.View.LoginWithEmail;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import co.infinum.retromock.BodyFactory;
 import co.infinum.retromock.Retromock;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.Converter.Factory.*;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -49,8 +41,13 @@ public class Repository {
      * The Constructor of the repository class
      * */
     private Repository(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -59,8 +56,8 @@ public class Repository {
 //                .defaultBodyFactory(new ResourceBodyFactory())
                 .build();
 
-        apiInterface =  retrofit.create(ApiInterface.class);
-//        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+//        apiInterface =  retrofit.create(ApiInterface.class);
+        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
     /**
@@ -126,8 +123,8 @@ public class Repository {
     /**
      * request home posts
      * */
-    public Call<HomePostsResponse> requestHomePosts() {
-        HomePostsRequest request = new HomePostsRequest();
+    public Call<HomePostsResponse> requestHomePosts(String token) {
+        HomePostsRequest request = new HomePostsRequest(token);
         return apiInterface.getHomePosts(request);
     }
 

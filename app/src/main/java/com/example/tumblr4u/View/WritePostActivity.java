@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.ClipData;
@@ -60,8 +61,8 @@ public class WritePostActivity extends AppCompatActivity {
         // ViewModel
         ArrayList<PostData> postData = new ArrayList<>();
 
-        mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
-
+//        mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
+        mWritePostViewModel = new ViewModelProvider(this).get(WritePostViewModel.class);
         mWritePostViewModel.init(postData);
 
 

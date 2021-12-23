@@ -1,5 +1,6 @@
-package com.example.tumblr4u.ApiData;
+package com.example.tumblr4u.ApiData.Login_Signup;
 
+import com.example.tumblr4u.ApiData.Meta;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

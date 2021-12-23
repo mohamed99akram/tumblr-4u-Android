@@ -1,7 +1,10 @@
 package com.example.tumblr4u.ViewModel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.tumblr4u.Models.PostData;
@@ -17,13 +20,16 @@ import jp.wasabeef.richeditor.RichEditor;
  * This class contains the data that the View returns from the user. And then it gives this data to
  * the repository when needed
  */
-// TODO should this class extend ViewModel???
-public class WritePostViewModel extends ViewModel {
+public class WritePostViewModel extends AndroidViewModel {
     private static final String TAG = "WritePostViewModel";
     //TODO should this be MutableLiveData???
     private ArrayList<PostData> mPostData;
 
     private WritePostRepository mRepo;
+
+    public WritePostViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     /**
      * This method initializes the ViewModel of the WritePost module
