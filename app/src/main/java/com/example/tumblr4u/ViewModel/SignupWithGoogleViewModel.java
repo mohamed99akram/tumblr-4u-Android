@@ -39,6 +39,8 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
                     if (response.body() != null) {
                         // TODO store this token somewhere
                         token = response.body().getResponse().getData();
+                        // Store the token
+                        Prefs.storeToken(getApplication(),token);
                     }
                     else{
                         token = null;
@@ -60,8 +62,6 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
                                         "Signed Up Successfully and sent age and name");
                                 Log.i("SignUp Google",
                                         "message = " + response.body().getResponse().getMessage());
-                                // Store the token
-                                Prefs.storeToken(getApplication(),token);
                             } else {
                                 successfulSignup.setValue(false);
                                 Log.i("SignUp Google",

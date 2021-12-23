@@ -14,13 +14,18 @@ import jp.wasabeef.richeditor.RichEditor;
 
 public class PostEditor extends PostData {
     private String innerHtml;
-//    private String mImageBase64;
-    // TODO should I delete this?
-//    boolean mISInitialized = false;
-
+    private String mImageBase64;
     public PostEditor(int viewType) {
         mViewType = viewType;
         innerHtml = "";
+    }
+
+    public String getImageBase64() {
+        return mImageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        mImageBase64 = imageBase64;
     }
 
     /**
@@ -38,12 +43,12 @@ public class PostEditor extends PostData {
         //TODO PNG? 50 -> 100?
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String imageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String mImageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         innerHtml = "<html><body><img src='{IMAGE_PLACEHOLDER}' width = \"" + 400
                 + "\"/></body></html>";
         innerHtml = innerHtml.replace("{IMAGE_PLACEHOLDER}",
-                "data:image/jpeg;base64," + imageBase64);
+                "data:image/jpeg;base64," + mImageBase64);
     }
 
     @Override

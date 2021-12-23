@@ -9,6 +9,8 @@ import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
+import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
+import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 import com.example.tumblr4u.ApiInterfaces.ApiInterface;
 
 import java.io.FileInputStream;
@@ -56,8 +58,8 @@ public class Repository {
 //                .defaultBodyFactory(new ResourceBodyFactory())
                 .build();
 
-//        apiInterface =  retrofit.create(ApiInterface.class);
-        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+        apiInterface =  retrofit.create(ApiInterface.class);
+//        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
     /**
@@ -105,7 +107,8 @@ public class Repository {
      * */
     public Call<LoginResponse> databaseSignupWithGoogle(String age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest( age, name);
-        return apiInterface.googleSignup(token, request);
+//        return apiInterface.googleSignup(token, request);
+        return apiInterface.googleSignup("Bearer "+token, request);
     }
 
     /**
@@ -128,6 +131,19 @@ public class Repository {
         return apiInterface.getHomePosts(request);
     }
 
+    /**
+     *TODO change to Call<publishPRe
+     * */
+    public void publishPost(String token, String blogId, String postHtml, String type){
+
+    }
+    /**
+     *
+     * */
+    public Call<UploadImageResponse> uploadImage(String token, String imageBase64){
+        UploadImageRequest request = new UploadImageRequest(imageBase64);
+        return apiInterface.uploadImage(token, request);
+    }
 }
 
 /**

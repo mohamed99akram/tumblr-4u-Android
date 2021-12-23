@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
@@ -79,6 +80,9 @@ public class WritePostActivity extends AppCompatActivity {
         addEditor();
         mListView.setAdapter(mWritePostDataAdapter);
         mListView.setItemsCanFocus(true);
+
+        // observer
+        setProgressObserver();
 //        addEditor();
 //        addEditor();
     }
@@ -91,7 +95,23 @@ public class WritePostActivity extends AppCompatActivity {
         mWritePostDataAdapter.notifyDataSetChanged();
     }
 
-
+    /**
+     * show progress bar if publishing post
+     * TODO make sure it is actually async
+     * */
+    public void setProgressObserver(){
+//        mWritePostViewModel.showProgressBar.observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                if(aBoolean){
+//                    findViewById(R.id.write_post_progress_bar).setVisibility(View.VISIBLE);
+//                }
+//                else{
+//                    findViewById(R.id.write_post_progress_bar).setVisibility(View.GONE);
+//                }
+//            }
+//        });
+    }
     /**
      * Auxiliary Function to add image button listener that will let the user choose the image to
      * their post
@@ -176,7 +196,8 @@ public class WritePostActivity extends AppCompatActivity {
         Button publishPostButton = findViewById(R.id.publish_post);
         publishPostButton.setOnClickListener(v -> {
             // TODO: send in the ViewModel & return back when finished
-            Log.i(TAG, mWritePostViewModel.getFinalHtml());
+//            mWritePostViewModel.publishPost();
+            Log.i(TAG, "what should be published:" + mWritePostViewModel.getSentHtml());
             onBackPressed();
         });
     }
@@ -258,7 +279,7 @@ public class WritePostActivity extends AppCompatActivity {
                     new PostEditor(bitmap));
             mWritePostDataAdapter.notifyDataSetChanged();
         }
-        Log.i(TAG, mWritePostViewModel.getFinalHtml());
+//        Log.i(TAG, mWritePostViewModel.getFinalHtml());
         if(!bitmaps.isEmpty()){
             addEditor();
             mWritePostDataAdapter.notifyDataSetChanged();

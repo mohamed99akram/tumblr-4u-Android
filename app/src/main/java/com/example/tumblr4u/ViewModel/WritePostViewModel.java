@@ -5,16 +5,24 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Models.PostData;
 import com.example.tumblr4u.Models.PostEditor;
+import com.example.tumblr4u.Repository.Repository;
 import com.example.tumblr4u.Repository.WritePostRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.richeditor.RichEditor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * This class contains the data that the View returns from the user. And then it gives this data to
@@ -22,11 +30,12 @@ import jp.wasabeef.richeditor.RichEditor;
  */
 public class WritePostViewModel extends AndroidViewModel {
     private static final String TAG = "WritePostViewModel";
+    public String mSentHtml = "";
     //TODO should this be MutableLiveData???
     private ArrayList<PostData> mPostData;
-
-    private WritePostRepository mRepo;
-
+    public MutableLiveData<Boolean> showProgressBar = new MutableLiveData<>();
+//    private WritePostRepository mRepo;
+    private Repository mRepo =  Repository.INSTANTIATE();;
     public WritePostViewModel(@NonNull Application application) {
         super(application);
     }
@@ -47,8 +56,8 @@ public class WritePostViewModel extends AndroidViewModel {
             return;
         }
         mPostData = postData;
-        mRepo = WritePostRepository.getInstance();
-        mRepo.setPostData(mPostData);
+//        mRepo = Repository.INSTANTIATE();
+//        mRepo.setPostData(mPostData);
     }
 
     /**
@@ -73,7 +82,13 @@ public class WritePostViewModel extends AndroidViewModel {
      * This method will send the data to the repository. which in turn will send it to the backend
      */
     public void publishPost() {
-        mRepo.publishPostToDatabase(getFinalHtml());
+        showProgressBar.setValue(true);
+        mRepo.publishPost(Prefs.getToken(getApplication()), Prefs.getMyBlogId(getApplication()), getFinalHtml(), "text");
+        showProgressBar.setValue(false);
+    }
+
+    public String getSentHtml() {
+        return mSentHtml;
     }
 
     /**
@@ -84,16 +99,74 @@ public class WritePostViewModel extends AndroidViewModel {
 
     public String getFinalHtml() {
         StringBuilder sentHtml = new StringBuilder();
-        for (int i = 0; i < mPostData.size(); i++) {
-            String tempHtml = (String)mPostData.get(i).getData();
-            if (!tempHtml.isEmpty()) {
-                sentHtml.append(tempHtml);
+        for (PostData postData: mPostData) {
+            int currentViewType = postData.getViewType();
+            if(currentViewType==PostData.TEXT_TYPE){
+                sentHtml.append(((PostEditor)postData).getData());
                 sentHtml.append("<br>");
             }
+            else if(currentViewType==PostData.IMAGE_TYPE){
+                String imageBase64 = ((PostEditor)postData).getImageBase64();
+                String url = uploadImageGetUrl(imageBase64);
+                sentHtml.append("<img src=\"").append(url).append("\">");
+                sentHtml.append("<br>");
+            }
+//            String tempHtml = (String)mPostData.get(i).getData();
+//            if (!tempHtml.isEmpty()) {
+//                sentHtml.append(tempHtml);
+//                sentHtml.append("<br>");
+//            }
         }
-        return sentHtml.toString();
+        mSentHtml = sentHtml.toString();
+        return mSentHtml;
     }
+    public String uploadImageGetUrl(String imageBase64){
+        final String[] url = new String[1];
+        mRepo.uploadImage(
+                Prefs.getToken(getApplication()),
+                imageBase64).enqueue(new Callback<UploadImageResponse>() {
+            @Override
+            public void onResponse(Call<UploadImageResponse> call,
+                    Response<UploadImageResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null){
+                        url[0] = response.body().getRes().getData();
+                        Log.e(TAG, "uploaded image successfully, url = "+ url[0]);
+                    }else{
+                        Log.e(TAG, "upload image body = null");
+                    }
+                }else{
+                    Log.e(TAG, "Upload image not successful");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<UploadImageResponse> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+//        try {
+//            Response<UploadImageResponse> response =  mRepo.uploadImage(
+//                    Prefs.getToken(getApplication()),
+//                    imageBase64).execute();
+//
+//            if(response.isSuccessful()){
+//                if(response.body()!=null){
+//                    String url = response.body().getRes().getData();
+//                    Log.e(TAG, "uploaded image successfully, url = "+ url);
+//                    return url;
+//
+//                }else{
+//                    Log.e(TAG, "upload image body = null");
+//                }
+//            }else{
+//                Log.e(TAG, "Upload image not successful");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return url[0];
+    }
     public List<PostData> getPostData() {
         return mPostData;
     }

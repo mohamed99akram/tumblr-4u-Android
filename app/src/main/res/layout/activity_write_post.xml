@@ -13,7 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/top_bar">
-
+        <ProgressBar
+            android:id="@+id/write_post_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            />
         <Button
             android:id="@+id/publish_post"
             android:layout_width="wrap_content"

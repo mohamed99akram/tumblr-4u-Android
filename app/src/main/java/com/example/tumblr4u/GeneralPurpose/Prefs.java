@@ -57,7 +57,17 @@ public class Prefs {
                 .getString(context.getString(R.string.myBlogId),
                         "234352");
     }
-
+    /**
+     *
+     * */
+    public static String getMyBlogId(Application application){
+        return application.getSharedPreferences(
+                application.getString(R.string.userDetails),
+                Context.MODE_PRIVATE).getString(
+                        application.getString(R.string.myBlogId),
+                "234352"
+        );
+    }
     /**
      * Return Token of the user call this function in the ViewModel to pass data to Repository and
      * send requests
