@@ -1,6 +1,6 @@
 package com.example.tumblr4u.Models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mohamed Akram
@@ -8,12 +8,13 @@ import java.util.ArrayList;
  * @since 17-12-2021
  */
 public class Post {
-//    private boolean isMine; // answered in ViewModel when comparing userId with sharedPreferences
+    //    private boolean isMine; // answered in ViewModel when comparing userId with
+    //    sharedPreferences
     private String postId;
     private String blog_id;
     private String mType;
     private String mHtml;
-    private ArrayList<String> mTags;
+    private List<String> mTags;
     private int mNotesCount;
     private String mBlogImageUrl;
     private String mBlogName;
@@ -42,7 +43,8 @@ public class Post {
         return blog_id;
     }
 
-    public Post( String postId, String blog_id, String type, String html, ArrayList<String> tags, int notesCount,
+    public Post(String postId, String blog_id, String type, String html, List<String> tags,
+            int notesCount,
             String blogImageUrl, String blogName) {
 //        this.isMine = isMine;
         this.postId = postId;
@@ -56,8 +58,9 @@ public class Post {
     }
 
     public String getBlogImageUrl() {
-        if(mBlogImageUrl.isEmpty()){
-            return "https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25-Salsburg_Liverpool-83.jpg.jpg";
+        if (mBlogImageUrl.isEmpty()) {
+            return "https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25"
+                    + "-Salsburg_Liverpool-83.jpg.jpg";
         }
         return mBlogImageUrl;
     }
@@ -90,7 +93,7 @@ public class Post {
         mNotesCount = notesCount;
     }
 
-    public ArrayList<String> getTags() {
+    public List<String> getTags() {
         return mTags;
     }
 
@@ -102,7 +105,7 @@ public class Post {
         mHtml = html;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.mTags = tags;
     }
 
