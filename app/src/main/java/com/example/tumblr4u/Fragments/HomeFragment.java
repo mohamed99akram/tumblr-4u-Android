@@ -113,6 +113,7 @@ public class HomeFragment extends Fragment {
         mHomeFragmentViewModel.postsList.observe(getViewLifecycleOwner(),
                 posts -> {
                     adapter.setList(posts);
+                    mRoot.findViewById(R.id.home_fragment_progress_bar).setVisibility(View.GONE);
                 });
 
         return mRoot;
