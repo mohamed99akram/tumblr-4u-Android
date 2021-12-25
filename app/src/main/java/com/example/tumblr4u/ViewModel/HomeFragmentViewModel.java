@@ -7,12 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
+import com.example.tumblr4u.ApiData.RetrieveBlog.Data;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.ViewPost.PostsToShow;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
 import com.example.tumblr4u.Models.Post;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +59,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
 //        tempList.add(new Post("5", "2", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
 //
 //        postsList.setValue(tempList);
-        Log.i(TAG, "Token in "+TAG+ " = "+Prefs.getToken(getApplication()));
+        Log.i(TAG, "Token in " + TAG + " = " + Prefs.getToken(getApplication()));
         repository.requestHomePosts(Prefs.getToken(getApplication())).enqueue(
                 new Callback<HomePostsResponse>() {
                     @Override
@@ -82,7 +85,37 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         new Post(post.getId(), post.getBlogId(), post.getType(),
                                                 post.getPostHtml(), post.getTags(), 0, "", "Name"));
                             }
-                            postsList.setValue(tempList);
+                            new Thread(() -> {
+                                // Perform execute here
+                                // ---------- Retrieve Blogs ----------
+                                for (Post post2 : tempList) {
+                                    try {
+                                        // execute and get the response
+                                        Response<BlogResponse>
+                                                blogResponse = repository.getBlog(
+                                                Prefs.getToken(getApplication()),
+                                                post2.getBlog_id()
+//                                                "61ae81b91b9ee885f03a6866"
+                                        ).execute();
+
+                                        // work with the response
+                                        if (blogResponse.isSuccessful()) {
+                                            if (blogResponse.body() != null) {
+                                                Data data =
+                                                        blogResponse.body().getRes().getData();
+                                                post2.setBlogName(data.getName());
+                                            } else {
+                                                Log.e(TAG, "blog response body = null");
+                                            }
+                                        } else {
+                                            Log.e(TAG, "retrieve blog failed");
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                postsList.postValue(tempList);
+                            }).start();
                         } else {
                             Log.e(TAG, "Response is not successful");
                         }

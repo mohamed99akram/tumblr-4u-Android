@@ -7,6 +7,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
+import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
@@ -85,7 +86,7 @@ public class Repository {
     /**
      * Sends a request to the back-end API to sign up
      * @param age The age of the user
-     * @param email The email eddress of the user
+     * @param email The email address of the user
      * @param password A plain text password of the user
      * @param name The user name
      * @return A response from the back-end server as an json class object
@@ -106,7 +107,7 @@ public class Repository {
      * */
     public Call<LoginResponse> databaseSignupWithGoogle(String age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest( age, name);
-//        return apiInterface.googleSignup(token, request);
+        // TODO move Bearer to getToken Method
         return apiInterface.googleSignup("Bearer "+token, request);
     }
 
@@ -126,6 +127,7 @@ public class Repository {
      * request home posts
      * */
     public Call<HomePostsResponse> requestHomePosts(String token) {
+        // TODO move Bearer to getToken Method
         return apiInterface.getHomePosts("Bearer "+token);
     }
 
@@ -141,6 +143,14 @@ public class Repository {
     public Call<UploadImageResponse> uploadImage(String token, String imageBase64){
         UploadImageRequest request = new UploadImageRequest(imageBase64);
         return apiInterface.uploadImage(token, request);
+    }
+
+    /**
+     * Get Blog data
+     * */
+    public Call<BlogResponse> getBlog(String token, String blogId){
+        // TODO move Bearer to getToken Method
+        return apiInterface.getBlog("Bearer "+token, blogId);
     }
 }
 

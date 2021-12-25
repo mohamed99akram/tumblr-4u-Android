@@ -10,6 +10,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
+import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
@@ -22,6 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 /**
  * The Api Interface which responsible for making a requests to the back-end server
@@ -66,7 +68,7 @@ public interface ApiInterface {
     @GET("dashboard") //TODO make token in header
     public Call<HomePostsResponse> getHomePosts(@Header("Authorization")String token);
 
-
+    // ---------- Upload image trial ---------- TODO change it
     @Mock
     @MockResponse(body = "{\n"
             + "  \"meta\": {\n"
@@ -82,4 +84,8 @@ public interface ApiInterface {
     public Call<UploadImageResponse> uploadImage(@Header("token") String token, @Body
             UploadImageRequest request);
 
+
+    // --------- Retrieve Blog ----------
+    @GET("blog/view/{blogId}")
+    Call<BlogResponse> getBlog(@Header("Authorization")String token, @Path("blogId")String blogId);
 }
