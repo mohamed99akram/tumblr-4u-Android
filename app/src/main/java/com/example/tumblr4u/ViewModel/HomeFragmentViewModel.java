@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveBlog.Data;
+import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.ViewPost.PostsToShow;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
@@ -87,6 +88,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                             }
                             new Thread(() -> {
                                 // Perform execute here
+                                // ! Don't do this!! Ask your backend team
+                                // to give you blog name :(
                                 // ---------- Retrieve Blogs ----------
                                 for (Post post2 : tempList) {
                                     try {
@@ -109,6 +112,33 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                             }
                                         } else {
                                             Log.e(TAG, "retrieve blog failed");
+                                        }
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                // ---------- Retrieve Notes (For Notes Count) DON'T DO THIS
+                                // ASK BACKEND TO GIVE IT TO YOU !!!!!!!!! :(((((
+                                for (Post post : tempList) {
+                                    try {
+                                        // execute and get the response
+                                        Response<NotesResponse>
+                                                notesResponse = repository.getNotes(
+                                                Prefs.getToken(getApplication()),
+                                                post.getPostId()
+//                                                "61ae667d8b4d5620ce937992"
+                                        ).execute();
+
+                                        // work with the response
+                                        if(notesResponse.isSuccessful()){
+                                            if(notesResponse.body()!=null){
+                                                 int notesCount = notesResponse.body().getRes().getNotes().size();
+                                                 post.setNotesCount(notesCount);
+                                            }else{
+                                                Log.e(TAG, "notes body = null");
+                                            }
+                                        }else{
+                                            Log.e(TAG, "retrieve notes failed");
                                         }
                                     } catch (IOException e) {
                                         e.printStackTrace();

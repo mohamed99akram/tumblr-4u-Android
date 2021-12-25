@@ -8,6 +8,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
+import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
@@ -151,6 +152,13 @@ public class Repository {
     public Call<BlogResponse> getBlog(String token, String blogId){
         // TODO move Bearer to getToken Method
         return apiInterface.getBlog("Bearer "+token, blogId);
+    }
+    /**
+     * Get Post Notes
+     * */
+    public Call<NotesResponse> getNotes(String token, String postId){
+        // TODO move Bearer to getToken Method
+        return apiInterface.getNotes("Bearer "+token, postId);
     }
 }
 

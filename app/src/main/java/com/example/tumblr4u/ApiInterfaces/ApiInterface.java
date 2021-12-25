@@ -11,6 +11,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
+import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
@@ -27,7 +28,7 @@ import retrofit2.http.Path;
 
 /**
  * The Api Interface which responsible for making a requests to the back-end server
- * */
+ */
 public interface ApiInterface {
     @Mock
     @MockResponse(body = "{\"meta\":{\"status\":200, \"msg\": \"CREATED\"}, "
@@ -66,7 +67,7 @@ public interface ApiInterface {
 //    @Mock
 //    @MockResponse(body =
     @GET("dashboard") //TODO make token in header
-    public Call<HomePostsResponse> getHomePosts(@Header("Authorization")String token);
+    public Call<HomePostsResponse> getHomePosts(@Header("Authorization") String token);
 
     // ---------- Upload image trial ---------- TODO change it
     @Mock
@@ -77,7 +78,8 @@ public interface ApiInterface {
             + "  },\n"
             + "  \"res\": {\n"
             + "    \"message\": \"sign up successfully from file\",\n"
-            + "    \"data\": \"https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25-Salsburg_Liverpool-83.jpg.jpg\"\n"
+            + "    \"data\": \"https://www.vbetnews"
+            + ".com/wp-content/uploads/2020/08/P2020-08-25-Salsburg_Liverpool-83.jpg.jpg\"\n"
             + "  }\n"
             + "}")
     @POST("uploadImage")
@@ -87,5 +89,11 @@ public interface ApiInterface {
 
     // --------- Retrieve Blog ----------
     @GET("blog/view/{blogId}")
-    Call<BlogResponse> getBlog(@Header("Authorization")String token, @Path("blogId")String blogId);
+    Call<BlogResponse> getBlog(@Header("Authorization") String token,
+            @Path("blogId") String blogId);
+
+    // ------- Retrieve Notes
+    @GET("posts/{postId}/notes")
+    Call<NotesResponse> getNotes(@Header("Authorization") String token,
+            @Path("postId") String postId);
 }
