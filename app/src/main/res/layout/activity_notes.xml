@@ -7,6 +7,17 @@
     tools:context=".View.NotesActivity"
     android:background="@color/tumblr_white"
     android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/notes_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            />
+    </RelativeLayout>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/notes_toolbar"
         android:layout_width="match_parent"

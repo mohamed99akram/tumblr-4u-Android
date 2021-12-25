@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("postId", post.getPostId());
                 intent.putExtra("blogId", post.getBlog_id());
                 intent.putExtra("notesCount", post.getNotesCount());
+                intent.putExtra("likesCount", post.getLikesCount());
+                intent.putExtra("reblogsCount", post.getReblogsCount());
                 startActivity(intent);
             }
 

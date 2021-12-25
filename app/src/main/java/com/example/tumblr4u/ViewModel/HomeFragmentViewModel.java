@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveBlog.Data;
+import com.example.tumblr4u.ApiData.RetrieveNotes.Note;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.ViewPost.PostsToShow;
@@ -84,7 +85,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                 //TODO get blog name, notes count
                                 tempList.add(
                                         new Post(post.getId(), post.getBlogId(), post.getType(),
-                                                post.getPostHtml(), post.getTags(), 0, "", "Name"));
+                                                post.getPostHtml(), post.getTags(), 0, 0, 0, "",
+                                                "Name"));
                             }
                             new Thread(() -> {
                                 // Perform execute here
@@ -107,6 +109,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                                 Data data =
                                                         blogResponse.body().getRes().getData();
                                                 post2.setBlogName(data.getName());
+                                                // TODO set avatar if it is the image url
                                             } else {
                                                 Log.e(TAG, "blog response body = null");
                                             }
@@ -130,14 +133,31 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         ).execute();
 
                                         // work with the response
-                                        if(notesResponse.isSuccessful()){
-                                            if(notesResponse.body()!=null){
-                                                 int notesCount = notesResponse.body().getRes().getNotes().size();
-                                                 post.setNotesCount(notesCount);
-                                            }else{
+                                        if (notesResponse.isSuccessful()) {
+                                            if (notesResponse.body() != null) {
+                                                List<Note>
+                                                        notesList =
+                                                        notesResponse.body().getRes().getNotes();
+                                                int notesCount =
+                                                        notesList.size();
+                                                int likesCount = 0;
+                                                int reblogsCount = 0;
+                                                for (Note note : notesList) {
+                                                    String noteType = note.getNote().getNoteType();
+                                                    if (noteType.equals("like")) {
+                                                        likesCount++;
+                                                    }
+                                                    if (noteType.equals("reblog")) {
+                                                        reblogsCount++;
+                                                    }
+                                                }
+                                                post.setNotesCount(notesCount);
+                                                post.setLikesCount(likesCount);
+                                                post.setReblogsCount(reblogsCount);
+                                            } else {
                                                 Log.e(TAG, "notes body = null");
                                             }
-                                        }else{
+                                        } else {
                                             Log.e(TAG, "retrieve notes failed");
                                         }
                                     } catch (IOException e) {
