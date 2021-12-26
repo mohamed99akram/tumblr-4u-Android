@@ -1,5 +1,7 @@
 package com.example.tumblr4u.Models;
 
+import com.example.tumblr4u.ApiData.RetrieveBlog.Data;
+
 public class LikeReblog {
     public static final int LIKE_TYPE = 1;
     public static final int REBLOG_TYPE = 2;
@@ -7,12 +9,22 @@ public class LikeReblog {
     String blogImageUrl;
     String blogName;
     int likeOrReblog;
+    private Data mBlogData;
 
-    public LikeReblog(String blogId, String blogImageUrl, String blogName, int likeOrReblog) {
-        this.blogId = blogId;
+    public LikeReblog(String blogId, String blogImageUrl, String blogName, int likeOrReblog, Data blogData) {
+        this.blogId = blogId; // redundant
         this.blogImageUrl = blogImageUrl;
-        this.blogName = blogName;
+        this.blogName = blogName;// redundant
         this.likeOrReblog = likeOrReblog;
+        this.mBlogData = blogData;
+    }
+
+    public Data getBlogData() {
+        return mBlogData;
+    }
+
+    public void setBlogData(Data blogData) {
+        mBlogData = blogData;
     }
 
     public String getBlogId() {

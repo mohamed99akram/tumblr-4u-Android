@@ -32,11 +32,12 @@ public class NotesActivity extends AppCompatActivity {
         Post post;
         String postId;
         String blogId;
+        String postJSON;
         int notesCount;
         int likesCount;
         int reblogsCount;
         if (extras != null) {
-            String postJSON = extras.getString("postJSON");
+            postJSON = extras.getString("postJSON");
             Gson gson = new Gson();
             post = gson.fromJson(postJSON, Post.class);
             postId = post.getPostId();
@@ -67,8 +68,9 @@ public class NotesActivity extends AppCompatActivity {
         // set on click listener to go to LikesReblogs page
         findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
             Intent intent = new Intent(this, LikesReblogsActivity.class);
-            intent.putExtra("postId", postId);
-            intent.putExtra("notesCount", notesCount);
+//            intent.putExtra("postId", postId);
+//            intent.putExtra("notesCount", notesCount);
+            intent.putExtra("postJSON", postJSON);
             startActivity(intent);
         });
         // prepare recycler view

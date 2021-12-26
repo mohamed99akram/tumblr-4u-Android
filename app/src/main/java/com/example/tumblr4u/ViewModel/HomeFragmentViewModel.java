@@ -100,7 +100,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                                 blogResponse = repository.getBlog(
                                                 Prefs.getToken(getApplication()),
 //                                                post2.getBlog_id()
-                                                "61ae81b91b9ee885f03a6866"
+                                                "61ae81b91b9ee885f03a6866" // TODO remove this
                                         ).execute();
 
                                         // work with the response
@@ -129,8 +129,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         Response<NotesResponse>
                                                 notesResponse = repository.getNotes(
                                                 Prefs.getToken(getApplication()),
-                                                post.getPostId()
-//                                                "61ae667d8b4d5620ce937992"
+//                                                post.getPostId()
+                                                "61ae667d8b4d5620ce937992" // TODO remove this
                                         ).execute();
 
                                         // work with the response

@@ -69,7 +69,8 @@ public class NotesViewModel extends AndroidViewModel {
                         commenterBlogId,
                         "Name",
                         "",
-                        note.getNote().getText()));
+                        note.getNote().getText()
+                        , null));
             }
         }
 
@@ -80,8 +81,7 @@ public class NotesViewModel extends AndroidViewModel {
                         || comment.getBlogId().isEmpty()) {
                     comment.setBlogId("dummy"); // if it is null -> error
                 }
-                // TODO remove this line
-//                comment.setBlogId("61ae81b91b9ee885f03a6866");
+                comment.setBlogId("61ae81b91b9ee885f03a6866");// TODO remove this line
                 try {
                     // execute and get response
                     Response<BlogResponse>
@@ -96,6 +96,7 @@ public class NotesViewModel extends AndroidViewModel {
                             Data data =
                                     blogResponse.body().getRes().getData();
                             comment.setUserName(data.getName());
+                            comment.setBlogData(data); // will be used for blog page when click
                             // TODO set avatar if it is the image url
                         } else {
                             Log.e(TAG, "blog response body = null");
