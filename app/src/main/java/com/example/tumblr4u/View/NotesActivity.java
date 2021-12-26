@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +30,14 @@ public class NotesActivity extends AppCompatActivity {
         String postId;
         String blogId;
         int notesCount;
+        int likesCount;
+        int reblogsCount;
         if (extras != null) {
             postId = extras.getString("postId");
             blogId = extras.getString("blogId");
             notesCount = extras.getInt("notesCount");
+            likesCount = extras.getInt("likesCount");
+            reblogsCount = extras.getInt("reblogsCount");
         } else {
             return;
         }
@@ -43,10 +48,10 @@ public class NotesActivity extends AppCompatActivity {
         textView.setText(notesCount + "");
 
         TextView textView1 = findViewById(R.id.notes_likes_count);
-        textView1.setText(" - Likes"); // TODO where to get likes count?
+        textView1.setText(likesCount + " Likes");
 
         TextView textView2 = findViewById(R.id.notes_reblogs_count);
-        textView2.setText(" - Reblogs");// TODO where to get reblogs count?
+        textView2.setText(reblogsCount + " Reblogs");
 
         // set on click listener to go to LikesReblogs page
         findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
@@ -76,8 +81,9 @@ public class NotesActivity extends AppCompatActivity {
         mNotesViewModel = new ViewModelProvider(this).get(NotesViewModel.class);
         mNotesViewModel.commentsList.observe(this, comments -> {
             adapter.setList(comments);
+            findViewById(R.id.notes_progress_bar).setVisibility(View.GONE);
         });
         // get comments of this note
-        mNotesViewModel.getComments();
+        mNotesViewModel.getComments(postId);
     }
 }

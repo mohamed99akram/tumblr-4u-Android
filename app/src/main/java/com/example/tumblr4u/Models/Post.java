@@ -8,24 +8,31 @@ import java.util.List;
  * @since 17-12-2021
  */
 public class Post {
-    //    private boolean isMine; // answered in ViewModel when comparing userId with
-    //    sharedPreferences
     private String postId;
     private String blog_id;
     private String mType;
     private String mHtml;
     private List<String> mTags;
     private int mNotesCount;
+    private int mLikesCount;
+    private int mReblogsCount;
     private String mBlogImageUrl;
     private String mBlogName;
 
-//    public boolean isMine() {
-//        return isMine;
-//    }
-//
-//    public void setMine(boolean mine) {
-//        isMine = mine;
-//    }
+    public Post(String postId, String blog_id, String type, String html, List<String> tags,
+            int notesCount, int likesCount, int reblogsCount,
+            String blogImageUrl, String blogName) {
+        this.mLikesCount = likesCount;
+        this.mReblogsCount = reblogsCount;
+        this.postId = postId;
+        this.blog_id = blog_id;
+        mType = type;
+        mHtml = html;
+        this.mTags = tags;
+        this.mNotesCount = notesCount;
+        this.mBlogImageUrl = blogImageUrl;
+        this.mBlogName = blogName;
+    }
 
     public String getPostId() {
         return postId;
@@ -43,18 +50,20 @@ public class Post {
         return blog_id;
     }
 
-    public Post(String postId, String blog_id, String type, String html, List<String> tags,
-            int notesCount,
-            String blogImageUrl, String blogName) {
-//        this.isMine = isMine;
-        this.postId = postId;
-        this.blog_id = blog_id;
-        mType = type;
-        mHtml = html;
-        this.mTags = tags;
-        this.mNotesCount = notesCount;
-        this.mBlogImageUrl = blogImageUrl;
-        this.mBlogName = blogName;
+    public int getLikesCount() {
+        return mLikesCount;
+    }
+
+    public void setLikesCount(int likesCount) {
+        mLikesCount = likesCount;
+    }
+
+    public int getReblogsCount() {
+        return mReblogsCount;
+    }
+
+    public void setReblogsCount(int reblogsCount) {
+        mReblogsCount = reblogsCount;
     }
 
     public String getBlogImageUrl() {

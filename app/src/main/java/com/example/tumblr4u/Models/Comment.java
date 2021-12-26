@@ -1,28 +1,31 @@
 package com.example.tumblr4u.Models;
 
 public class Comment {
-//    private boolean isMine;
+//    private String postId;
     private String blogId;
     private String userName;
     private String imageUrl;
     private String commentText;
-//    public boolean isMine() {
-//        return isMine;
-//    }
-//
-//    public void setMine(boolean mine) {
-//        isMine = mine;
-//    }
 
-    public String getCommentText() {
-        return commentText;
-    }
 
-    public Comment(String blogId, String userName, String imageUrl, String commentText) {
+    public Comment( String blogId, String userName, String imageUrl, String commentText) {
+//        this.postId = postId;
         this.blogId = blogId;
         this.userName = userName;
         this.imageUrl = imageUrl;
         this.commentText = commentText;
+    }
+
+//    public String getPostId() {
+//        return postId;
+//    }
+//
+//    public void setPostId(String postId) {
+//        this.postId = postId;
+//    }
+
+    public String getCommentText() {
+        return commentText;
     }
 
     public void setCommentText(String commentText) {
