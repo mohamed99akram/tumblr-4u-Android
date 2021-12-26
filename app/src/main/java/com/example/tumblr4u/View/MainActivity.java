@@ -57,10 +57,8 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         return true;
                     case R.id.navigation_search:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment_activity_main, searchFragment, "search")
-                                .addToBackStack("search")
-                                .commit();
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.navigation_activity:
                         getSupportFragmentManager().beginTransaction()
