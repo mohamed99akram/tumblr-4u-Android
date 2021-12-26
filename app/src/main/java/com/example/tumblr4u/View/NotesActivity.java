@@ -13,8 +13,10 @@ import android.widget.Toast;
 
 import com.example.tumblr4u.Adapters.CommentsAdapter;
 import com.example.tumblr4u.Models.Comment;
+import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.ViewModel.NotesViewModel;
+import com.google.gson.Gson;
 
 public class NotesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -27,17 +29,26 @@ public class NotesActivity extends AppCompatActivity {
 
         // get data from calling activity (comments button of post)
         Bundle extras = getIntent().getExtras();
+        Post post;
         String postId;
         String blogId;
         int notesCount;
         int likesCount;
         int reblogsCount;
         if (extras != null) {
-            postId = extras.getString("postId");
-            blogId = extras.getString("blogId");
-            notesCount = extras.getInt("notesCount");
-            likesCount = extras.getInt("likesCount");
-            reblogsCount = extras.getInt("reblogsCount");
+            String postJSON = extras.getString("postJSON");
+            Gson gson = new Gson();
+            post = gson.fromJson(postJSON, Post.class);
+            postId = post.getPostId();
+            blogId = post.getBlog_id();
+            notesCount = post.getNotesCount();
+            likesCount = post.getLikesCount();
+            reblogsCount = post.getReblogsCount();
+//            postId = extras.getString("postId");
+//            blogId = extras.getString("blogId");
+//            notesCount = extras.getInt("notesCount");
+//            likesCount = extras.getInt("likesCount");
+//            reblogsCount = extras.getInt("reblogsCount");
         } else {
             return;
         }
@@ -84,6 +95,6 @@ public class NotesActivity extends AppCompatActivity {
             findViewById(R.id.notes_progress_bar).setVisibility(View.GONE);
         });
         // get comments of this note
-        mNotesViewModel.getComments(postId);
+        mNotesViewModel.getComments(post);
     }
 }

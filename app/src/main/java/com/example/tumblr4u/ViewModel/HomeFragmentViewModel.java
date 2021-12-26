@@ -86,7 +86,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                 tempList.add(
                                         new Post(post.getId(), post.getBlogId(), post.getType(),
                                                 post.getPostHtml(), post.getTags(), 0, 0, 0, "",
-                                                "Name"));
+                                                "Name", null, null));
                             }
                             new Thread(() -> {
                                 // Perform execute here
@@ -99,8 +99,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         Response<BlogResponse>
                                                 blogResponse = repository.getBlog(
                                                 Prefs.getToken(getApplication()),
-                                                post2.getBlog_id()
-//                                                "61ae81b91b9ee885f03a6866"
+//                                                post2.getBlog_id()
+                                                "61ae81b91b9ee885f03a6866"
                                         ).execute();
 
                                         // work with the response
@@ -109,6 +109,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                                 Data data =
                                                         blogResponse.body().getRes().getData();
                                                 post2.setBlogName(data.getName());
+                                                post2.setBlogData(data);
                                                 // TODO set avatar if it is the image url
                                             } else {
                                                 Log.e(TAG, "blog response body = null");
@@ -154,6 +155,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                                 post.setNotesCount(notesCount);
                                                 post.setLikesCount(likesCount);
                                                 post.setReblogsCount(reblogsCount);
+                                                post.setNotes(notesList);
                                             } else {
                                                 Log.e(TAG, "notes body = null");
                                             }
