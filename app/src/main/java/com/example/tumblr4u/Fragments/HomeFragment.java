@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onLikeClickListener(Post post) {
                 Toast.makeText(mRoot.getContext(), "Like Pressed", Toast.LENGTH_SHORT).show();
+                mHomeFragmentViewModel.pressLikeButton(post);
             }
 
             @Override

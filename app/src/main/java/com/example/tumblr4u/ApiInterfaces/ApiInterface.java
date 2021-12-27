@@ -5,6 +5,8 @@ package com.example.tumblr4u.ApiInterfaces;
  * @version 1.0
  */
 
+import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
+import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
@@ -96,4 +98,15 @@ public interface ApiInterface {
     @GET("posts/{postId}/notes")
     Call<NotesResponse> getNotes(@Header("Authorization") String token,
             @Path("postId") String postId);
+
+    // ---------- Press Like Button --------
+    @PUT("{blogId}/{postId}/like_press")
+    Call<String> pressLike(@Header("Authorization") String token, @Path("blogId") String blogId,
+            @Path("postId") String postId);
+
+    @PUT("{blogId}/{postId}/comment")
+    Call<CommentResponse> makeComment(@Header("Authorization") String token,
+            @Path("blogId") String blogId, @Path("postId") String postId,
+            @Body CommentRequest commentRequest);
+
 }

@@ -75,6 +75,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                             // store my blog id
                             String myBlogId = response.body().getRes().getBlog().getId();
                             Prefs.storeMyBlogId(getApplication(), myBlogId);
+                            Prefs.storeMyBlogName(getApplication(),
+                                    response.body().getRes().getBlog().getName());
 
                             // initialize posts
 
@@ -99,8 +101,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         Response<BlogResponse>
                                                 blogResponse = repository.getBlog(
                                                 Prefs.getToken(getApplication()),
-//                                                post2.getBlog_id()
-                                                "61ae81b91b9ee885f03a6866" // TODO remove this
+                                                post2.getBlog_id()
+//                                                "61ae81b91b9ee885f03a6866" // TODO remove this
                                         ).execute();
 
                                         // work with the response
@@ -129,8 +131,8 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         Response<NotesResponse>
                                                 notesResponse = repository.getNotes(
                                                 Prefs.getToken(getApplication()),
-//                                                post.getPostId()
-                                                "61ae667d8b4d5620ce937992" // TODO remove this
+                                                post.getPostId()
+//                                                "61ae667d8b4d5620ce937992" // TODO remove this
                                         ).execute();
 
                                         // work with the response
@@ -179,5 +181,28 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                     }
                 }
         );
+    }
+
+    public void pressLikeButton(Post post) {
+        repository.pressLike(Prefs.getToken(getApplication()), Prefs.getMyBlogId(getApplication()),
+                post.getPostId()).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        Log.i(TAG, "press like response body = " + response.body());
+                    } else {
+                        Log.e(TAG, "press like response body = null");
+                    }
+                } else {
+                    Log.e(TAG, "press like response not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
     }
 }

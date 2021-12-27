@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,17 @@ public class NotesActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.notes_reblogs_count);
         textView2.setText(reblogsCount + " Reblogs");
 
+        EditText addCommentEditText = findViewById(R.id.notes_add_comment);
+        // Add comment listener
+        findViewById(R.id.reply_button).setOnClickListener(v -> {
+            String commentText = addCommentEditText.getText().toString();
+            if(commentText.isEmpty()){
+            }
+            else{
+                mNotesViewModel.makeComment(post, commentText);
+                addCommentEditText.setText("");
+            }
+        });
         // set on click listener to go to LikesReblogs page
         findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
             Intent intent = new Intent(this, LikesReblogsActivity.class);

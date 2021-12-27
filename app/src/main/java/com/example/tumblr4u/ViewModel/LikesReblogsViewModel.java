@@ -56,7 +56,7 @@ public class LikesReblogsViewModel extends AndroidViewModel {
                     likeReblog.setBlogId("dummy"); // to send anything to database if null or empty
                 }
 
-                likeReblog.setBlogId("61ae81b91b9ee885f03a6866"); // TODO remove this
+//                likeReblog.setBlogId("61ae81b91b9ee885f03a6866"); // TODO remove this
                 try {
                     // execute and get response
                     Response<BlogResponse>
