@@ -30,10 +30,14 @@
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1921875" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2203125" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/login_button_shape.xml" value="0.2203125" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/search_field.xml" value="0.20092592592592592" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_authentication.xml" value="0.25" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_login_with_email.xml" value="0.1897644927536232" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_search.xml" value="0.22" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_signup_with_email.xml" value="0.1897644927536232" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_write_post.xml" value="0.17980072463768115" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/editor_list_item.xml" value="0.17980072463768115" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_activity.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login1.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login2.xml" value="0.1" />
@@ -41,6 +45,8 @@
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_search_result_page.xml" value="0.15353260869565216" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_search_suggestion_page.xml" value="0.15353260869565216" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/search_suggestion_recycler_view_element.xml" value="0.17980072463768115" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/view_posts_list_item.xml" value="0.17980072463768115" />
         <entry key="..\:/tumblr/tumblr-4u-Android/app/src/main/res/drawable/home_button.xml" value="0.20833333333333334" />
         <entry key="..\:/tumblr/tumblr-4u-Android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20833333333333334" />
         <entry key="..\:/tumblr/tumblr-4u-Android/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.20833333333333334" />
@@ -64,5 +70,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.15353260869565216" />
+      </ProjectState>
+    </option>
   </component>
 </project>
