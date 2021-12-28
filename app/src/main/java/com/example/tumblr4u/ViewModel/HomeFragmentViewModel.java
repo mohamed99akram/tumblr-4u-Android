@@ -88,7 +88,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                 tempList.add(
                                         new Post(post.getId(), post.getBlogId(), post.getType(),
                                                 post.getPostHtml(), post.getTags(), 0, 0, 0, "",
-                                                "Name", null, null));
+                                                "Name", null, null, post.getNotesId()));
                             }
                             new Thread(() -> {
                                 // Perform execute here
@@ -131,8 +131,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                         Response<NotesResponse>
                                                 notesResponse = repository.getNotes(
                                                 Prefs.getToken(getApplication()),
-                                                post.getPostId()
-//                                                "61ae667d8b4d5620ce937992" // TODO remove this
+                                                post.getNotesId()
                                         ).execute();
 
                                         // work with the response
@@ -146,7 +145,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
                                                 int likesCount = 0;
                                                 int reblogsCount = 0;
                                                 for (Note note : notesList) {
-                                                    String noteType = note.getNote().getNoteType();
+                                                    String noteType = note.getNoteType();
                                                     if (noteType.equals("like")) {
                                                         likesCount++;
                                                     }

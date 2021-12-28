@@ -1,25 +1,26 @@
 
 package com.example.tumblr4u.ApiData.RetrieveNotes;
 
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Res {
 
-    @SerializedName("messege")
+    @SerializedName("message")
     @Expose
-    private String messege;
+    private String message;
     @SerializedName("notes")
     @Expose
     private List<Note> notes = null;
 
-    public String getMessege() {
-        return messege;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessege(String messege) {
-        this.messege = messege;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public List<Note> getNotes() {

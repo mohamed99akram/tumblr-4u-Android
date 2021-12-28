@@ -102,9 +102,9 @@ public interface ApiInterface {
 
     // ------- Retrieve Notes
 //    @GET("posts/{postId}/notes")
-    @GET("{postId}/notes")
+    @GET("{notesId}/notes")
     Call<NotesResponse> getNotes(@Header("Authorization") String token,
-            @Path("postId") String postId);
+            @Path("notesId") String notesId);
 
     // ---------- Press Like Button --------
     @PUT("{blogId}/{postId}/like_press")
@@ -113,7 +113,7 @@ public interface ApiInterface {
 
     //------ Make Comment ---------
     @PUT("{blogId}/{postId}/comment")
-    Call<CommentResponse> makeComment(@Header("Authorization") String token,
+    Call<String> makeComment(@Header("Authorization") String token,
             @Path("blogId") String blogId, @Path("postId") String postId,
             @Body CommentRequest commentRequest);
 
