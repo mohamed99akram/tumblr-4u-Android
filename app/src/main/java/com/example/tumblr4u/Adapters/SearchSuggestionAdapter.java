@@ -7,14 +7,13 @@ import android.widget.TextView;
 import com.example.tumblr4u.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.tumblr4u.Models.SearchSuggestionItem;
 
 import java.util.ArrayList;
 
-public class searchSuggestionAdapter extends RecyclerView.Adapter<searchSuggestionAdapter.SearchSuggestionHolder> {
+public class SearchSuggestionAdapter extends RecyclerView.Adapter<SearchSuggestionAdapter.SearchSuggestionHolder> {
 
-    private ArrayList<String> mSuggestedData;
+    private ArrayList<SearchSuggestionItem> mSuggestedData;
     @NonNull
     @Override
     public SearchSuggestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -23,16 +22,16 @@ public class searchSuggestionAdapter extends RecyclerView.Adapter<searchSuggesti
 
     @Override
     public void onBindViewHolder(@NonNull SearchSuggestionHolder holder, int position) {
-
+        holder.mSearchData.setText(mSuggestedData.get(position).getData());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mSuggestedData.size();
     }
 
-    public void setData(ArrayList<String> data){
-        mSuggestedData = data;
+    public void setData(ArrayList<SearchSuggestionItem> data){
+        mSuggestedData = data   ;
     }
     public class SearchSuggestionHolder extends RecyclerView.ViewHolder{
 
