@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.tumblr4u.Adapters.SearchSuggestionAdapter;
 import com.example.tumblr4u.Models.SearchSuggestionItem;
@@ -31,6 +32,14 @@ public class SearchSuggestionPageFragment extends Fragment {
         return mRoot;
     }
     private void initViews(){
-        mContainer = (LinearLayout) mRoot.findViewById(R.id.search_suggestions_container);
+        mContainer = (LinearLayout) mRoot.findViewById(R.id.search_suggestions_hash_tags_container);
+    }
+    public void setData(ArrayList<String> data){
+        LinearLayout layout;
+        for(String item: data){
+            layout = (LinearLayout) getLayoutInflater().inflate(R.layout.search_suggestion_recycler_view_element, null);
+            ((TextView)layout.getChildAt(1)).setText(item);
+            mContainer.addView(layout);
+        }
     }
 }
