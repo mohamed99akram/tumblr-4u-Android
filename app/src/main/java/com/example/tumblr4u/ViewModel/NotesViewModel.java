@@ -55,7 +55,13 @@ public class NotesViewModel extends AndroidViewModel {
 //                            List<Note> allNotes =
 //                                    response.body().getRes().getNotes();
         List<Note> allNotes = mPost.getNotes();
+
         List<Comment> tempCommentsList = new ArrayList<>();
+        if(allNotes == null){
+            Log.e(TAG, "allNotes list = null");
+            commentsList.setValue(tempCommentsList);
+            return;
+        }
         for (Note note : allNotes) {
             String noteType = note.getNote().getNoteType();
             if (noteType.equals("comment")) {
