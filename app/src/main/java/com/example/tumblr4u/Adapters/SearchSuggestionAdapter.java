@@ -22,7 +22,7 @@ public class SearchSuggestionAdapter extends RecyclerView.Adapter<SearchSuggesti
 
     @Override
     public void onBindViewHolder(@NonNull SearchSuggestionHolder holder, int position) {
-        holder.mSearchData.setText(mSuggestedData.get(position).getData());
+
     }
 
     @Override

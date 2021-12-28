@@ -1,6 +1,7 @@
 package com.example.tumblr4u.ViewModel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -32,6 +33,7 @@ public class SearchPageViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<SuggestedDataResponse> call, Response<SuggestedDataResponse> response) {
                 ArrayList<String> list = new ArrayList<>();
+                Log.e("response", "hello from the get items");
                 for (String element : response.body().getResultHashTag()) {
                     list.add(element);
                 }
