@@ -168,9 +168,9 @@ public class Repository {
     /**
      * Get Post Notes
      * */
-    public Call<NotesResponse> getNotes(String token, String postId){
+    public Call<NotesResponse> getNotes(String token, String notesId){
         // TODO move Bearer to getToken Method
-        return apiInterface.getNotes("Bearer "+token, postId);
+        return apiInterface.getNotes("Bearer "+token, notesId);
     }
     /**
      * Press Like Button
@@ -182,7 +182,7 @@ public class Repository {
     /**
      * Add new Comment
      * */
-    public Call<CommentResponse> makeComment(String token, String blogId, String postId, String commentText){
+    public Call<String> makeComment(String token, String blogId, String postId, String commentText){
         CommentRequest commentRequest = new CommentRequest(commentText);
         return apiInterface.makeComment("Bearer "+token, blogId, postId, commentRequest);
     }

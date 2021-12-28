@@ -23,10 +23,11 @@ public class Post {
     private String mBlogName;
     private List<Note> mNotes;
     private Data mBlogData;
+    private String mNotesId;
 
     public Post(String postId, String blog_id, String type, String html, List<String> tags,
             int notesCount, int likesCount, int reblogsCount,
-            String blogImageUrl, String blogName, List<Note> notes, Data blogData) {
+            String blogImageUrl, String blogName, List<Note> notes, Data blogData, String notesId) {
         this.mLikesCount = likesCount;// redundant
         this.mReblogsCount = reblogsCount;// redundant
         this.postId = postId;
@@ -39,6 +40,15 @@ public class Post {
         this.mBlogName = blogName;// redundant
         this.mNotes = notes;
         this.mBlogData = blogData;
+        this.mNotesId = notesId;
+    }
+
+    public String getNotesId() {
+        return mNotesId;
+    }
+
+    public void setNotesId(String notesId) {
+        mNotesId = notesId;
     }
 
     public List<Note> getNotes() {

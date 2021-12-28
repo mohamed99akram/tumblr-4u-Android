@@ -36,12 +36,9 @@ public class LikesReblogsViewModel extends AndroidViewModel {
         List<Note> allNotes = mPost.getNotes();
         List<LikeReblog> tempLikeReblogList = new ArrayList<>();
         for (Note note : allNotes) {
-            String noteType = note.getNote().getNoteType();
+            String noteType = note.getNoteType();
             if (noteType.equals("like") || noteType.equals("reblog")) {
-                String currentBlogId = note.getNote().getBlogId();
-                if (currentBlogId == null) {
-                    currentBlogId = note.getNote().getRebloggingId();
-                }
+                String currentBlogId = note.getBlogId();
                 int likeOrReblog = noteType.equals("like") ? LikeReblog.LIKE_TYPE
                         : LikeReblog.REBLOG_TYPE;
                 tempLikeReblogList.add(
