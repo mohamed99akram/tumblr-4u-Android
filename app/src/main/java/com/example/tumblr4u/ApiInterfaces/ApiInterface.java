@@ -15,6 +15,8 @@ import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 
@@ -88,6 +90,10 @@ public interface ApiInterface {
     public Call<UploadImageResponse> uploadImage(@Header("token") String token, @Body
             UploadImageRequest request);
 
+    // --------- Publish Post -------
+    @POST("{blogId}/create_post") // TODO change this
+    public Call<CreatePostResponse> createPost(@Header("Authorization") String token,
+            @Path("blogId") String blogId, @Body CreatePostRequest createPostRequest);
 
     // --------- Retrieve Blog ----------
     @GET("blog/view/{blogId}")
@@ -95,7 +101,8 @@ public interface ApiInterface {
             @Path("blogId") String blogId);
 
     // ------- Retrieve Notes
-    @GET("posts/{postId}/notes")
+//    @GET("posts/{postId}/notes")
+    @GET("{postId}/notes")
     Call<NotesResponse> getNotes(@Header("Authorization") String token,
             @Path("postId") String postId);
 
@@ -104,6 +111,7 @@ public interface ApiInterface {
     Call<String> pressLike(@Header("Authorization") String token, @Path("blogId") String blogId,
             @Path("postId") String postId);
 
+    //------ Make Comment ---------
     @PUT("{blogId}/{postId}/comment")
     Call<CommentResponse> makeComment(@Header("Authorization") String token,
             @Path("blogId") String blogId, @Path("postId") String postId,

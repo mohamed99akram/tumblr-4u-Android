@@ -3,6 +3,7 @@ package com.example.tumblr4u.Fragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment {
                 Gson gson = new Gson();
                 String postJSON = gson.toJson(post);
                 intent.putExtra("postJSON", postJSON);
+                Log.i("HomeFragment", "passed postJSON = "+postJSON);
 //                intent.putExtra("postId", post.getPostId());
 //                intent.putExtra("blogId", post.getBlog_id());
 //                intent.putExtra("notesCount", post.getNotesCount());

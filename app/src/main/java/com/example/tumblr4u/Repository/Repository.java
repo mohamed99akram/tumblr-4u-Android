@@ -12,6 +12,8 @@ import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 import com.example.tumblr4u.ApiInterfaces.ApiInterface;
@@ -149,7 +151,13 @@ public class Repository {
         UploadImageRequest request = new UploadImageRequest(imageBase64);
         return apiInterface.uploadImage(token, request);
     }
-
+    /**
+     * Make Post
+     * */
+    public Call<CreatePostResponse> makePost(String token, String blogId, String postHtml, String postType){
+        CreatePostRequest createPostRequest = new CreatePostRequest();
+        return apiInterface.createPost("Bearer "+token, blogId, createPostRequest);
+    }
     /**
      * Get Blog data
      * */
