@@ -6,7 +6,6 @@ package com.example.tumblr4u.ApiInterfaces;
  */
 
 import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
-import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
@@ -14,6 +13,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
+import com.example.tumblr4u.ApiData.Search.SuggestedDataResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
 import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
@@ -116,5 +116,11 @@ public interface ApiInterface {
     Call<String> makeComment(@Header("Authorization") String token,
             @Path("blogId") String blogId, @Path("postId") String postId,
             @Body CommentRequest commentRequest);
+
+    //------ Search --------
+    @Mock
+    @MockResponse(body = "{\"resultHashTag\":[\"decode\", \"hello\", \"world\"]}")
+    @GET("autoCompleteSearchDash/{wordSearch}")
+    Call<SuggestedDataResponse> getSuggestedItems(@Header("Authorization") String token, @Path("wordSearch") String wordSearch);
 
 }

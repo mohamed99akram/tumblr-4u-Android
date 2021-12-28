@@ -71,7 +71,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                
             }
         });
     }
