@@ -16,4 +16,5 @@
     <string name="Token">Token</string>
     <string name="myBlogId">myBlogId</string>
     <string name="userDetails">userDetails</string>
+    <string name="myBlogName">myBlogName</string>
 </resources>

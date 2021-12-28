@@ -2,6 +2,8 @@ package com.example.tumblr4u.Repository;
 
 import androidx.annotation.NonNull;
 
+import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
+import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
@@ -10,6 +12,8 @@ import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 import com.example.tumblr4u.ApiInterfaces.ApiInterface;
@@ -25,6 +29,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * @author Android Team
@@ -51,6 +56,7 @@ public class Repository {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -145,7 +151,13 @@ public class Repository {
         UploadImageRequest request = new UploadImageRequest(imageBase64);
         return apiInterface.uploadImage(token, request);
     }
-
+    /**
+     * Make Post
+     * */
+    public Call<CreatePostResponse> makePost(String token, String blogId, String postHtml, String postType){
+        CreatePostRequest createPostRequest = new CreatePostRequest();
+        return apiInterface.createPost("Bearer "+token, blogId, createPostRequest);
+    }
     /**
      * Get Blog data
      * */
@@ -156,9 +168,23 @@ public class Repository {
     /**
      * Get Post Notes
      * */
-    public Call<NotesResponse> getNotes(String token, String postId){
+    public Call<NotesResponse> getNotes(String token, String notesId){
         // TODO move Bearer to getToken Method
-        return apiInterface.getNotes("Bearer "+token, postId);
+        return apiInterface.getNotes("Bearer "+token, notesId);
+    }
+    /**
+     * Press Like Button
+     * */
+    public Call<String> pressLike(String token, String blogId, String postId){
+        return apiInterface.pressLike("Bearer "+token, blogId, postId);
+    }
+
+    /**
+     * Add new Comment
+     * */
+    public Call<String> makeComment(String token, String blogId, String postId, String commentText){
+        CommentRequest commentRequest = new CommentRequest(commentText);
+        return apiInterface.makeComment("Bearer "+token, blogId, postId, commentRequest);
     }
 
 }

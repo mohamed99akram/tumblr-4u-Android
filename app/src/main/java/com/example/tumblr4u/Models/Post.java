@@ -1,5 +1,8 @@
 package com.example.tumblr4u.Models;
 
+import com.example.tumblr4u.ApiData.RetrieveBlog.Data;
+import com.example.tumblr4u.ApiData.RetrieveNotes.Note;
+
 import java.util.List;
 
 /**
@@ -18,20 +21,50 @@ public class Post {
     private int mReblogsCount;
     private String mBlogImageUrl;
     private String mBlogName;
+    private List<Note> mNotes;
+    private Data mBlogData;
+    private String mNotesId;
 
     public Post(String postId, String blog_id, String type, String html, List<String> tags,
             int notesCount, int likesCount, int reblogsCount,
-            String blogImageUrl, String blogName) {
-        this.mLikesCount = likesCount;
-        this.mReblogsCount = reblogsCount;
+            String blogImageUrl, String blogName, List<Note> notes, Data blogData, String notesId) {
+        this.mLikesCount = likesCount;// redundant
+        this.mReblogsCount = reblogsCount;// redundant
         this.postId = postId;
-        this.blog_id = blog_id;
+        this.blog_id = blog_id;// redundant
         mType = type;
         mHtml = html;
         this.mTags = tags;
-        this.mNotesCount = notesCount;
+        this.mNotesCount = notesCount; // redundant
         this.mBlogImageUrl = blogImageUrl;
-        this.mBlogName = blogName;
+        this.mBlogName = blogName;// redundant
+        this.mNotes = notes;
+        this.mBlogData = blogData;
+        this.mNotesId = notesId;
+    }
+
+    public String getNotesId() {
+        return mNotesId;
+    }
+
+    public void setNotesId(String notesId) {
+        mNotesId = notesId;
+    }
+
+    public List<Note> getNotes() {
+        return mNotes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        mNotes = notes;
+    }
+
+    public Data getBlogData() {
+        return mBlogData;
+    }
+
+    public void setBlogData(Data blogData) {
+        mBlogData = blogData;
     }
 
     public String getPostId() {

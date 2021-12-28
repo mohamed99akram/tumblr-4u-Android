@@ -91,4 +91,20 @@ public class Prefs {
 //                Application.MODE_PRIVATE
 //        ).getString(application.getString(R.string.Token), "Token");
     }
+    /**
+     * Store my Blog Name
+     * */
+    public static void storeMyBlogName(Application application, String myBlogName) {
+        SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
+        SharedPreferences.Editor edit = userDetails.edit();
+        edit.putString(application.getString(R.string.myBlogName), myBlogName);
+        edit.apply();
+    }
+    /**
+     *
+     * */
+    public static String getMyBlogName(Application application){
+        SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
+        return userDetails.getString(application.getString(R.string.myBlogName),"");
+    }
 }

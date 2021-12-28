@@ -3,6 +3,7 @@ package com.example.tumblr4u.Fragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tumblr4u.Adapters.PostAdapter;
+import com.example.tumblr4u.ApiData.RetrieveNotes.Note;
 import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.View.NotesActivity;
 import com.example.tumblr4u.View.WritePostActivity;
 import com.example.tumblr4u.ViewModel.HomeFragmentViewModel;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -63,17 +66,22 @@ public class HomeFragment extends Fragment {
 //                Toast.makeText(mRoot.getContext(), "Add Comment Pressed", Toast.LENGTH_SHORT)
 //                .show();
                 Intent intent = new Intent(getActivity(), NotesActivity.class);
-                intent.putExtra("postId", post.getPostId());
-                intent.putExtra("blogId", post.getBlog_id());
-                intent.putExtra("notesCount", post.getNotesCount());
-                intent.putExtra("likesCount", post.getLikesCount());
-                intent.putExtra("reblogsCount", post.getReblogsCount());
+                Gson gson = new Gson();
+                String postJSON = gson.toJson(post);
+                intent.putExtra("postJSON", postJSON);
+                Log.i("HomeFragment", "passed postJSON = "+postJSON);
+//                intent.putExtra("postId", post.getPostId());
+//                intent.putExtra("blogId", post.getBlog_id());
+//                intent.putExtra("notesCount", post.getNotesCount());
+//                intent.putExtra("likesCount", post.getLikesCount());
+//                intent.putExtra("reblogsCount", post.getReblogsCount());
                 startActivity(intent);
             }
 
             @Override
             public void onLikeClickListener(Post post) {
                 Toast.makeText(mRoot.getContext(), "Like Pressed", Toast.LENGTH_SHORT).show();
+                mHomeFragmentViewModel.pressLikeButton(post);
             }
 
             @Override

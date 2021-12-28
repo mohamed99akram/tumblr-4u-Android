@@ -5,6 +5,8 @@ package com.example.tumblr4u.ApiInterfaces;
  * @version 1.0
  */
 
+import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
+import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
@@ -13,6 +15,8 @@ import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
 import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 
@@ -86,6 +90,10 @@ public interface ApiInterface {
     public Call<UploadImageResponse> uploadImage(@Header("token") String token, @Body
             UploadImageRequest request);
 
+    // --------- Publish Post -------
+    @POST("{blogId}/create_post") // TODO change this
+    public Call<CreatePostResponse> createPost(@Header("Authorization") String token,
+            @Path("blogId") String blogId, @Body CreatePostRequest createPostRequest);
 
     // --------- Retrieve Blog ----------
     @GET("blog/view/{blogId}")
@@ -93,7 +101,20 @@ public interface ApiInterface {
             @Path("blogId") String blogId);
 
     // ------- Retrieve Notes
-    @GET("posts/{postId}/notes")
+//    @GET("posts/{postId}/notes")
+    @GET("{notesId}/notes")
     Call<NotesResponse> getNotes(@Header("Authorization") String token,
+            @Path("notesId") String notesId);
+
+    // ---------- Press Like Button --------
+    @PUT("{blogId}/{postId}/like_press")
+    Call<String> pressLike(@Header("Authorization") String token, @Path("blogId") String blogId,
             @Path("postId") String postId);
+
+    //------ Make Comment ---------
+    @PUT("{blogId}/{postId}/comment")
+    Call<String> makeComment(@Header("Authorization") String token,
+            @Path("blogId") String blogId, @Path("postId") String postId,
+            @Body CommentRequest commentRequest);
+
 }

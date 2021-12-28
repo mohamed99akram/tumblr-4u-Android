@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tumblr4u.Adapters.CommentsAdapter;
 import com.example.tumblr4u.Models.Comment;
+import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.ViewModel.NotesViewModel;
+import com.google.gson.Gson;
 
 public class NotesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -27,17 +30,27 @@ public class NotesActivity extends AppCompatActivity {
 
         // get data from calling activity (comments button of post)
         Bundle extras = getIntent().getExtras();
+        Post post;
         String postId;
         String blogId;
+        String postJSON;
         int notesCount;
         int likesCount;
         int reblogsCount;
         if (extras != null) {
-            postId = extras.getString("postId");
-            blogId = extras.getString("blogId");
-            notesCount = extras.getInt("notesCount");
-            likesCount = extras.getInt("likesCount");
-            reblogsCount = extras.getInt("reblogsCount");
+            postJSON = extras.getString("postJSON");
+            Gson gson = new Gson();
+            post = gson.fromJson(postJSON, Post.class);
+            postId = post.getPostId();
+            blogId = post.getBlog_id();
+            notesCount = post.getNotesCount();
+            likesCount = post.getLikesCount();
+            reblogsCount = post.getReblogsCount();
+//            postId = extras.getString("postId");
+//            blogId = extras.getString("blogId");
+//            notesCount = extras.getInt("notesCount");
+//            likesCount = extras.getInt("likesCount");
+//            reblogsCount = extras.getInt("reblogsCount");
         } else {
             return;
         }
@@ -53,11 +66,23 @@ public class NotesActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.notes_reblogs_count);
         textView2.setText(reblogsCount + " Reblogs");
 
+        EditText addCommentEditText = findViewById(R.id.notes_add_comment);
+        // Add comment listener
+        findViewById(R.id.reply_button).setOnClickListener(v -> {
+            String commentText = addCommentEditText.getText().toString();
+            if(commentText.isEmpty()){
+            }
+            else{
+                mNotesViewModel.makeComment(post, commentText);
+                addCommentEditText.setText("");
+            }
+        });
         // set on click listener to go to LikesReblogs page
         findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
             Intent intent = new Intent(this, LikesReblogsActivity.class);
-            intent.putExtra("postId", postId);
-            intent.putExtra("notesCount", notesCount);
+//            intent.putExtra("postId", postId);
+//            intent.putExtra("notesCount", notesCount);
+            intent.putExtra("postJSON", postJSON);
             startActivity(intent);
         });
         // prepare recycler view
@@ -84,6 +109,6 @@ public class NotesActivity extends AppCompatActivity {
             findViewById(R.id.notes_progress_bar).setVisibility(View.GONE);
         });
         // get comments of this note
-        mNotesViewModel.getComments(postId);
+        mNotesViewModel.getComments(post);
     }
 }
