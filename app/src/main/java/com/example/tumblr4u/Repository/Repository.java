@@ -160,6 +160,7 @@ public class Repository {
         // TODO move Bearer to getToken Method
         return apiInterface.getNotes("Bearer "+token, postId);
     }
+
 }
 
 /**

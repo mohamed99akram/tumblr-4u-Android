@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.tumblr4u.Adapters.SearchSuggestionAdapter;
 import com.example.tumblr4u.Models.SearchSuggestionItem;
@@ -18,8 +19,7 @@ import java.util.ArrayList;
 public class SearchSuggestionPageFragment extends Fragment {
 
     private View mRoot;
-    private RecyclerView mRecyclerView;
-    private SearchSuggestionAdapter mAdapter;
+    private LinearLayout mContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,11 +31,6 @@ public class SearchSuggestionPageFragment extends Fragment {
         return mRoot;
     }
     private void initViews(){
-        mRecyclerView = (RecyclerView) mRoot.findViewById(R.id.search_suggestion_recycler_view);
-        mAdapter = new SearchSuggestionAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-    }
-    public void setData(ArrayList<SearchSuggestionItem> items){
-        mAdapter.setData(items);
+        mContainer = (LinearLayout) mRoot.findViewById(R.id.search_suggestions_container);
     }
 }

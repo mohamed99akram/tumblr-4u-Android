@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_suggestion_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@color/tumblr_white"
     tools:context=".Fragments.SearchSuggestionPageFragment">
-</androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/search_suggestions_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/search_suggestions_hash_tags_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+        <LinearLayout
+            android:id="@+id/search_suggestions_tumblrs_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_suggestion_tumblrs_container"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_marginLeft="15dp"
+                android:text="Tumblrs"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
