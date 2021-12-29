@@ -77,7 +77,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
-        android:text="Incorrect email address or password. Please try agian"
+        android:text="Incorrect email address or password. Please try again"
         android:textColor="#ff0000"/>
 
 

@@ -4,6 +4,7 @@ package com.example.tumblr4u.Models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 
 import com.example.tumblr4u.R;
@@ -15,6 +16,7 @@ import jp.wasabeef.richeditor.RichEditor;
 public class PostEditor extends PostData {
     private String innerHtml;
     private String mImageBase64;
+
     public PostEditor(int viewType) {
         mViewType = viewType;
         innerHtml = "";
@@ -41,14 +43,15 @@ public class PostEditor extends PostData {
         // https://stackoverflow.com/a/15717721/13742330
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         //TODO PNG? 50 -> 100?
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String mImageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
+        mImageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        mImageBase64 = "data:image/jpeg;base64," + mImageBase64;
         innerHtml = "<html><body><img src='{IMAGE_PLACEHOLDER}' width = \"" + 400
                 + "\"/></body></html>";
         innerHtml = innerHtml.replace("{IMAGE_PLACEHOLDER}",
-                "data:image/jpeg;base64," + mImageBase64);
+                mImageBase64);
+        Log.i("PostEditor", "Chosen imageBase64 = "+mImageBase64);
     }
 
     @Override
@@ -59,5 +62,12 @@ public class PostEditor extends PostData {
     @Override
     public String getData() {
         return innerHtml;
+//        if(mViewType == IMAGE_TYPE){
+//            return mImageBase64;
+//        }
+//        else if(mViewType==TEXT_TYPE){
+//            return innerHtml;
+//        }
+//        return innerHtml;
     }
 }

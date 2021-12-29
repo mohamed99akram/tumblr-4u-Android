@@ -1,22 +1,25 @@
 package com.example.tumblr4u.ApiData.WritePost;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UploadImageRequest {
-    @SerializedName("imageBase64")
+
+    @SerializedName("file")
     @Expose
-    private String imageBase64;
+    private List<String> file = null;
 
-    public UploadImageRequest(String imageBase64) {
-        this.imageBase64 = imageBase64;
+    public UploadImageRequest(List<String> file) {
+        this.file = file;
     }
 
-    public String getImageBase64() {
-        return imageBase64;
+    public List<String> getFile() {
+        return file;
     }
 
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
+    public void setFile(List<String> file) {
+        this.file = file;
     }
+
 }
