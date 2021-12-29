@@ -42,7 +42,7 @@ public class SearchPageViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<SuggestedDataResponse> call, Throwable t) {
-
+                Log.e("failure", "hello from the get items");
             }
         });
     }

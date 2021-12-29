@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -40,6 +41,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         initViews();
         initOnClickListners();
+        initOnChangeListners();
+        initObserver();
 
         // set the fragment manager
         getSupportFragmentManager()
