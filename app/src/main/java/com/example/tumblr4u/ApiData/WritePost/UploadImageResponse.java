@@ -1,31 +1,21 @@
 package com.example.tumblr4u.ApiData.WritePost;
 
-import com.example.tumblr4u.ApiData.Login_Signup.Response;
-import com.example.tumblr4u.ApiData.Meta;
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UploadImageResponse {
-    @SerializedName("meta")
+
+    @SerializedName("images")
     @Expose
-    private Meta meta;
-    @SerializedName("res")
-    @Expose
-    private Response res;
+    private List<String> images = null;
 
-    public Meta getMeta() {
-        return meta;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setMeta(Meta meta) {
-        this.meta = meta;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
-    public Response getRes() {
-        return res;
-    }
-
-    public void setRes(Response res) {
-        this.res = res;
-    }
 }

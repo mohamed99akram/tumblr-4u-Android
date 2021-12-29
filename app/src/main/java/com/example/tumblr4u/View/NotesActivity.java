@@ -77,6 +77,10 @@ public class NotesActivity extends AppCompatActivity {
                 addCommentEditText.setText("");
             }
         });
+        // Add back button click listener
+        findViewById(R.id.notes_back_button).setOnClickListener(v -> {
+            onBackPressed();
+        });
         // set on click listener to go to LikesReblogs page
         findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
             Intent intent = new Intent(this, LikesReblogsActivity.class);
