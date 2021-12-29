@@ -41,6 +41,10 @@ public class LikesReblogsActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+        // On back pressed
+        findViewById(R.id.likes_reblogs_back_button).setOnClickListener(v -> {
+            onBackPressed();
+        });
         TextView textView = findViewById(R.id.notes_count_likes_reblogs_activity);
         textView.setText(notesCount + " notes");
         // prepare recycler view TODO: adapter, listener
