@@ -41,6 +41,7 @@ public class SearchSuggestionPageFragment extends Fragment {
     }
     public void setData(ArrayList<String> data){
         LinearLayout layout;
+        mContainer.removeAllViews();
         for(String item: data){
             layout = (LinearLayout) getLayoutInflater().inflate(R.layout.search_suggestion_recycler_view_element, null);
             ((TextView)layout.getChildAt(1)).setText(item);

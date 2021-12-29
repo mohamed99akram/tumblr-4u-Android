@@ -38,7 +38,7 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
                     final String token;
                     if (response.body() != null) {
                         // TODO store this token somewhere
-                        token = response.body().getResponse().getData();
+                        token = response.body().getResponse().getData().getToken();
                         // Store the token
                         Prefs.storeToken(getApplication(),token);
                     }

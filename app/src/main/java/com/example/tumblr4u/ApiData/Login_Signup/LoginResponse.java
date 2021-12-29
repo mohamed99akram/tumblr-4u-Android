@@ -13,7 +13,7 @@ public class LoginResponse {
     private Meta meta;
     @SerializedName("res")
     @Expose
-    private Response res;
+    private LoginSignupResponse res;
 
     /**
      * Setter of the meta data
@@ -27,7 +27,7 @@ public class LoginResponse {
      * Setter of the response
      * @param response The response of the request
      * */
-    public void setResponse(Response response) {
+    public void setResponse(LoginSignupResponse response) {
         this.res = response;
     }
 
@@ -41,7 +41,7 @@ public class LoginResponse {
     /**
      * Getter of the response data
      * */
-    public Response getResponse() {
+    public LoginSignupResponse getResponse() {
         return res;
     }
 }

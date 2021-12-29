@@ -66,8 +66,8 @@ public class Repository {
 //                .defaultBodyFactory(new ResourceBodyFactory())
                 .build();
 
-        //apiInterface =  retrofit.create(ApiInterface.class);
-          apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+        apiInterface =  retrofit.create(ApiInterface.class);
+        //apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
     /**
