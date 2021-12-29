@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startBackgroundSocketService();
         initBottomNavView();
     }
     /**
@@ -77,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+    private void startBackgroundSocketService(){
+        // Make background service
+        Intent background = new Intent(this, SocketBackgroundService.class);
+        startService(background);
 
     }
 }
