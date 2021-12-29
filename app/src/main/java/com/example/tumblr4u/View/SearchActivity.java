@@ -93,4 +93,10 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+    public void getResultOfWord(String searchWord){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.search_page_fragment_layout, mResultPage, "resultPage")
+                .commit();
+    }
 }
