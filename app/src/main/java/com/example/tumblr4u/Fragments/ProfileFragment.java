@@ -9,9 +9,14 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.tumblr4u.Adapters.ProfilePageAdapter;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.View.WritePostActivity;
+import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -19,7 +24,8 @@ public class ProfileFragment extends Fragment {
 
     private View root;
     private TabLayout mTabLayout;
-    
+    private ViewPager2 mViewPager;
+    private ProfilePageAdapter mAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +35,15 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getActivity(), WritePostActivity.class);
             startActivity(intent);
         });
+
+
+        mTabLayout = (TabLayout) root.findViewById(R.id.profile_tablayout);
+        mViewPager = (ViewPager2) root.findViewById(R.id.profile_view_pager);
+
+        mAdapter = new ProfilePageAdapter(getActivity());
+        mViewPager.setAdapter(mAdapter);
+
+
         return root;
     }
 }
