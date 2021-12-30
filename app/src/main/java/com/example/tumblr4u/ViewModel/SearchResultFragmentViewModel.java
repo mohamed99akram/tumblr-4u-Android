@@ -76,7 +76,7 @@ public class SearchResultFragmentViewModel extends AndroidViewModel {
                                     response.body().getRes().getBlog().getName());
                             */
                             // initialize posts
-
+                            Log.i("search results", response.body().toString());
                             List<PostsToShow> postsToShows =
                                     response.body().getResultPostHashTag();
                             List<Post> tempList = new ArrayList<>();

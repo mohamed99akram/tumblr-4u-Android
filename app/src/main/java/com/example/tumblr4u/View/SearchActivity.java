@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private ImageButton mBackButton;
     private EditText mSearchField;
     private SearchPageViewModel mViewModel;
+    private String mSearchWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,5 +99,9 @@ public class SearchActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.search_page_fragment_layout, mResultPage, "resultPage")
                 .commit();
+        mSearchWord = searchWord;
+    }
+    public String getSearchWord(){
+        return mSearchWord;
     }
 }

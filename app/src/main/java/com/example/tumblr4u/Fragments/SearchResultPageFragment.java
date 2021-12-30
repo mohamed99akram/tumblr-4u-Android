@@ -18,6 +18,7 @@ import com.example.tumblr4u.Adapters.PostAdapter;
 import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.View.NotesActivity;
+import com.example.tumblr4u.View.SearchActivity;
 import com.example.tumblr4u.View.WritePostActivity;
 import com.example.tumblr4u.ViewModel.HomeFragmentViewModel;
 import com.example.tumblr4u.ViewModel.SearchResultFragmentViewModel;
@@ -104,13 +105,17 @@ public class SearchResultPageFragment extends Fragment {
         mSearchResultFragmentViewModel.postsList.observe(getViewLifecycleOwner(),
                 posts -> {
                     adapter.setList(posts);
-                    mRoot.findViewById(R.id.home_fragment_progress_bar).setVisibility(View.GONE);
+                    mRoot.findViewById(R.id.search_result_fragment_progress_bar).setVisibility(View.GONE);
                 });
+
+        // go to the search activity and get the search word
+        getResultOfWord();
 
         return mRoot;
     }
 
-    public void getResultOfWord(String searchWord){
+    public void getResultOfWord(){
+        String searchWord = ((SearchActivity)getActivity()).getSearchWord();
         mSearchResultFragmentViewModel.getResultPosts(searchWord);
     }
 }
