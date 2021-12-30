@@ -4,32 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ProfileFragment"
-    android:orientation="vertical"
-    >
+    android:clipChildren="false"
+    tools:context=".Fragments.ProfileFragment">
 
-    <TextView
-        android:id="@+id/text_profile"
+    <RelativeLayout
+        android:id="@+id/profile_actionBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="profile"/>
+        android:layout_height="250dp"
+        android:clipChildren="false"
+        android:background="@color/profile_color">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:translationY="20dp"
+            android:src="@drawable/tumblr_profile_icon"
+            app:civ_border_color="@color/tumblr_white"
+            app:civ_border_width="5dp" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/profile_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/profile_actionBar"
+        app:tabMode="scrollable"/>
+
+    <FrameLayout
+        android:id="@+id/profile_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/profile_tablayout"/>
+
     <Button
         android:id="@+id/write_post_button_profile_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Write"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
-        />
+        android:text="Write" />
 </RelativeLayout>

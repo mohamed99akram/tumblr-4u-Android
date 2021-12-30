@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.View.WritePostActivity;
+import com.google.android.material.tabs.TabLayout;
 
 
 public class ProfileFragment extends Fragment {
 
     private View root;
+    private TabLayout mTabLayout;
+    
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
