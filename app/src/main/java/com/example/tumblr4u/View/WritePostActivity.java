@@ -100,17 +100,18 @@ public class WritePostActivity extends AppCompatActivity {
      * TODO make sure it is actually async
      * */
     public void setProgressObserver(){
-//        mWritePostViewModel.showProgressBar.observe(this, new Observer<Boolean>() {
-//            @Override
-//            public void onChanged(Boolean aBoolean) {
-//                if(aBoolean){
-//                    findViewById(R.id.write_post_progress_bar).setVisibility(View.VISIBLE);
-//                }
-//                else{
-//                    findViewById(R.id.write_post_progress_bar).setVisibility(View.GONE);
-//                }
-//            }
-//        });
+        mWritePostViewModel.showProgressBar.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    findViewById(R.id.write_post_progress_bar).setVisibility(View.VISIBLE);
+                }
+                else{
+                    findViewById(R.id.write_post_progress_bar).setVisibility(View.GONE);
+                    onBackPressed();
+                }
+            }
+        });
     }
     /**
      * Auxiliary Function to add image button listener that will let the user choose the image to
@@ -196,9 +197,9 @@ public class WritePostActivity extends AppCompatActivity {
         Button publishPostButton = findViewById(R.id.publish_post);
         publishPostButton.setOnClickListener(v -> {
             // TODO: send in the ViewModel & return back when finished
-//            mWritePostViewModel.publishPost();
+            mWritePostViewModel.publishPost();
             Log.i(TAG, "what should be published:" + mWritePostViewModel.getSentHtml());
-            onBackPressed();
+//            onBackPressed();
         });
     }
 

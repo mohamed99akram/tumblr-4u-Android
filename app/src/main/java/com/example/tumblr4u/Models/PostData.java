@@ -13,6 +13,7 @@ import android.view.View;
  */
 public abstract class PostData {
     protected int mViewType;
+    String mData;
     //TODO add itemId (editor_item) protected member
     public static final int IMAGE_TYPE = 1;
     public static final int TEXT_TYPE = 2;

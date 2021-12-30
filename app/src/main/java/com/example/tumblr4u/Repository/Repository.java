@@ -1,5 +1,7 @@
 package com.example.tumblr4u.Repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
@@ -23,10 +25,14 @@ import com.example.tumblr4u.ApiInterfaces.ApiInterface;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import co.infinum.retromock.BodyFactory;
 import co.infinum.retromock.Retromock;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -53,7 +59,11 @@ public class Repository {
     private Repository(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+//                .writeTimeout(5, TimeUnit.MINUTES)
+//                .readTimeout(5, TimeUnit.MINUTES)
+//                .connectTimeout(5, TimeUnit.MINUTES)
+                .addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -139,25 +149,32 @@ public class Repository {
         // TODO move Bearer to getToken Method
         return apiInterface.getHomePosts("Bearer "+token);
     }
-
-    /**
-     *TODO change to Call<publishPRe
-     * */
-    public void publishPost(String token, String blogId, String postHtml, String type){
-
-    }
     /**
      *
      * */
-    public Call<UploadImageResponse> uploadImage(String token, String imageBase64){
-        UploadImageRequest request = new UploadImageRequest(imageBase64);
-        return apiInterface.uploadImage(token, request);
+    public Call<UploadImageResponse> uploadImages(String token, List<String> imagesBase64){
+        UploadImageRequest request = new UploadImageRequest(imagesBase64);
+        return apiInterface.uploadImages("Bearer "+token, request);
+//        MultipartBody.Part fileParts =  MultipartBody.Part.createFormData("file", imagesBase64.get(0));
+//        for(int i = 0; i < fileParts.length; i++){
+//            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
+//        }
+//        return apiInterface.uploadImages("Bearer "+token, fileParts);
+//        MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(
+//                MultipartBody.FORM);
+//        Log.i("Repository", "images count = "+ imagesBase64.size());
+//        for(String img: imagesBase64){
+//            Log.i("Repository", "img = "+img);
+//            requestBodyBuilder.addFormDataPart("file", img);
+//        }
+//        RequestBody requestBody = requestBodyBuilder.build();
+//        return apiInterface.uploadImages("Bearer " + token, requestBody);
     }
     /**
      * Make Post
      * */
-    public Call<CreatePostResponse> makePost(String token, String blogId, String postHtml, String postType){
-        CreatePostRequest createPostRequest = new CreatePostRequest();
+    public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, String tags){
+        CreatePostRequest createPostRequest = new CreatePostRequest(postHtml, postType, state, tags);
         return apiInterface.createPost("Bearer "+token, blogId, createPostRequest);
     }
     /**

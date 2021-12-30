@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tumblr4u.Adapters.PostAdapter;
 import com.example.tumblr4u.ApiData.RetrieveNotes.Note;
@@ -52,6 +53,11 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        // Add listener to refresh page
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)mRoot.findViewById(R.id.swipeContainer);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            mHomeFragmentViewModel.getposts();
+        });
 
         // Prepare Recycler view
         mRecyclerView = mRoot.findViewById(R.id.posts_following);
@@ -124,6 +130,7 @@ public class HomeFragment extends Fragment {
                 posts -> {
                     adapter.setList(posts);
                     mRoot.findViewById(R.id.home_fragment_progress_bar).setVisibility(View.GONE);
+                    swipeRefreshLayout.setRefreshing(false);
                 });
 
         return mRoot;
