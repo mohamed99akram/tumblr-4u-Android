@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.ClipData;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -38,6 +41,7 @@ public class WritePostActivity extends AppCompatActivity {
     private WritePostViewModel mWritePostViewModel;
     WritePostDataAdapter mWritePostDataAdapter;
     private ListView mListView;
+//    private RichEditor mCurrentRichEditor;
     private static final String TAG = "WritePostActivity";
 
     /**
@@ -53,24 +57,32 @@ public class WritePostActivity extends AppCompatActivity {
         addImageButtonListener();
         addClosePostListener();
         addSizeFontButtonListener();
+        addPostButtonListener();
 
         // ViewModel
         ArrayList<PostData> postData = new ArrayList<>();
 
-        mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
-
+//        mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
+        mWritePostViewModel = new ViewModelProvider(this).get(WritePostViewModel.class);
         mWritePostViewModel.init(postData);
 
 
         // listView & adapter
         mWritePostDataAdapter = new WritePostDataAdapter(this, postData);
 
+//        mCurrentRichEditor = (RichEditor) findViewById(R.id.rich_editor);
+//
+//        mCurrentRichEditor.setEditorHeight(200);
+//        mCurrentRichEditor.setEditorFontSize(22);
         mListView = findViewById(R.id.list);
 
-        mListView.setAdapter(mWritePostDataAdapter);
-        mListView.setItemsCanFocus(true);
         // initial editor
         addEditor();
+        mListView.setAdapter(mWritePostDataAdapter);
+        mListView.setItemsCanFocus(true);
+
+        // observer
+        setProgressObserver();
 //        addEditor();
 //        addEditor();
     }
@@ -79,11 +91,28 @@ public class WritePostActivity extends AppCompatActivity {
      * Auxiliary function to add a new Rich Editor to ArrayList and update adapter
      */
     private void addEditor() {
-        mWritePostViewModel.addPostDataToList(new PostEditor(R.layout.editor_list_item));
+        mWritePostViewModel.addPostDataToList(new PostEditor(PostData.TEXT_TYPE));
         mWritePostDataAdapter.notifyDataSetChanged();
     }
 
-
+    /**
+     * show progress bar if publishing post
+     * TODO make sure it is actually async
+     * */
+    public void setProgressObserver(){
+        mWritePostViewModel.showProgressBar.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    findViewById(R.id.write_post_progress_bar).setVisibility(View.VISIBLE);
+                }
+                else{
+                    findViewById(R.id.write_post_progress_bar).setVisibility(View.GONE);
+                    onBackPressed();
+                }
+            }
+        });
+    }
     /**
      * Auxiliary Function to add image button listener that will let the user choose the image to
      * their post
@@ -113,7 +142,11 @@ public class WritePostActivity extends AppCompatActivity {
     private void addSizeFontButtonListener() {
         ImageButton imageButton = findViewById(R.id.text_size_font);
         imageButton.setOnClickListener(v -> {
-            RichEditor currentFocus = getCurrentFocus().findViewById(R.id.editor_item);
+            View cFocus = getCurrentFocus();
+            if(cFocus == null){
+                return;
+            }
+            RichEditor currentFocus = cFocus.findViewById(R.id.editor_item);
 
             // setup the alert builder
             AlertDialog.Builder builder = new AlertDialog.Builder(WritePostActivity.this);
@@ -155,6 +188,18 @@ public class WritePostActivity extends AppCompatActivity {
             // create and show the alert dialog
             AlertDialog dialog = builder.create();
             dialog.show();
+        });
+    }
+    /**
+     * When the user clicks Post Button
+     * */
+    public void addPostButtonListener(){
+        Button publishPostButton = findViewById(R.id.publish_post);
+        publishPostButton.setOnClickListener(v -> {
+            // TODO: send in the ViewModel & return back when finished
+            mWritePostViewModel.publishPost();
+            Log.i(TAG, "what should be published:" + mWritePostViewModel.getSentHtml());
+//            onBackPressed();
         });
     }
 
@@ -232,11 +277,13 @@ public class WritePostActivity extends AppCompatActivity {
     private void attachBitmapsToList(List<Bitmap> bitmaps) {
         for (Bitmap bitmap : bitmaps) {
             mWritePostViewModel.addPostDataToList(
-                    new PostEditor(R.layout.editor_list_item, bitmap));
+                    new PostEditor(bitmap));
             mWritePostDataAdapter.notifyDataSetChanged();
         }
-//        if(!bitmaps.isEmpty()){
-//            addEditor();
-//        }
+//        Log.i(TAG, mWritePostViewModel.getFinalHtml());
+        if(!bitmaps.isEmpty()){
+            addEditor();
+            mWritePostDataAdapter.notifyDataSetChanged();
+        }
     }
 }

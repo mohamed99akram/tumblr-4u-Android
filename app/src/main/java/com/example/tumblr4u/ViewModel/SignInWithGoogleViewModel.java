@@ -1,49 +1,63 @@
 package com.example.tumblr4u.ViewModel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.tumblr4u.ApiData.LoginResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignInWithGoogleViewModel extends ViewModel {
-    public MutableLiveData<Boolean> successfulSignup = new MutableLiveData<>(false);
+public class SignInWithGoogleViewModel extends AndroidViewModel {
+    public MutableLiveData<Boolean> successfulSignIn = new MutableLiveData<>(false);
     private Repository database = Repository.INSTANTIATE();
 
-    public void login(String googleIdToken){
+    public SignInWithGoogleViewModel(@NonNull Application application) {
+        super(application);
+    }
 
-//       // important --------TODO ----- remove this
-//        successfulSignup.setValue(false);
-        Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken );
+    public void login(String googleIdToken) {
 
-        response.enqueue(new Callback<LoginResponse>() {
+        Call<GoogleLoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
+        response.enqueue(new Callback<GoogleLoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<GoogleLoginResponse> call,
+                    Response<GoogleLoginResponse> response) {
 
-                Log.e("SignIn Google", "response code = "+response.code());
-                successfulSignup.setValue(true);
+                Log.e("SignIn Google", "response code = " + response.code());
+                if (response.isSuccessful()) {
+                    String token;
+                    if (response.body() != null) {
+                        token = response.body().getResponse().getData();
 
-                //TODO store this token somehwere
-//                String token = response.body().getResponse().getData();
-//                Log.e("SignIn Google","TOKEN: "+token);
-//
-//                int statusCode = response.code();
-//                if(statusCode >= 200 && statusCode <= 299) {
-//                    successfulSignup.setValue(true);
-//                } else {
-//                    successfulSignup.setValue(false);
-//                }
+                        // ----------- store this token ------------
+                        Prefs.storeToken(getApplication(),token);
+                        Log.i("SignInGoogle","Make sure token is stored: token ="+Prefs.getToken(getApplication()));
+
+                        Log.e("Sign In Google", "Token = " + token);
+                        successfulSignIn.setValue(true);
+                    } else {
+                        successfulSignIn.setValue(false);
+                    }
+                } else {
+                    successfulSignIn.setValue(false);
+                }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
                 Log.e("SignIn Google", t.getMessage());
+                for(StackTraceElement el:t.getStackTrace()){
+                    Log.e("SignInWithGoogle", el.toString());
+                }
             }
         });
     }

@@ -1,40 +1,29 @@
-package com.example.tumblr4u.ApiData;
+package com.example.tumblr4u.ApiData.Login_Signup;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GoogleSignupRequest {
-    @SerializedName("googleToken")
-    @Expose
-    private String googleToken;
 
     @SerializedName("age")
     @Expose
-    private int age;
+    private String age;
 
     @SerializedName("blogName")
     @Expose
     private String blogName;
 
-    public GoogleSignupRequest(String googleToken, int age, String blogName) {
-        this.googleToken = googleToken;
+    public GoogleSignupRequest(String age, String blogName) {
         this.age = age;
         this.blogName = blogName;
     }
 
-    public String getGoogleToken() {
-        return googleToken;
-    }
 
-    public void setGoogleToken(String googleToken) {
-        this.googleToken = googleToken;
-    }
-
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

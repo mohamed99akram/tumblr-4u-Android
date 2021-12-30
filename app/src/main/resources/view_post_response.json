@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "status": 201,
+    "msg": "Successful"
+  },
+  "res": {
+    "message": "Dashboard Got Successfully",
+    "data": [
+      {
+        "_id": "1",
+        "blogId": "1",
+        "postHtml": "<h1>post 1 Mocked</h1>",
+        "type": "link",
+        "state": "published"
+      },
+      {
+        "_id": "2",
+        "blogId": "1",
+        "postHtml": "<h1>post 2 Mocked</h1>",
+        "type": "link",
+        "state": "published"
+      },
+      {
+        "_id": "3",
+        "blogId": "4",
+        "postHtml": "<h1>post 3 Mocked</h1>",
+        "type": "link",
+        "state": "published"
+      },
+      {
+        "_id": "4",
+        "blogId": "3",
+        "postHtml": "<h1>post 4 Mocked</h1>",
+        "type": "link",
+        "state": "published"
+      },
+      {
+        "_id": "5",
+        "blogId": "2",
+        "postHtml": "<h1>post 5 Mocked</h1>",
+        "type": "link",
+        "state": "published"
+      }
+    ]
+  }
+}

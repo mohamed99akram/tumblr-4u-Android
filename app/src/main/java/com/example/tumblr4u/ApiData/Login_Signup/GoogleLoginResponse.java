@@ -1,12 +1,14 @@
-package com.example.tumblr4u.ApiData;
+package com.example.tumblr4u.ApiData.Login_Signup;
 
+import com.example.tumblr4u.ApiData.Login_Signup.NewLoginResponse.Res;
+import com.example.tumblr4u.ApiData.Meta;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * This class is the template for the login response
  * */
-public class LoginResponse {
+public class GoogleLoginResponse {
     @SerializedName("meta")
     @Expose
     private Meta meta;

@@ -76,6 +76,7 @@ public class SignupWithGoogle extends AppCompatActivity {
         });
 
         mBackButton.setOnClickListener(v -> {
+            mGoogleSignInClient.signOut(); // in case signin failed
             Intent authenticationActivity = new Intent(getApplicationContext(),
                     Authentication.class);
             startActivity(authenticationActivity);
@@ -91,6 +92,7 @@ public class SignupWithGoogle extends AppCompatActivity {
             if (!mViewModel.successfulSignup.getValue()) {
 //                Toast.makeText(SignupWithGoogle.this, "unsuccessful signup",
 //                        Toast.LENGTH_SHORT).show();
+                mGoogleSignInClient.signOut();
                 return;
             }
             Intent home = new Intent(getApplicationContext(), MainActivity.class);

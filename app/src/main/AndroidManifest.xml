@@ -2,17 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tumblr4u">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_tumblr_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
+        android:roundIcon="@mipmap/ic_tumblr_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.tumblr4u">
+        android:theme="@style/Theme.tumblr4u"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".View.SearchActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".View.LikesReblogsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.NotesActivity"
+            android:exported="false" />
         <activity
             android:name=".View.FullSignupWithEmail"
             android:exported="false" />
@@ -30,7 +37,7 @@
             android:name=".View.SignupWithGoogle"
             android:exported="false" />
         <activity
-            android:name=".View.Authentication"
+            android:name=".View.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +46,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".View.Authentication"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".View.MainActivity"
             android:exported="false"
             android:label="@string/app_name" />
+        <service
+            android:name=".View.SocketBackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

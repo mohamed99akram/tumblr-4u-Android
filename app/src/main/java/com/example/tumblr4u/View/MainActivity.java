@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startBackgroundSocketService();
         initBottomNavView();
     }
     /**
@@ -57,10 +58,8 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         return true;
                     case R.id.navigation_search:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment_activity_main, searchFragment, "search")
-                                .addToBackStack("search")
-                                .commit();
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.navigation_activity:
                         getSupportFragmentManager().beginTransaction()
@@ -79,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+    private void startBackgroundSocketService(){
+        // Make background service
+        Intent background = new Intent(this, SocketBackgroundService.class);
+        startService(background);
 
     }
 }

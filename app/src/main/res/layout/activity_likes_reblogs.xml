@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tumblr_white"
+    tools:context=".View.LikesReblogsActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/notes_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#161E54">
+        <ImageButton
+            android:id="@+id/likes_reblogs_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="@android:color/transparent" />
+
+        <TextView
+            android:id="@+id/notes_count_likes_reblogs_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:text="1323 notes"
+            android:textColor="@color/tumblr_white"
+            android:layout_marginStart="70dp"
+            android:textSize="18sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:id="@+id/likes_reblogs_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            />
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/likes_reblogs_recycler_view"
+        android:layout_below="@id/notes_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</RelativeLayout>

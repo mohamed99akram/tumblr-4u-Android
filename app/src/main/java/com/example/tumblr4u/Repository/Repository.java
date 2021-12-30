@@ -1,33 +1,44 @@
 package com.example.tumblr4u.Repository;
 
-import android.widget.Toast;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.tumblr4u.ApiData.GoogleLoginRequest;
-import com.example.tumblr4u.ApiData.GoogleSignupRequest;
-import com.example.tumblr4u.ApiData.LoginRequest;
-import com.example.tumblr4u.ApiData.LoginResponse;
-import com.example.tumblr4u.ApiData.SignupRequest;
+import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
+import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
+import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
+import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
+import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
+import com.example.tumblr4u.ApiData.Search.ResultDataResponse;
+import com.example.tumblr4u.ApiData.Search.SuggestedDataResponse;
+import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
+import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
+import com.example.tumblr4u.ApiData.WritePost.UploadImageRequest;
+import com.example.tumblr4u.ApiData.WritePost.UploadImageResponse;
 import com.example.tumblr4u.ApiInterfaces.ApiInterface;
-import com.example.tumblr4u.Models.Post;
-import com.example.tumblr4u.View.LoginWithEmail;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import co.infinum.retromock.BodyFactory;
 import co.infinum.retromock.Retromock;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.Converter.Factory.*;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * @author Android Team
@@ -42,30 +53,23 @@ public class Repository {
     private static Repository INSTANCE = null;
     private ApiInterface apiInterface;
 
-    public MutableLiveData<ArrayList<Post>> requestHolidays() {
-        MutableLiveData<ArrayList<Post>> posts = new MutableLiveData<>();
-        ArrayList<Post> temp = new ArrayList<>();
-        ArrayList<String> imgsUrl = new ArrayList<>();
-        imgsUrl.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        imgsUrl.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        imgsUrl.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        imgsUrl.add("https://i.redd.it/j6myfqglup501.jpg");
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("#banana ");
-        temp.add(new Post(1, "multi_imgs", imgsUrl, "none", "lady gaga eats kaka with donald trump and 4 others", tags));
-        temp.add(new Post(1, "multi_imgs", imgsUrl, "none", "lady gaga eats kaka with donald trump and 4 others", tags));
-        temp.add(new Post(1, "multi_imgs", imgsUrl, "none", "lady gaga eats kaka with donald trump and 4 others", tags));
-        temp.add(new Post(1, "multi_imgs", imgsUrl, "none", "lady gaga eats kaka with donald trump and 4 others", tags));
-        posts.setValue(temp);
-        return posts;
-    }
 
     /**
      * The Constructor of the repository class
      * */
-    public Repository(){
+    private Repository(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -75,7 +79,9 @@ public class Repository {
                 .build();
 
         apiInterface =  retrofit.create(ApiInterface.class);
-//        apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+
+        //apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+
     }
 
     /**
@@ -102,7 +108,7 @@ public class Repository {
     /**
      * Sends a request to the back-end API to sign up
      * @param age The age of the user
-     * @param email The email eddress of the user
+     * @param email The email address of the user
      * @param password A plain text password of the user
      * @param name The user name
      * @return A response from the back-end server as an json class object
@@ -121,9 +127,10 @@ public class Repository {
      *              - server's token will then be used for actions that need authorization
      *              to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseSignupWithGoogle(int age, String name, String token){
-        GoogleSignupRequest request = new GoogleSignupRequest(token, age, name);
-        return apiInterface.googleSignup(request);
+    public Call<GoogleLoginResponse> databaseSignupWithGoogle(String age, String name, String token){
+        GoogleSignupRequest request = new GoogleSignupRequest( age, name);
+        // TODO move Bearer to getToken Method
+        return apiInterface.googleSignup("Bearer "+token, request);
     }
 
     /**
@@ -133,10 +140,89 @@ public class Repository {
      *                      - server's token will then be used for actions that need authorization
      *                      to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
+    public Call<GoogleLoginResponse> databaseLoginWithGoogle(String googleIdToken){
         GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
         return apiInterface.googleLogin(request);
     }
+
+    /**
+     * request home posts
+     * */
+    public Call<HomePostsResponse> requestHomePosts(String token) {
+        // TODO move Bearer to getToken Method
+        return apiInterface.getHomePosts("Bearer "+token);
+    }
+    /**
+     *
+     * */
+    public Call<UploadImageResponse> uploadImages(String token, List<String> imagesBase64){
+//        UploadImageRequest request = new UploadImageRequest(imagesBase64);
+//        return apiInterface.uploadImages("Bearer "+token, request);
+
+//        MultipartBody.Part fileParts =  MultipartBody.Part.createFormData("file", imagesBase64.get(0));
+//        for(int i = 0; i < fileParts.length; i++){
+//            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
+//        }
+
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[imagesBase64.size()];
+        for(int i = 0; i < fileParts.length; i++){
+            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
+        }
+        return apiInterface.uploadImages("Bearer "+token, fileParts);
+//        MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(
+//                MultipartBody.FORM);
+//        Log.i("Repository", "images count = "+ imagesBase64.size());
+//        for(String img: imagesBase64){
+//            Log.i("Repository", "img = "+img);
+//            requestBodyBuilder.addFormDataPart("file", img);
+//        }
+//        RequestBody requestBody = requestBodyBuilder.build();
+//        return apiInterface.uploadImages("Bearer " + token, requestBody);
+    }
+    /**
+     * Make Post
+     * */
+    public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, List<String> tags){
+        CreatePostRequest createPostRequest = new CreatePostRequest(postHtml, postType, state, tags);
+        return apiInterface.createPost("Bearer "+token, blogId, createPostRequest);
+    }
+    /**
+     * Get Blog data
+     * */
+    public Call<BlogResponse> getBlog(String token, String blogId){
+        // TODO move Bearer to getToken Method
+        return apiInterface.getBlog("Bearer "+token, blogId);
+    }
+    /**
+     * Get Post Notes
+     * */
+    public Call<NotesResponse> getNotes(String token, String notesId){
+        // TODO move Bearer to getToken Method
+        return apiInterface.getNotes("Bearer "+token, notesId);
+    }
+    /**
+     * Press Like Button
+     * */
+    public Call<String> pressLike(String token, String blogId, String postId){
+        return apiInterface.pressLike("Bearer "+token, blogId, postId);
+    }
+
+    /**
+     * Add new Comment
+     * */
+    public Call<String> makeComment(String token, String blogId, String postId, String commentText){
+        CommentRequest commentRequest = new CommentRequest(commentText);
+        return apiInterface.makeComment("Bearer "+token, blogId, postId, commentRequest);
+    }
+
+    public Call<SuggestedDataResponse> dataBaseGetSuggestedItems(String token, String searchWord){
+        return apiInterface.getSuggestedItems("Bearer " + token, searchWord);
+    }
+
+    public Call<ResultDataResponse> dataBaseGetResultPosts(String token, String searchWord){
+        return apiInterface.getResultPosts("Bearer" + token, searchWord);
+    }
+
 }
 
 /**
