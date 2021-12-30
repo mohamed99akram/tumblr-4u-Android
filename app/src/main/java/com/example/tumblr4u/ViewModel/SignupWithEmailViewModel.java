@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.GeneralPurpose.Services;
@@ -38,11 +39,11 @@ public class SignupWithEmailViewModel extends AndroidViewModel {
             isValidEmail.setValue(false);
             return;
         }
-        Call<LoginResponse> response = database.databaseSignup(age, email, password, name);
-        response.enqueue(new Callback<LoginResponse>() {
-
+        Call<GoogleLoginResponse> response = database.databaseSignup(age, email, password, name);
+        response.enqueue(new Callback<GoogleLoginResponse>() {
             @Override
-            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
+            public void onResponse(Call<GoogleLoginResponse> call,
+                    Response<GoogleLoginResponse> response) {
 
 //                Log.e("sign up", response.body()!=null?response.body().toString():"null");
 //                int statusCode = response.body().getMeta().getStatus();
@@ -54,7 +55,7 @@ public class SignupWithEmailViewModel extends AndroidViewModel {
                 if (response.isSuccessful()) {
                     String token;
                     if (response.body() != null) {
-                        token = response.body().getResponse().getData().getToken();
+                        token = response.body().getResponse().getData();
 
                         // ----------- store this token ------------
                         Prefs.storeToken(getApplication(),token);
@@ -67,17 +68,11 @@ public class SignupWithEmailViewModel extends AndroidViewModel {
                 } else {
                     successfulSignup.setValue(false);
                 }
-//                int statusCode = response.code();
-//                if(statusCode >= 200 && statusCode <= 299) {
-//                    successfulSignup.setValue(true);
-//                } else {
-//                    successfulSignup.setValue(false);
-//                }
-
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
+
                 Log.e("Sign up", "failed to make the request");
                 Log.e("sign up",t.getMessage());
             }

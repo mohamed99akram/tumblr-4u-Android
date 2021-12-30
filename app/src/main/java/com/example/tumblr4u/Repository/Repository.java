@@ -113,7 +113,7 @@ public class Repository {
      * @param name The user name
      * @return A response from the back-end server as an json class object
      * */
-    public Call<LoginResponse> databaseSignup(String age, String email, String password, String name){
+    public Call<GoogleLoginResponse> databaseSignup(String age, String email, String password, String name){
         SignupRequest request = new SignupRequest(age, email, password, name);
         return apiInterface.Signup(request);
     }
