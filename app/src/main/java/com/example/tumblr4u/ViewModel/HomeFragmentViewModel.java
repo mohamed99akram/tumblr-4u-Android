@@ -18,6 +18,9 @@ import com.example.tumblr4u.R;
 import com.example.tumblr4u.Repository.Repository;
 import com.example.tumblr4u.Models.Post;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -191,10 +194,14 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         try {
             Socket mSocket = IO.socket("http://tumblr4u.eastus.cloudapp.azure.com:5000/");
             String postId = post.getPostId();
-            String sentPostIdJSON = "{ \"postId\":\""+postId+"\"}";
-            Log.i(TAG, sentPostIdJSON);
-            mSocket.emit("like", sentPostIdJSON);
-        } catch (URISyntaxException e) {
+            JSONObject jsonObject = new JSONObject().put("postId", postId);
+            Log.i(TAG, jsonObject.toString());
+            mSocket.emit("like", jsonObject);
+            mSocket.connect();
+//            String sentPostIdJSON = "{ \"postId\":\""+postId+"\"}";
+//            Log.i(TAG, sentPostIdJSON);
+//            mSocket.emit("like", sentPostIdJSON);
+        } catch (URISyntaxException | JSONException e) {
             e.printStackTrace();
         }
         // ---------- send request -------------
