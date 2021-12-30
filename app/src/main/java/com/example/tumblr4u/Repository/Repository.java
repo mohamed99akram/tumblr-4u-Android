@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
 import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
@@ -60,9 +61,9 @@ public class Repository {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
-//                .writeTimeout(5, TimeUnit.MINUTES)
-//                .readTimeout(5, TimeUnit.MINUTES)
-//                .connectTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .connectTimeout(5, TimeUnit.MINUTES)
                 .addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -78,7 +79,9 @@ public class Repository {
                 .build();
 
         apiInterface =  retrofit.create(ApiInterface.class);
+
         //apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+
     }
 
     /**
@@ -124,7 +127,7 @@ public class Repository {
      *              - server's token will then be used for actions that need authorization
      *              to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseSignupWithGoogle(String age, String name, String token){
+    public Call<GoogleLoginResponse> databaseSignupWithGoogle(String age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest( age, name);
         // TODO move Bearer to getToken Method
         return apiInterface.googleSignup("Bearer "+token, request);
@@ -137,7 +140,7 @@ public class Repository {
      *                      - server's token will then be used for actions that need authorization
      *                      to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
+    public Call<GoogleLoginResponse> databaseLoginWithGoogle(String googleIdToken){
         GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
         return apiInterface.googleLogin(request);
     }
@@ -153,13 +156,19 @@ public class Repository {
      *
      * */
     public Call<UploadImageResponse> uploadImages(String token, List<String> imagesBase64){
-        UploadImageRequest request = new UploadImageRequest(imagesBase64);
-        return apiInterface.uploadImages("Bearer "+token, request);
+//        UploadImageRequest request = new UploadImageRequest(imagesBase64);
+//        return apiInterface.uploadImages("Bearer "+token, request);
+
 //        MultipartBody.Part fileParts =  MultipartBody.Part.createFormData("file", imagesBase64.get(0));
 //        for(int i = 0; i < fileParts.length; i++){
 //            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
 //        }
-//        return apiInterface.uploadImages("Bearer "+token, fileParts);
+
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[imagesBase64.size()];
+        for(int i = 0; i < fileParts.length; i++){
+            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
+        }
+        return apiInterface.uploadImages("Bearer "+token, fileParts);
 //        MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(
 //                MultipartBody.FORM);
 //        Log.i("Repository", "images count = "+ imagesBase64.size());
@@ -173,7 +182,7 @@ public class Repository {
     /**
      * Make Post
      * */
-    public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, String tags){
+    public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, List<String> tags){
         CreatePostRequest createPostRequest = new CreatePostRequest(postHtml, postType, state, tags);
         return apiInterface.createPost("Bearer "+token, blogId, createPostRequest);
     }

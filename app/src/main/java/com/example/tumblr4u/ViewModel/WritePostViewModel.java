@@ -104,7 +104,9 @@ public class WritePostViewModel extends AndroidViewModel {
         List<String> imagesBase64 = new ArrayList<>();
         for (PostData postData : mPostData) {
             if (postData.getViewType() == PostData.IMAGE_TYPE) {
-                imagesBase64.add(((PostEditor) postData).getImageBase64());
+                imagesBase64.add(
+                        ((PostEditor) postData).getImageBase64().replace("\n", "").replace("\r",
+                                ""));
 //                imagesBase64.add((String)postData.getData());
             }
         }
@@ -135,28 +137,35 @@ public class WritePostViewModel extends AndroidViewModel {
             // form the sent html
             int counter = 0;
             StringBuilder sentHtml = new StringBuilder();
+            boolean trueHtml = true;
             for (PostData postData : mPostData) {
                 if (postData.getViewType() == PostData.TEXT_TYPE) {
                     sentHtml.append((String) postData.getData());
                     sentHtml.append("<br>");
                 } else if (postData.getViewType() == PostData.IMAGE_TYPE) {
-                    String templateHtml = "<img src=\"{IMAGE_LINK}\" alt=\"\">";
+                    String templateHtml = "<img src=\"{IMAGE_LINK}\" alt=\"\" width=\"400\">";
                     if (counter < imagesUrls.size()) {
                         String tempImageLink = (String) imagesUrls.get(counter++);
                         sentHtml.append(templateHtml.replace("{IMAGE_LINK}", tempImageLink));
-                        sentHtml.append("<br>");
                     } else {
+                        trueHtml = false;
 //                        sentHtml.append(templateHtml.replace("{IMAGE_LINK}",
 //                                "https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25"
 //                                        + "-Salsburg_Liverpool-83.jpg.jpg"));
-                        sentHtml.append((String)postData.getData());
-                        sentHtml.append("<br>");
+                        sentHtml.append("failed image here");
+//                        sentHtml.append((String)postData.getData());
                     }
+                    sentHtml.append("<br>");
                 }
+            }
+            if (!trueHtml) {
+                Log.i(TAG, "intended html:" + sentHtml.toString());
+                return;
             }
             Log.i(TAG, "Post = " + sentHtml);
             // publish post here
             try {
+                List<String> tags = new ArrayList<>();
                 Response<String> createPostResponse =
                         mRepo.createPost(
                                 Prefs.getToken(getApplication()),
@@ -164,7 +173,7 @@ public class WritePostViewModel extends AndroidViewModel {
                                 sentHtml.toString(),
                                 "text",
                                 "published",
-                                "cmp"
+                                tags
                         ).execute();
                 mSentHtml = sentHtml.toString();
                 if (createPostResponse.isSuccessful()) {

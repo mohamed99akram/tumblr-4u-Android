@@ -67,6 +67,11 @@ dependencies {
     // reload page
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
+    // SocketIO
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
+
     // testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
     testImplementation 'org.junit.jupiter:junit-jupiter'

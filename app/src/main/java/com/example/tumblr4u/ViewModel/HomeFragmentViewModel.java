@@ -14,13 +14,17 @@ import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.ViewPost.PostsToShow;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
+import com.example.tumblr4u.R;
 import com.example.tumblr4u.Repository.Repository;
 import com.example.tumblr4u.Models.Post;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -183,6 +187,17 @@ public class HomeFragmentViewModel extends AndroidViewModel {
     }
 
     public void pressLikeButton(Post post) {
+        // ---------- emit like to socket ---------
+        try {
+            Socket mSocket = IO.socket("http://tumblr4u.eastus.cloudapp.azure.com:5000/");
+            String postId = post.getPostId();
+            String sentPostIdJSON = "{ \"postId\":\""+postId+"\"}";
+            Log.i(TAG, sentPostIdJSON);
+            mSocket.emit("like", sentPostIdJSON);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        // ---------- send request -------------
         repository.pressLike(Prefs.getToken(getApplication()), Prefs.getMyBlogId(getApplication()),
                 post.getPostId()).enqueue(new Callback<String>() {
             @Override

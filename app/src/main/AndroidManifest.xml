@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tumblr4u">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_tumblr_foreground"
@@ -16,6 +13,7 @@
         <activity
             android:name=".View.SearchActivity"
             android:exported="false" />
+
         <activity
             android:name=".View.LikesReblogsActivity"
             android:exported="false" />
@@ -56,6 +54,13 @@
             android:name=".View.MainActivity"
             android:exported="false"
             android:label="@string/app_name" />
+        <service
+            android:name=".View.SocketBackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
