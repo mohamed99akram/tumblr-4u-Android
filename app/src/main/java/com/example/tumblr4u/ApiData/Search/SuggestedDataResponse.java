@@ -3,12 +3,14 @@ package com.example.tumblr4u.ApiData.Search;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class SuggestedDataResponse {
     @SerializedName("resultHashTag")
     @Expose
-    private String [] resultHashTag;
+    private List<String> resultHashTag;
 
-    public String[] getResultHashTag(){
+    public List<String> getResultHashTag(){
         return resultHashTag;
     }
 

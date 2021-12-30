@@ -42,7 +42,7 @@ import retrofit2.http.Path;
 public interface ApiInterface {
     @Mock
     @MockResponse(body = "{\"meta\":{\"status\":200, \"msg\": \"CREATED\"}, "
-            + "\"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
+            + "\"res\":{\"message\":\"sign up successfully\", \"data\": {\"token\":\"dlkajdsflkj\"}}}")
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")
     @POST("login")
     public Call<LoginResponse> Login(@Body LoginRequest request);

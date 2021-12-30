@@ -25,6 +25,7 @@ public class SearchSuggestionPageFragment extends Fragment {
     private View mRoot;
     private LinearLayout mContainer;
     private SearchActivity mSearchActivity;
+    private boolean mIsEmptySearchField = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,16 +33,16 @@ public class SearchSuggestionPageFragment extends Fragment {
         // Inflate the layout for this fragment
         mRoot = inflater.inflate(R.layout.fragment_search_suggestion_page, container, false);
         initViews();
-        mSearchActivity = (SearchActivity) getActivity();
 
         return mRoot;
     }
     private void initViews(){
         mContainer = (LinearLayout) mRoot.findViewById(R.id.search_suggestions_hash_tags_container);
+        mSearchActivity = (SearchActivity) getActivity();
     }
     public void setData(ArrayList<String> data){
+        removeContainerChild();
         LinearLayout layout;
-        mContainer.removeAllViews();
         for(String item: data){
             layout = (LinearLayout) getLayoutInflater().inflate(R.layout.search_suggestion_recycler_view_element, null);
             ((TextView)layout.getChildAt(1)).setText(item);
@@ -55,4 +56,8 @@ public class SearchSuggestionPageFragment extends Fragment {
             mContainer.addView(layout);
         }
     }
+    public void removeContainerChild(){
+        mContainer.removeAllViews();
+    }
+    public void setIsEmptySearchField(boolean flag){mIsEmptySearchField = flag;}
 }

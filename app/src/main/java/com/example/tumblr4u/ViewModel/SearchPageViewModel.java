@@ -28,12 +28,13 @@ public class SearchPageViewModel extends AndroidViewModel {
     }
 
     public void getSuggestedItems(String searchWord){
-        Call<SuggestedDataResponse> response =  dataBase.dataBaseGetSuggestedItems("kajsdlfjl", searchWord);
+        Call<SuggestedDataResponse> response =  dataBase.dataBaseGetSuggestedItems(Prefs.getToken(getApplication()), searchWord);
         response.enqueue(new Callback<SuggestedDataResponse>() {
+
             @Override
             public void onResponse(Call<SuggestedDataResponse> call, Response<SuggestedDataResponse> response) {
                 ArrayList<String> list = new ArrayList<>();
-                Log.e("response", "hello from the get items");
+                Log.e("string", response.body().toString());
                 for (String element : response.body().getResultHashTag()) {
                     list.add(element);
                 }
@@ -42,9 +43,7 @@ public class SearchPageViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<SuggestedDataResponse> call, Throwable t) {
-                Log.e("failure", "hello from the get items");
             }
         });
     }
-
 }
