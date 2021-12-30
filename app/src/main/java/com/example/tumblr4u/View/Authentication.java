@@ -13,9 +13,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class Authentication extends AppCompatActivity {
     private LinearLayout mSignupButtons;
     private LinearLayout mLoginButtons;
     private LinearLayout mAuthenticationButtons;
+    private ImageView mLandingPage;
 
     // sign in with google
     int RC_SIGN_IN = 0; // request code of the intent
@@ -100,6 +103,7 @@ public class Authentication extends AppCompatActivity {
         mSignupButtons = (LinearLayout) findViewById(R.id.signup_buttons);
         mLoginButtons = (LinearLayout) findViewById(R.id.login_buttons);
         mAuthenticationButtons = (LinearLayout) findViewById(R.id.authentication_buttons);
+        mLandingPage = (ImageView) findViewById(R.id.landing_page);
 
         mDotsIndicator = (SpringDotsIndicator) findViewById(R.id.authentication_dots_indicator);
         mViewPager = (ViewPager2) findViewById(R.id.login_viewPager);
