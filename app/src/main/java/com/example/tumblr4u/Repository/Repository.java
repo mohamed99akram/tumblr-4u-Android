@@ -59,9 +59,9 @@ public class Repository {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
-//                .writeTimeout(5, TimeUnit.MINUTES)
-//                .readTimeout(5, TimeUnit.MINUTES)
-//                .connectTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .connectTimeout(5, TimeUnit.MINUTES)
                 .addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()

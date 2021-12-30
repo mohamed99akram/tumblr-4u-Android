@@ -190,7 +190,10 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         // ---------- emit like to socket ---------
         try {
             Socket mSocket = IO.socket("http://tumblr4u.eastus.cloudapp.azure.com:5000/");
-            mSocket.emit("like", post.getPostId());
+            String postId = post.getPostId();
+            String sentPostIdJSON = "{ \"postId\":\""+postId+"\"}";
+            Log.i(TAG, sentPostIdJSON);
+            mSocket.emit("like", sentPostIdJSON);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

@@ -100,7 +100,10 @@ public class SocketBackgroundService extends Service {
         });
         mSocket.connect();
         // ----------- socket emit trial ------------
-        mSocket.emit("join-room", Prefs.getToken(getApplication()));
+        String token = Prefs.getToken(getApplication());
+        String sentTokenJSON = "{\"token\":\""+token+"\"}";
+        Log.i(TAG, sentTokenJSON);
+        mSocket.emit("join-room", sentTokenJSON);
     }
 
     private Runnable myTask = new Runnable() {
