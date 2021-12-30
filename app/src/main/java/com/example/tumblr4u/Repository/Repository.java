@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
 import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
@@ -75,8 +76,8 @@ public class Repository {
 //                .defaultBodyFactory(new ResourceBodyFactory())
                 .build();
 
-        //apiInterface =  retrofit.create(ApiInterface.class);
-          apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
+        apiInterface =  retrofit.create(ApiInterface.class);
+//          apiInterface = retromock.create(ApiInterface.class); // FOR TESTING
     }
 
     /**
@@ -122,7 +123,7 @@ public class Repository {
      *              - server's token will then be used for actions that need authorization
      *              to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseSignupWithGoogle(String age, String name, String token){
+    public Call<GoogleLoginResponse> databaseSignupWithGoogle(String age, String name, String token){
         GoogleSignupRequest request = new GoogleSignupRequest( age, name);
         // TODO move Bearer to getToken Method
         return apiInterface.googleSignup("Bearer "+token, request);
@@ -135,7 +136,7 @@ public class Repository {
      *                      - server's token will then be used for actions that need authorization
      *                      to check that the user can have access to some resource
      * */
-    public Call<LoginResponse> databaseLoginWithGoogle(String googleIdToken){
+    public Call<GoogleLoginResponse> databaseLoginWithGoogle(String googleIdToken){
         GoogleLoginRequest request = new GoogleLoginRequest(googleIdToken);
         return apiInterface.googleLogin(request);
     }

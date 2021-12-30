@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
@@ -27,12 +28,11 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
 
     public void signup(String age, String name, String googleIdToken) {
 
-        Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
-
-        response.enqueue(new Callback<LoginResponse>() {
+        Call<GoogleLoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
+        response.enqueue(new Callback<GoogleLoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
+            public void onResponse(Call<GoogleLoginResponse> call,
+                    Response<GoogleLoginResponse> response) {
                 Log.i("SignUp Google", "response code:" + response.code());
                 if (response.isSuccessful()) {
                     final String token;
@@ -48,14 +48,12 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
                     Log.i("SignUp Google", "TOKEN: " + token);
                     Log.i("SignUp Google",
                             "message = " + response.body().getResponse().getMessage());
-
-                    //------------------- inner request ---------------
-                    Call<LoginResponse> response2 = database.databaseSignupWithGoogle(age, name,
-                            token);
-                    response2.enqueue(new Callback<LoginResponse>() {
+                    // ------------------ inner request ----------
+                    Call<GoogleLoginResponse> response2 = database.databaseSignupWithGoogle(age, name, token);
+                    response2.enqueue(new Callback<GoogleLoginResponse>() {
                         @Override
-                        public void onResponse(Call<LoginResponse> call,
-                                Response<LoginResponse> response) {
+                        public void onResponse(Call<GoogleLoginResponse> call,
+                                Response<GoogleLoginResponse> response) {
                             if (response.isSuccessful()) {
                                 successfulSignup.setValue(true);
                                 Log.i("SignUp Google",
@@ -72,7 +70,7 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
                         }
 
                         @Override
-                        public void onFailure(Call<LoginResponse> call, Throwable t) {
+                        public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
                             Log.e("Sign Up Google (inner)", t.getMessage());
                         }
                     });
@@ -82,7 +80,7 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
                 Log.e("SignUp Google (outer)", t.getMessage());
             }
         });

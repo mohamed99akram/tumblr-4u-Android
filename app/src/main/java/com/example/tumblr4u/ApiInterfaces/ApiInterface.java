@@ -8,6 +8,7 @@ package com.example.tumblr4u.ApiInterfaces;
 import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
 import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
@@ -60,7 +61,7 @@ public interface ApiInterface {
             + "\"res\":{\"message\":\"sign up successfully\", \"data\": \"YourToken\"}}")
 //    @Headers({"authorization: Bearer token"})
     @PUT("/google/info")
-    public Call<LoginResponse> googleSignup(@Header("Authorization") String token,
+    public Call<GoogleLoginResponse> googleSignup(@Header("Authorization") String token,
             @Body GoogleSignupRequest request);
 
     @Mock
@@ -69,7 +70,7 @@ public interface ApiInterface {
             + "\"res\":{\"message\":\"sign up successfully\", \"data\": \"YourToken\"}}")
 
     @POST("androidSignUpWithGoogle")
-    public Call<LoginResponse> googleLogin(@Body GoogleLoginRequest request);
+    public Call<GoogleLoginResponse> googleLogin(@Body GoogleLoginRequest request);
 
 
     // ----------------- Home Posts --------------

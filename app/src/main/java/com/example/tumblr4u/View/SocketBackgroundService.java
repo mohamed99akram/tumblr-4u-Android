@@ -31,6 +31,17 @@ public class SocketBackgroundService extends Service {
         try {
             // TODO change URL
             mSocket = IO.socket("http://tumblr4u.eastus.cloudapp.azure.com:5000/");
+            mSocket.on(Socket.EVENT_CONNECT, args -> {
+                Log.i(TAG, "event connect triggered");
+                addNotification("socket", "connected");
+            });
+            mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+               Log.i(TAG, "error connecting to socket");
+            });
+            mSocket.on(Socket.EVENT_DISCONNECT, args -> {
+               Log.i(TAG, "Socket disconnected");
+            });
+            mSocket.connect();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -53,20 +64,19 @@ public class SocketBackgroundService extends Service {
         mSocket.on("new message", args -> {
             addNotification("new message", "action happened");
         });
-        mSocket.connect();
 
     }
     private Runnable myTask = new Runnable() {
         @Override
         public void run() {
             Log.i(TAG, "Socket background service is running");
-            if(mSocket.connected()){
-                addNotification("socket", "connected");
-                Log.i(TAG, "connected to socket successfully");
-            }
-            else{
-                Log.i(TAG, "Connection not true");
-            }
+//            if(mSocket.connected()){
+//                addNotification("socket", "connected");
+//                Log.i(TAG, "connected to socket successfully");
+//            }
+//            else{
+//                Log.i(TAG, "Connection not true");
+//            }
 //            addNotification("Socket", "background service started");
         }
     };

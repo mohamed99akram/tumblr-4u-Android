@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.Repository.Repository;
@@ -25,11 +26,11 @@ public class SignInWithGoogleViewModel extends AndroidViewModel {
 
     public void login(String googleIdToken) {
 
-        Call<LoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
-
-        response.enqueue(new Callback<LoginResponse>() {
+        Call<GoogleLoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);
+        response.enqueue(new Callback<GoogleLoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<GoogleLoginResponse> call,
+                    Response<GoogleLoginResponse> response) {
 
                 Log.e("SignIn Google", "response code = " + response.code());
                 if (response.isSuccessful()) {
@@ -52,8 +53,11 @@ public class SignInWithGoogleViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<GoogleLoginResponse> call, Throwable t) {
                 Log.e("SignIn Google", t.getMessage());
+                for(StackTraceElement el:t.getStackTrace()){
+                    Log.e("SignInWithGoogle", el.toString());
+                }
             }
         });
     }
