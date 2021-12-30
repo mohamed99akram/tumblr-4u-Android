@@ -6,7 +6,6 @@ package com.example.tumblr4u.ApiInterfaces;
  */
 
 import com.example.tumblr4u.ApiData.AddComment.CommentRequest;
-import com.example.tumblr4u.ApiData.AddComment.CommentResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginRequest;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleLoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.GoogleSignupRequest;
@@ -15,6 +14,8 @@ import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
+import com.example.tumblr4u.ApiData.Search.ResultDataResponse;
+import com.example.tumblr4u.ApiData.Search.SuggestedDataResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
 import com.example.tumblr4u.ApiData.WritePost.CreatePostResponse;
@@ -42,7 +43,7 @@ import retrofit2.http.Path;
 public interface ApiInterface {
     @Mock
     @MockResponse(body = "{\"meta\":{\"status\":200, \"msg\": \"CREATED\"}, "
-            + "\"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
+            + "\"res\":{\"message\":\"sign up successfully\", \"data\": {\"token\":\"dlkajdsflkj\"}}}")
 //    @MockResponse(bodyFactory = ResourceBodyFactory.class, body = "google_login_response.json")
     @POST("login")
     public Call<LoginResponse> Login(@Body LoginRequest request);
@@ -129,4 +130,12 @@ public interface ApiInterface {
             @Path("blogId") String blogId, @Path("postId") String postId,
             @Body CommentRequest commentRequest);
 
+    //------ Search --------
+    @Mock
+    @MockResponse(body = "{\"resultHashTag\":[\"decode\", \"hello\", \"world\"]}")
+    @GET("autoCompleteSearchDash/{wordSearch}")
+    Call<SuggestedDataResponse> getSuggestedItems(@Header("Authorization") String token, @Path("wordSearch") String wordSearch);
+
+    @GET("autoCompleteSearchDash/{wordSearch}")
+    Call<ResultDataResponse> getResultPosts(@Header("Authorization") String token, @Path("wordSearch") String wordSearch);
 }

@@ -20,6 +20,7 @@
         android:layout_marginTop="200dp"
         android:text="@string/header_text"
         android:textSize="70sp"
+        android:textColor="@color/tumblr_white"
         android:textStyle="bold"/>
 
     <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator

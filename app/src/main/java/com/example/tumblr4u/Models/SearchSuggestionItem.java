@@ -1,12 +1,12 @@
 package com.example.tumblr4u.Models;
 
-public class SearchSuggestionItem {
-    private String Data;
+import java.util.ArrayList;
 
-    public String getData(){
-        return Data;
-    }
-    public void setData(String data){
-        this.Data = data;
+public class SearchSuggestionItem {
+    private ArrayList<String> suggestedWords;
+
+    public ArrayList<String> getData(){ return suggestedWords; }
+    public void setData(ArrayList<String> data){
+        this.suggestedWords = data;
     }
 }

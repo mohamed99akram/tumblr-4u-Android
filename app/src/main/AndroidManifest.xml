@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_tumblr_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_tumblr_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.tumblr4u"
         android:usesCleartextTraffic="true">
@@ -37,13 +37,18 @@
             android:name=".View.SignupWithGoogle"
             android:exported="false" />
         <activity
-            android:name=".View.Authentication"
+            android:name=".View.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".View.Authentication"
+            android:exported="false">
+
         </activity>
         <activity
             android:name=".View.MainActivity"
