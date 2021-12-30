@@ -152,13 +152,19 @@ public class Repository {
      *
      * */
     public Call<UploadImageResponse> uploadImages(String token, List<String> imagesBase64){
-        UploadImageRequest request = new UploadImageRequest(imagesBase64);
-        return apiInterface.uploadImages("Bearer "+token, request);
+//        UploadImageRequest request = new UploadImageRequest(imagesBase64);
+//        return apiInterface.uploadImages("Bearer "+token, request);
+
 //        MultipartBody.Part fileParts =  MultipartBody.Part.createFormData("file", imagesBase64.get(0));
 //        for(int i = 0; i < fileParts.length; i++){
 //            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
 //        }
-//        return apiInterface.uploadImages("Bearer "+token, fileParts);
+
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[imagesBase64.size()];
+        for(int i = 0; i < fileParts.length; i++){
+            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
+        }
+        return apiInterface.uploadImages("Bearer "+token, fileParts);
 //        MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(
 //                MultipartBody.FORM);
 //        Log.i("Repository", "images count = "+ imagesBase64.size());
@@ -172,7 +178,7 @@ public class Repository {
     /**
      * Make Post
      * */
-    public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, String tags){
+    public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, List<String> tags){
         CreatePostRequest createPostRequest = new CreatePostRequest(postHtml, postType, state, tags);
         return apiInterface.createPost("Bearer "+token, blogId, createPostRequest);
     }

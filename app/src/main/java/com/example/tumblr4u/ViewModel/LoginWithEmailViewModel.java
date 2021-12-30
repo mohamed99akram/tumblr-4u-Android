@@ -12,6 +12,10 @@ import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.GeneralPurpose.Services;
 import com.example.tumblr4u.Repository.Repository;
 
+import java.net.URISyntaxException;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,6 +65,16 @@ public class LoginWithEmailViewModel extends AndroidViewModel {
 
                         // ----------- store this token ------------
                         Prefs.storeToken(getApplication(),token);
+
+//                        // ----------- socket trial ------------
+//                        try {
+//                            Socket mSocket = IO.socket("http://tumblr4u.eastus.cloudapp.azure"
+//                                        + ".com:5000/");
+//                            mSocket.emit("join-room", token);
+//                        } catch (URISyntaxException e) {
+//                            e.printStackTrace();
+//                        }
+
 
                         Log.i("LoginEmail", token);
                         isValidEmailAndPassword.setValue(true);

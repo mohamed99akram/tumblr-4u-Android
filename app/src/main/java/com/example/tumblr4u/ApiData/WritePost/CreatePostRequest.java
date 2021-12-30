@@ -17,10 +17,10 @@ public class CreatePostRequest {
     private String state;
     @SerializedName("tags")
     @Expose
-    private String tags = null;
+    private List<String> tags = null;
 
     public CreatePostRequest(String postHtml, String type, String state,
-            String tags) {
+            List<String> tags) {
         this.postHtml = postHtml;
         this.type = type;
         this.state = state;
@@ -51,11 +51,11 @@ public class CreatePostRequest {
         this.state = state;
     }
 
-    public String getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

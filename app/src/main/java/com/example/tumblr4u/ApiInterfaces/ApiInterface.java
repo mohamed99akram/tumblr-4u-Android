@@ -92,13 +92,13 @@ public interface ApiInterface {
             + ".com/wp-content/uploads/2020/08/P2020-08-25-Salsburg_Liverpool-83.jpg.jpg\"\n"
             + "  }\n"
             + "}")
-    @POST("uploadImg")
-    public Call<UploadImageResponse> uploadImages(@Header("token") String token,
-            @Body UploadImageRequest request);
-//    @Multipart
-//    @POST("uploadImg")// TODO change to ResponseBody
-//    public Call<UploadImageResponse> uploadImages(@Header("Authorization")String token, @Part
-//            MultipartBody.Part fileParts);
+//    @POST("uploadImg")
+//    public Call<UploadImageResponse> uploadImages(@Header("Authorization") String token,
+//            @Body UploadImageRequest request);
+    @Multipart
+    @POST("uploadImg")// TODO change to ResponseBody
+    public Call<UploadImageResponse> uploadImages(@Header("Authorization")String token, @Part
+            MultipartBody.Part[] fileParts);
 //    public Call<UploadImageResponse> uploadImages(@Header("Authorization") String token, @Part("file")
 //            RequestBody body);
 

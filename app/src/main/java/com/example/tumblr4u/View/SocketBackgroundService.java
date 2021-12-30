@@ -14,38 +14,33 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.R;
+
+import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
-// https://stackoverflow.com/questions/40603404/how-to-handle-socket-events-as-background-service-in-android
+// https://stackoverflow.com/questions/40603404/how-to-handle-socket-events-as-background-service
+// -in-android
 public class SocketBackgroundService extends Service {
     private boolean isRunning;
     private Thread backgroundThread;
     private final static String TAG = "SocketBackgroundService";
     private Socket mSocket;
+
     {
         try {
             // TODO change URL
             mSocket = IO.socket("http://tumblr4u.eastus.cloudapp.azure.com:5000/");
-            mSocket.on(Socket.EVENT_CONNECT, args -> {
-                Log.i(TAG, "event connect triggered");
-                addNotification("socket", "connected");
-            });
-            mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
-               Log.i(TAG, "error connecting to socket");
-            });
-            mSocket.on(Socket.EVENT_DISCONNECT, args -> {
-               Log.i(TAG, "Socket disconnected");
-            });
-            mSocket.connect();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
+
     public SocketBackgroundService() {
     }
 
@@ -60,12 +55,54 @@ public class SocketBackgroundService extends Service {
         this.isRunning = false;
         this.backgroundThread = new Thread(myTask);
 
-        // should this part go in the run method? TODO change events
-        mSocket.on("new message", args -> {
-            addNotification("new message", "action happened");
-        });
+        // should this part go in the run method?
 
+        mSocket.on(Socket.EVENT_CONNECT, args -> {
+            Log.i(TAG, "event connect triggered");
+//            addNotification("socket", "connected");
+        });
+        mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+            Log.i(TAG, "error connecting to socket");
+        });
+        mSocket.on(Socket.EVENT_DISCONNECT, args -> {
+            Log.i(TAG, "Socket disconnected");
+        });
+        mSocket.on("test", args -> {
+            for (Object arg : args) {
+                Log.i(TAG, (String) arg);
+            }
+            addNotification("test", "Connection is done");
+        });
+        mSocket.on("update-notification-list", args -> {
+            for (Object arg : args) {
+                Log.i(TAG, (String) arg);
+            }
+        });
+        mSocket.on("test1", args -> {
+            for (Object arg : args) {
+                Log.i(TAG, (String) arg);
+            }
+        });
+        mSocket.on("test2", args -> {
+            for (Object arg : args) {
+                Log.i(TAG, (String) arg);
+            }
+        });
+        mSocket.on("test3",args -> {
+            for(Object arg:args){
+                Log.i(TAG, (String) arg);
+            }
+        });
+        mSocket.on("joined-room", args -> {
+            for (Object arg : args) {
+                Log.i(TAG, arg.toString());
+            }
+        });
+        mSocket.connect();
+        // ----------- socket emit trial ------------
+        mSocket.emit("join-room", Prefs.getToken(getApplication()));
     }
+
     private Runnable myTask = new Runnable() {
         @Override
         public void run() {
@@ -81,7 +118,7 @@ public class SocketBackgroundService extends Service {
         }
     };
 
-    private void addNotification(String title, String text){
+    private void addNotification(String title, String text) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this, "1");
 
@@ -98,8 +135,7 @@ public class SocketBackgroundService extends Service {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "channel_id";
             NotificationChannel channel = new NotificationChannel(
                     channelId,
@@ -118,7 +154,7 @@ public class SocketBackgroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(!this.isRunning){
+        if (!this.isRunning) {
             this.isRunning = true;
             this.backgroundThread.start();
         }
