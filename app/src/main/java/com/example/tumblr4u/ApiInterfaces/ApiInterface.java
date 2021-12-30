@@ -52,7 +52,7 @@ public interface ApiInterface {
     @MockResponse(body = "{\"meta\":{\"status\":201, \"msg\": \"CREATED\"}, "
             + "\"res\":{\"message\":\"sign up successfully\", \"data\": \"token\"}}")
     @POST("signup")
-    public Call<LoginResponse> Signup(@Body SignupRequest request);
+    public Call<GoogleLoginResponse> Signup(@Body SignupRequest request);
 
     // TODO change this
     @Mock

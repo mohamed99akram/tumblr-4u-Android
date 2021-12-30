@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.tumblr4u.GeneralPurpose.Prefs;
 import com.example.tumblr4u.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
@@ -60,6 +61,24 @@ public class SocketBackgroundService extends Service {
         mSocket.on(Socket.EVENT_CONNECT, args -> {
             Log.i(TAG, "event connect triggered");
 //            addNotification("socket", "connected");
+            // ----------- socket emit trial ------------
+            String token = Prefs.getToken(getApplication());
+            try {
+                JSONObject jsonObject = new JSONObject().put("token", token);
+                Log.i(TAG, jsonObject.toString());
+                mSocket.emit("join-room", jsonObject);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+//            try {
+//                JSONObject jsonObject2 = new JSONObject().put("postId", "61ca5d92a8a4556c5b24f1fa");
+//                Log.i(TAG, jsonObject2.toString());
+//                mSocket.emit("like", jsonObject2);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         });
         mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
             Log.i(TAG, "error connecting to socket");
@@ -99,11 +118,6 @@ public class SocketBackgroundService extends Service {
             }
         });
         mSocket.connect();
-        // ----------- socket emit trial ------------
-        String token = Prefs.getToken(getApplication());
-        String sentTokenJSON = "{\"token\":\""+token+"\"}";
-        Log.i(TAG, sentTokenJSON);
-        mSocket.emit("join-room", sentTokenJSON);
     }
 
     private Runnable myTask = new Runnable() {

@@ -3,11 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/drawable/age_field_edit_text.xml" value="0.36770833333333336" />
-        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.221875" />
-        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/drawable/ic_tumblr_background.xml" value="0.36205128205128206" />
-        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/drawable/login_button_shape.xml" value="0.36205128205128206" />
-        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/drawable/search_suggestion_image.xml" value="0.36205128205128206" />
         <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/activity_authentication.xml" value="0.25" />
         <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/activity_full_signup_with_email.xml" value="0.3138888888888889" />
         <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/activity_likes_reblogs.xml" value="0.18" />
@@ -28,7 +23,6 @@
         <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/item_likes_reblogs.xml" value="0.35104166666666664" />
         <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/post_view.xml" value="0.30277777777777776" />
         <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/layout/view_posts_list_item.xml" value="0.35104166666666664" />
-        <entry key="..\:/CMP/CMP3/SE/tumblr4u/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.36205128205128206" />
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/layout/fragment_activity.xml" value="0.1" />
         <entry key="..\:/mahmoudamrnabil/tumbler/tumblr-4u-Android/app/src/main/res/layout/fragment_home.xml" value="0.1921875" />
@@ -41,12 +35,10 @@
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.18611111111111112" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/ic_tumblr_background.xml" value="0.18611111111111112" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/login_button_shape.xml" value="0.2203125" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/profile_image_circle.xml" value="0.20833333333333334" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/search_field.xml" value="0.20092592592592592" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/drawable/search_suggestion_tumblrs_container.xml" value="0.1125" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_authentication.xml" value="0.25" />
-
-        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_login_with_email.xml" value="0.1897644927536232" />
-        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_signup_with_email.xml" value="0.1897644927536232" />
-
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_login_with_email.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_search.xml" value="0.22" />
@@ -54,13 +46,12 @@
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_splash_screen.xml" value="0.15489130434782608" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/activity_write_post.xml" value="0.17980072463768115" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/editor_list_item.xml" value="0.17980072463768115" />
-
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_activity.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login1.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login2.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_login3.xml" value="0.1" />
-        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_profile.xml" value="0.19519927536231885" />
+        <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_search_result_page.xml" value="0.1" />
         <entry key="..\:/study affairs/syllabus/3rd year/1st semester/Softwere Engineering/Project/tumblr-4u-Android/app/src/main/res/layout/fragment_search_suggestion_page.xml" value="0.15353260869565216" />
@@ -91,5 +82,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>
