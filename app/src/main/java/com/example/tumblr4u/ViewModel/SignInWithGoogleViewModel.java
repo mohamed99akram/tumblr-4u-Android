@@ -36,7 +36,7 @@ public class SignInWithGoogleViewModel extends AndroidViewModel {
                 if (response.isSuccessful()) {
                     String token;
                     if (response.body() != null) {
-                        token = response.body().getResponse().getData().getToken();
+                        token = response.body().getResponse().getData();
 
                         // ----------- store this token ------------
                         Prefs.storeToken(getApplication(),token);
