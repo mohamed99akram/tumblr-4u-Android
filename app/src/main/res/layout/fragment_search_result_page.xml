@@ -6,7 +6,7 @@
     tools:context=".Fragments.SearchResultPageFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_suggestion_result_page_recyclerView"
+        android:id="@+id/search_result_page_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

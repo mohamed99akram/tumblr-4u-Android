@@ -13,6 +13,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
+import com.example.tumblr4u.ApiData.Search.ResultDataResponse;
 import com.example.tumblr4u.ApiData.Search.SuggestedDataResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
@@ -123,4 +124,6 @@ public interface ApiInterface {
     @GET("autoCompleteSearchDash/{wordSearch}")
     Call<SuggestedDataResponse> getSuggestedItems(@Header("Authorization") String token, @Path("wordSearch") String wordSearch);
 
+    @GET("autoCompleteSearchDash/{wordSearch}")
+    Call<ResultDataResponse> getResultPosts(@Header("Authorization") String token, @Path("wordSearch") String wordSearch);
 }

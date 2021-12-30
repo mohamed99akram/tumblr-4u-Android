@@ -11,6 +11,7 @@ import com.example.tumblr4u.ApiData.Login_Signup.LoginResponse;
 import com.example.tumblr4u.ApiData.Login_Signup.SignupRequest;
 import com.example.tumblr4u.ApiData.RetrieveBlog.BlogResponse;
 import com.example.tumblr4u.ApiData.RetrieveNotes.NotesResponse;
+import com.example.tumblr4u.ApiData.Search.ResultDataResponse;
 import com.example.tumblr4u.ApiData.Search.SuggestedDataResponse;
 import com.example.tumblr4u.ApiData.ViewPost.HomePostsResponse;
 import com.example.tumblr4u.ApiData.WritePost.CreatePostRequest;
@@ -187,8 +188,13 @@ public class Repository {
         CommentRequest commentRequest = new CommentRequest(commentText);
         return apiInterface.makeComment("Bearer "+token, blogId, postId, commentRequest);
     }
+
     public Call<SuggestedDataResponse> dataBaseGetSuggestedItems(String token, String searchWord){
         return apiInterface.getSuggestedItems("Bearer " + token, searchWord);
+    }
+
+    public Call<ResultDataResponse> dataBaseGetResultPosts(String token, String searchWord){
+        return apiInterface.getResultPosts("Bearer" + token, searchWord);
     }
 
 }
