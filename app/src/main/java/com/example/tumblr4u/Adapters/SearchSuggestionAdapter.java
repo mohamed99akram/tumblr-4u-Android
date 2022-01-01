@@ -11,6 +11,11 @@ import com.example.tumblr4u.Models.SearchSuggestionItem;
 
 import java.util.ArrayList;
 
+/**
+ * Search suggestion adapter, manages the data of the recycler view
+ * now is no longer used, as we use linear layout due to the light weight suggestion data that coming
+ * */
+@Deprecated
 public class SearchSuggestionAdapter extends RecyclerView.Adapter<SearchSuggestionAdapter.SearchSuggestionHolder> {
 
     private ArrayList<SearchSuggestionItem> mSuggestedData;

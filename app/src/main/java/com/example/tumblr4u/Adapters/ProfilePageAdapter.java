@@ -8,7 +8,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.tumblr4u.Fragments.profile_following_fragment;
 import com.example.tumblr4u.Fragments.profile_likes_fragment;
 import com.example.tumblr4u.Fragments.profile_posts_fragment;
-
+/**
+ * Profile page adapter, manages the transactions between profile fragment
+ * */
 public class ProfilePageAdapter extends FragmentStateAdapter {
 
     public ProfilePageAdapter(@NonNull FragmentActivity fragmentActivity) {
