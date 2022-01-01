@@ -26,6 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * View model of search page that manage its logic and routes its requests
+ * */
 public class SearchResultFragmentViewModel extends AndroidViewModel {
     private Repository repository = Repository.INSTANTIATE();
 

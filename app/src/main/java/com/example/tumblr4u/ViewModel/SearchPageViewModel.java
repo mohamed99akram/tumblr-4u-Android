@@ -19,6 +19,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * View model of search page that manage its logic and routes its requests
+ * */
 public class SearchPageViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> searchSuggestionItems = new MutableLiveData<>();
     private Repository dataBase = Repository.INSTANTIATE();
