@@ -27,6 +27,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * This is the search activity class, that manages the searching process
+ * */
 public class SearchActivity extends AppCompatActivity {
 
     private SearchSuggestionPageFragment mSuggestionPage;
@@ -94,6 +97,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * This function responsible for change the suggestion fragment into result fragment
+     * and store the search word clicked by user
+     * @param searchWord The search word
+     * */
     public void getResultOfWord(String searchWord){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -101,6 +110,11 @@ public class SearchActivity extends AppCompatActivity {
                 .commit();
         mSearchWord = searchWord;
     }
+
+    /**
+     * This function returns the search word clicked by the user
+     * @return The search word
+     * */
     public String getSearchWord(){
         return mSearchWord;
     }
