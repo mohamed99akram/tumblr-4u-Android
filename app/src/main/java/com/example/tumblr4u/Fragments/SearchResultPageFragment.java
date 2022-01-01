@@ -24,6 +24,9 @@ import com.example.tumblr4u.ViewModel.HomeFragmentViewModel;
 import com.example.tumblr4u.ViewModel.SearchResultFragmentViewModel;
 import com.google.gson.Gson;
 
+/**
+ * This fragment represents the result of the search event
+ * */
 public class SearchResultPageFragment extends Fragment {
     private View mRoot;
     private RecyclerView mRecyclerView;
@@ -114,6 +117,10 @@ public class SearchResultPageFragment extends Fragment {
         return mRoot;
     }
 
+    /**
+     * This function gets the search word from search activity
+     * and send it to view model to get the search word related posts
+     * */
     public void getResultOfWord(){
         String searchWord = ((SearchActivity)getActivity()).getSearchWord();
         mSearchResultFragmentViewModel.getResultPosts(searchWord);

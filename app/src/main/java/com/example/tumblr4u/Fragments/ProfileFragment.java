@@ -19,7 +19,9 @@ import com.example.tumblr4u.View.WritePostActivity;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-
+/**
+ * This fragment represents the profile page
+ * */
 public class ProfileFragment extends Fragment {
 
     private View root;

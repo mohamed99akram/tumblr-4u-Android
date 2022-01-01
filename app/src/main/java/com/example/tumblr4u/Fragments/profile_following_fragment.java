@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.tumblr4u.R;
 
+/**
+ * This fragment represent the profile following page
+ * */
 public class profile_following_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -3,6 +3,16 @@ package com.example.tumblr4u.ApiData.Login_Signup;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Login and signup response object
+ * json format
+ * {
+ *  "message": "Successfully signup",
+ *  "data":{
+ *          "token":"LKJASDLKFJLKASDJ"
+ *          }
+ *  }
+ * */
 public class LoginSignupResponse {
     @SerializedName("message")
     @Expose

@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.tumblr4u.R;
 
+/**
+ * This fragment represents the profile likes page
+ * */
 public class profile_likes_fragment extends Fragment {
 
     @Override
