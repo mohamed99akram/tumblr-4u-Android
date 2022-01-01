@@ -19,6 +19,12 @@ import com.example.tumblr4u.R;
 import com.example.tumblr4u.ViewModel.NotesViewModel;
 import com.google.gson.Gson;
 
+/**
+ * - This class shows comments, it gets post data from dashboard as json string and converts this
+ * string into java object then shows comments.
+ * - it allow the user to add a new comment
+ * - Lets the user go for likesReblogsActivity
+ * */
 public class NotesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private NotesViewModel mNotesViewModel;
@@ -46,11 +52,7 @@ public class NotesActivity extends AppCompatActivity {
             notesCount = post.getNotesCount();
             likesCount = post.getLikesCount();
             reblogsCount = post.getReblogsCount();
-//            postId = extras.getString("postId");
-//            blogId = extras.getString("blogId");
-//            notesCount = extras.getInt("notesCount");
-//            likesCount = extras.getInt("likesCount");
-//            reblogsCount = extras.getInt("reblogsCount");
+
         } else {
             return;
         }
@@ -84,8 +86,6 @@ public class NotesActivity extends AppCompatActivity {
         // set on click listener to go to LikesReblogs page
         findViewById(R.id.notes_likes_reblogs).setOnClickListener(v -> {
             Intent intent = new Intent(this, LikesReblogsActivity.class);
-//            intent.putExtra("postId", postId);
-//            intent.putExtra("notesCount", notesCount);
             intent.putExtra("postJSON", postJSON);
             startActivity(intent);
         });

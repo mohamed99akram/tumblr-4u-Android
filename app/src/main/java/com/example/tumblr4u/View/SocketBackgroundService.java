@@ -27,6 +27,10 @@ import io.socket.client.Socket;
 
 // https://stackoverflow.com/questions/40603404/how-to-handle-socket-events-as-background-service
 // -in-android
+/**
+ * This class runs in the background to listen to events that come from connection
+ * An instance is made once the user has access (after login or signup)
+ * */
 public class SocketBackgroundService extends Service {
     private boolean isRunning;
     private Thread backgroundThread;
@@ -51,6 +55,10 @@ public class SocketBackgroundService extends Service {
         return null;
     }
 
+    /**
+     * This function is called implicitly at start of the Service
+     * It adds on event listeners to the socket object and starts connection
+     * */
     @Override
     public void onCreate() {
         this.isRunning = false;
@@ -60,7 +68,7 @@ public class SocketBackgroundService extends Service {
 
         mSocket.on(Socket.EVENT_CONNECT, args -> {
             Log.i(TAG, "event connect triggered");
-//            addNotification("socket", "connected");
+
             // ----------- socket emit trial ------------
             String token = Prefs.getToken(getApplication());
             try {
@@ -72,13 +80,7 @@ public class SocketBackgroundService extends Service {
                 e.printStackTrace();
             }
 
-//            try {
-//                JSONObject jsonObject2 = new JSONObject().put("postId", "61ca5d92a8a4556c5b24f1fa");
-//                Log.i(TAG, jsonObject2.toString());
-//                mSocket.emit("like", jsonObject2);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+
         });
         mSocket.on(Socket.EVENT_CONNECT_ERROR, args -> {
             Log.i(TAG, "error connecting to socket");
@@ -94,7 +96,7 @@ public class SocketBackgroundService extends Service {
         });
         mSocket.on("update-notification-list", args -> {
             for (Object arg : args) {
-                Log.i(TAG, (String) arg);
+                addNotification("notification", arg.toString().substring(arg.toString().indexOf("content")));
             }
         });
         mSocket.on("test1", args -> {
@@ -124,14 +126,7 @@ public class SocketBackgroundService extends Service {
         @Override
         public void run() {
             Log.i(TAG, "Socket background service is running");
-//            if(mSocket.connected()){
-//                addNotification("socket", "connected");
-//                Log.i(TAG, "connected to socket successfully");
-//            }
-//            else{
-//                Log.i(TAG, "Connection not true");
-//            }
-//            addNotification("Socket", "background service started");
+
         }
     };
 
@@ -168,7 +163,9 @@ public class SocketBackgroundService extends Service {
     public void onDestroy() {
         this.isRunning = false;
     }
-
+    /**
+     * Creates a new thread to run in the background
+     * */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!this.isRunning) {

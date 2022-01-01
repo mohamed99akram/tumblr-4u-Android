@@ -16,7 +16,10 @@ import com.example.tumblr4u.Repository.Repository;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/**
+ * - This class extends AndroidViewModel to access getApplication() method
+ * which gives access to sharedPreferences to get and store token
+ * */
 public class SignupWithGoogleViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> successfulSignup = new MutableLiveData<>(false);
@@ -26,6 +29,16 @@ public class SignupWithGoogleViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /**
+     * <br>
+     * - signup happens in two stages:
+     *      1) send google token & receive my token -> databaseLoginWithGoogle()
+     *      2) send age, blogName & receive access -> databaseSignUpWithGoogle()
+     * <br>
+     * @param age the user age
+     * @param name the blogName
+     * @param googleIdToken google token, get it from google API
+     * */
     public void signup(String age, String name, String googleIdToken) {
 
         Call<GoogleLoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);

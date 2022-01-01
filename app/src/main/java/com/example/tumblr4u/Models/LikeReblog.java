@@ -2,6 +2,9 @@ package com.example.tumblr4u.Models;
 
 import com.example.tumblr4u.ApiData.RetrieveBlog.Data;
 
+/**
+ * This class carries useful data of the like or reblog that will be used in recyclerView
+ * */
 public class LikeReblog {
     public static final int LIKE_TYPE = 1;
     public static final int REBLOG_TYPE = 2;
@@ -35,6 +38,9 @@ public class LikeReblog {
         this.blogId = blogId;
     }
 
+    /**
+     * If image URL is not provided, Mohamed Salah appears
+     * */
     public String getBlogImageUrl() {
         if (blogImageUrl.isEmpty()) {
             return "https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25"

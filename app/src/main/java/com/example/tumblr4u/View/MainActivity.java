@@ -80,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    /**
+     * This function creates a background process to listen for notifications from the server
+     * after creating connection with socketIO.
+     * */
     private void startBackgroundSocketService(){
         // Make background service
         Intent background = new Intent(this, SocketBackgroundService.class);

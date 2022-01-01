@@ -76,11 +76,6 @@ public class HomeFragment extends Fragment {
                 String postJSON = gson.toJson(post);
                 intent.putExtra("postJSON", postJSON);
                 Log.i("HomeFragment", "passed postJSON = "+postJSON);
-//                intent.putExtra("postId", post.getPostId());
-//                intent.putExtra("blogId", post.getBlog_id());
-//                intent.putExtra("notesCount", post.getNotesCount());
-//                intent.putExtra("likesCount", post.getLikesCount());
-//                intent.putExtra("reblogsCount", post.getReblogsCount());
                 startActivity(intent);
             }
 
@@ -119,8 +114,6 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
 
-        // ViewModel
-//        HomeFragmentViewModel = ViewModelProviders.of(this).get(HomeFragmentViewModel.class);
 
         mHomeFragmentViewModel = new ViewModelProvider(this).get(
                 HomeFragmentViewModel.class);

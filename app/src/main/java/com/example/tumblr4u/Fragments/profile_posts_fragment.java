@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.tumblr4u.R;
 
-
+/**
+ * This fragment represents the profile posts page
+ * */
 public class profile_posts_fragment extends Fragment {
 
     @Override

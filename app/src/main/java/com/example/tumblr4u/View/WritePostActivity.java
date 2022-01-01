@@ -62,7 +62,6 @@ public class WritePostActivity extends AppCompatActivity {
         // ViewModel
         ArrayList<PostData> postData = new ArrayList<>();
 
-//        mWritePostViewModel = new WritePostViewModel(); // TODO change this to ViewModelProviders?
         mWritePostViewModel = new ViewModelProvider(this).get(WritePostViewModel.class);
         mWritePostViewModel.init(postData);
 
@@ -70,10 +69,7 @@ public class WritePostActivity extends AppCompatActivity {
         // listView & adapter
         mWritePostDataAdapter = new WritePostDataAdapter(this, postData);
 
-//        mCurrentRichEditor = (RichEditor) findViewById(R.id.rich_editor);
-//
-//        mCurrentRichEditor.setEditorHeight(200);
-//        mCurrentRichEditor.setEditorFontSize(22);
+
         mListView = findViewById(R.id.list);
 
         // initial editor
@@ -83,8 +79,6 @@ public class WritePostActivity extends AppCompatActivity {
 
         // observer
         setProgressObserver();
-//        addEditor();
-//        addEditor();
     }
 
     /**

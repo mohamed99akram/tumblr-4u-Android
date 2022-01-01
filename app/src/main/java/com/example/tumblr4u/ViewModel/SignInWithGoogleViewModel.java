@@ -24,6 +24,11 @@ public class SignInWithGoogleViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /**
+     * This function gets googleIdToken from google API, sends it to backend and receives access token
+     * then it stores that token in SharedPreferences
+     * @param googleIdToken google token that google API provides
+     * */
     public void login(String googleIdToken) {
 
         Call<GoogleLoginResponse> response = database.databaseLoginWithGoogle(googleIdToken);

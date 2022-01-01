@@ -32,10 +32,9 @@ import retrofit2.Response;
 public class WritePostViewModel extends AndroidViewModel {
     private static final String TAG = "WritePostViewModel";
     public String mSentHtml = "";
-    //TODO should this be MutableLiveData???
     private ArrayList<PostData> mPostData;
     public MutableLiveData<Boolean> showProgressBar = new MutableLiveData<>();
-    //    private WritePostRepository mRepo;
+
     private Repository mRepo = Repository.INSTANTIATE();
     ;
 
@@ -59,8 +58,7 @@ public class WritePostViewModel extends AndroidViewModel {
             return;
         }
         mPostData = postData;
-//        mRepo = Repository.INSTANTIATE();
-//        mRepo.setPostData(mPostData);
+
     }
 
     /**
@@ -83,12 +81,18 @@ public class WritePostViewModel extends AndroidViewModel {
 
     /**
      * This method will send the data to the repository. which in turn will send it to the backend
+     * Logic:
+     * 1) put progress bar to let user wait
+     * 2) choose images from the post list view
+     * 3) remove \\n character from base64 of the image
+     * 4) in a new thread:
+     *      upload all images
+     *      if uploaded successfully, put them in their order in one string
+     *      publish the post html
      */
     public void publishPost() {
         showProgressBar.setValue(true);
-//        mRepo.publishPost(Prefs.getToken(getApplication()), Prefs.getMyBlogId(getApplication())
-//        , getFinalHtml(), "text");
-//        showProgressBar.setValue(false);
+
         StringBuilder tempPublished = new StringBuilder();
         for (PostData postData : mPostData) {
             if (postData.getViewType() == PostData.IMAGE_TYPE) {
@@ -107,7 +111,7 @@ public class WritePostViewModel extends AndroidViewModel {
                 imagesBase64.add(
                         ((PostEditor) postData).getImageBase64().replace("\n", "").replace("\r",
                                 ""));
-//                imagesBase64.add((String)postData.getData());
+
             }
         }
         new Thread(() -> {
@@ -123,15 +127,15 @@ public class WritePostViewModel extends AndroidViewModel {
                             imagesUrls = uploadImagesResponse.body().getImages();
                         } else {
                             Log.e(TAG, "upload image body = null");
-//                            return;
+
                         }
                     } else {
                         Log.e(TAG, "upload images response is not successful");
-//                        return;
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-//                    return;
+
                 }
             }
             // form the sent html
@@ -149,11 +153,7 @@ public class WritePostViewModel extends AndroidViewModel {
                         sentHtml.append(templateHtml.replace("{IMAGE_LINK}", tempImageLink));
                     } else {
                         trueHtml = false;
-//                        sentHtml.append(templateHtml.replace("{IMAGE_LINK}",
-//                                "https://www.vbetnews.com/wp-content/uploads/2020/08/P2020-08-25"
-//                                        + "-Salsburg_Liverpool-83.jpg.jpg"));
                         sentHtml.append("failed image here");
-//                        sentHtml.append((String)postData.getData());
                     }
                     sentHtml.append("<br>");
                 }
@@ -191,116 +191,12 @@ public class WritePostViewModel extends AndroidViewModel {
             showProgressBar.postValue(false);
         }).start();
 
-//        StringBuilder sentHtml = new StringBuilder();
-//        new Thread(()->{
-//            for(PostData postData:mPostData){
-//                if(postData.getViewType()== PostData.TEXT_TYPE){
-//                    sentHtml.append((String)postData.getData()).append("<br>");
-//                }
-//                else if(postData.getViewType()==PostData.IMAGE_TYPE){
-//                    try {
-//                        Response<UploadImageResponse> uploadImageResponse = mRepo.uploadImage(
-//                                Prefs.getToken(getApplication()),
-//                                ((PostEditor) postData).getImageBase64()
-//                        ).execute();
-//                        if(uploadImageResponse.isSuccessful()){
-//                            if(uploadImageResponse.body()!=null){
-//                                sentHtml.append(uploadImageResponse.body().getImages());
-//                            }else{
-//                                Log.e(TAG, "upload image body = null");
-//                            }
-//                        }else{
-//                            Log.e(TAG, "upload image not successfule");
-//                        }
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }
-//        }).start();
     }
 
     public String getSentHtml() {
         return mSentHtml;
     }
 
-    /**
-     * This functions concatenates all html code
-     *
-     * @return String representing HTML data
-     */
-
-//    public String getFinalHtml() {
-//        StringBuilder sentHtml = new StringBuilder();
-//        for (PostData postData: mPostData) {
-//            int currentViewType = postData.getViewType();
-//            if(currentViewType==PostData.TEXT_TYPE){
-//                sentHtml.append(((PostEditor)postData).getData());
-//                sentHtml.append("<br>");
-//            }
-//            else if(currentViewType==PostData.IMAGE_TYPE){
-//                String imageBase64 = ((PostEditor)postData).getImageBase64();
-//                String url = uploadImageGetUrl(imageBase64);
-//                sentHtml.append("<img src=\"").append(url).append("\">");
-//                sentHtml.append("<br>");
-//            }
-////            String tempHtml = (String)mPostData.get(i).getData();
-////            if (!tempHtml.isEmpty()) {
-////                sentHtml.append(tempHtml);
-////                sentHtml.append("<br>");
-////            }
-//        }
-//        mSentHtml = sentHtml.toString();
-//        return mSentHtml;
-//    }
-//    public String uploadImageGetUrl(String imageBase64){
-//        final String[] url = new String[1];
-//        mRepo.uploadImage(
-//                Prefs.getToken(getApplication()),
-//                imageBase64).enqueue(new Callback<UploadImageResponse>() {
-//            @Override
-//            public void onResponse(Call<UploadImageResponse> call,
-//                    Response<UploadImageResponse> response) {
-//                if(response.isSuccessful()){
-//                    if(response.body()!=null){
-//                        url[0] = response.body().getRes().getData();
-//                        Log.e(TAG, "uploaded image successfully, url = "+ url[0]);
-//                    }else{
-//                        Log.e(TAG, "upload image body = null");
-//                    }
-//                }else{
-//                    Log.e(TAG, "Upload image not successful");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UploadImageResponse> call, Throwable t) {
-//                Log.e(TAG, t.getMessage());
-//            }
-//        });
-////        try {
-////            Response<UploadImageResponse> response =  mRepo.uploadImage(
-////                    Prefs.getToken(getApplication()),
-////                    imageBase64).execute();
-////
-////            if(response.isSuccessful()){
-////                if(response.body()!=null){
-////                    String url = response.body().getRes().getData();
-////                    Log.e(TAG, "uploaded image successfully, url = "+ url);
-////                    return url;
-////
-////                }else{
-////                    Log.e(TAG, "upload image body = null");
-////                }
-////            }else{
-////                Log.e(TAG, "Upload image not successful");
-////            }
-////        } catch (IOException e) {
-////            e.printStackTrace();
-////        }
-//        return url[0];
-//    }
     public List<PostData> getPostData() {
         return mPostData;
     }

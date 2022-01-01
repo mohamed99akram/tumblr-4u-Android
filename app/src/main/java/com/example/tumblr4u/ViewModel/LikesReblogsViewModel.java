@@ -20,7 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Response;
-
+/**
+ * Extend AndroidViewModel to access token, blogId
+ * This class is used inside NotesActivity to get likes and reblogs for some post
+ * */
 public class LikesReblogsViewModel extends AndroidViewModel {
     private Repository mRepository = Repository.INSTANTIATE();
     public MutableLiveData<List<LikeReblog>> likeReblogList = new MutableLiveData<>();
@@ -31,6 +34,12 @@ public class LikesReblogsViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /**
+     * Get likes and reblogs for some post
+     * for each note (like or reblog), retrieve blog to get blogName
+     * this happens in another thread not to block main thread and to get all notes in order
+     * @param post the post to get likes and reblogs for
+     * */
     public void getLikesReblogs(Post post) {
         mPost = post;
         List<Note> allNotes = mPost.getNotes();
@@ -53,7 +62,6 @@ public class LikesReblogsViewModel extends AndroidViewModel {
                     likeReblog.setBlogId("dummy"); // to send anything to database if null or empty
                 }
 
-//                likeReblog.setBlogId("61ae81b91b9ee885f03a6866"); // TODO remove this
                 try {
                     // execute and get response
                     Response<BlogResponse>
@@ -84,14 +92,5 @@ public class LikesReblogsViewModel extends AndroidViewModel {
 
         }).start();
 
-//        //TODO ---------delete this --------
-//        List<LikeReblog> tempLikesReblogs = new ArrayList<>();
-//        tempLikesReblogs.add(new LikeReblog("1", "", "akram1" ,LikeReblog.LIKE_TYPE));
-//        tempLikesReblogs.add(new LikeReblog("2", "", "akram2" ,LikeReblog.REBLOG_TYPE));
-//        tempLikesReblogs.add(new LikeReblog("1", "", "akram3" ,LikeReblog.LIKE_TYPE));
-//        tempLikesReblogs.add(new LikeReblog("3", "", "akram4" ,LikeReblog.LIKE_TYPE));
-//        tempLikesReblogs.add(new LikeReblog("1", "", "akram5" ,LikeReblog.REBLOG_TYPE));
-//        tempLikesReblogs.add(new LikeReblog("2", "", "akram6" ,LikeReblog.LIKE_TYPE));
-//        likeReblogList.setValue(tempLikesReblogs);
     }
 }

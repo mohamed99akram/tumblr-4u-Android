@@ -146,41 +146,36 @@ public class Repository {
     }
 
     /**
-     * request home posts
+     * request home posts (dashboard)
+     * @param token user token stored in SharedPreferences
      * */
     public Call<HomePostsResponse> requestHomePosts(String token) {
         // TODO move Bearer to getToken Method
         return apiInterface.getHomePosts("Bearer "+token);
     }
     /**
-     *
+     * - This function takes a list of images, each image is in base64 format. It then sends
+     * this list to backend and returns a list of URLs for these images on success.
+     * - It sends a list of Parts (Multipart.Part[])
+     * @param imagesBase64 list of images in the base64 format
+     * @param token user token stored in SharedPreferences
      * */
     public Call<UploadImageResponse> uploadImages(String token, List<String> imagesBase64){
-//        UploadImageRequest request = new UploadImageRequest(imagesBase64);
-//        return apiInterface.uploadImages("Bearer "+token, request);
-
-//        MultipartBody.Part fileParts =  MultipartBody.Part.createFormData("file", imagesBase64.get(0));
-//        for(int i = 0; i < fileParts.length; i++){
-//            fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
-//        }
-
         MultipartBody.Part[] fileParts = new MultipartBody.Part[imagesBase64.size()];
         for(int i = 0; i < fileParts.length; i++){
             fileParts[i] = MultipartBody.Part.createFormData("file", imagesBase64.get(i));
         }
         return apiInterface.uploadImages("Bearer "+token, fileParts);
-//        MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(
-//                MultipartBody.FORM);
-//        Log.i("Repository", "images count = "+ imagesBase64.size());
-//        for(String img: imagesBase64){
-//            Log.i("Repository", "img = "+img);
-//            requestBodyBuilder.addFormDataPart("file", img);
-//        }
-//        RequestBody requestBody = requestBodyBuilder.build();
-//        return apiInterface.uploadImages("Bearer " + token, requestBody);
     }
     /**
-     * Make Post
+     * Publish a new post
+     * @param token user token stored in SharedPreferences
+     * @param blogId user's blog id
+     * @param postHtml post in the form of html
+     * @param postType type of the post (text/image/..)
+     * @param state is the post published? queued?
+     * @param tags list of strings that summarize post's content & will be used to search for the
+     *             post and retrieve the posts in the dashboard later
      * */
     public Call<String> createPost(String token, String blogId, String postHtml, String postType, String state, List<String> tags){
         CreatePostRequest createPostRequest = new CreatePostRequest(postHtml, postType, state, tags);
@@ -188,6 +183,8 @@ public class Repository {
     }
     /**
      * Get Blog data
+     * @param token user token
+     * @param blogId id of the blog needed
      * */
     public Call<BlogResponse> getBlog(String token, String blogId){
         // TODO move Bearer to getToken Method
@@ -195,6 +192,8 @@ public class Repository {
     }
     /**
      * Get Post Notes
+     * @param notesId each list of notes has its ID
+     * @param token user token
      * */
     public Call<NotesResponse> getNotes(String token, String notesId){
         // TODO move Bearer to getToken Method
@@ -202,23 +201,44 @@ public class Repository {
     }
     /**
      * Press Like Button
+     * @param token user token
+     * @param blogId blog id of who makes a like
+     * @param postId post id of the liked post
      * */
     public Call<String> pressLike(String token, String blogId, String postId){
         return apiInterface.pressLike("Bearer "+token, blogId, postId);
     }
 
     /**
-     * Add new Comment
+     * Add new Comment.
+     * @param token user token
+     * @param blogId blog id of who creates the comment
+     * @param postId post id of the post where the comment is being added to
+     * @param commentText content of the comment
      * */
     public Call<String> makeComment(String token, String blogId, String postId, String commentText){
         CommentRequest commentRequest = new CommentRequest(commentText);
         return apiInterface.makeComment("Bearer "+token, blogId, postId, commentRequest);
     }
 
+    /**
+     * Gets the suggested words related to the search word by calling the api interface
+     * to make this request
+     * @param token The token of the user
+     * @param searchWord The search word
+     * @return Request handler that listen to upcoming response
+     * */
     public Call<SuggestedDataResponse> dataBaseGetSuggestedItems(String token, String searchWord){
         return apiInterface.getSuggestedItems("Bearer " + token, searchWord);
     }
 
+    /**
+     * Gets the posts related to the search word by calling the api interface
+     * to make this request
+     * @param token The token of the user
+     * @param searchWord The search word
+     * @return Request handler that listen to upcoming response
+     * */
     public Call<ResultDataResponse> dataBaseGetResultPosts(String token, String searchWord){
         return apiInterface.getResultPosts("Bearer" + token, searchWord);
     }

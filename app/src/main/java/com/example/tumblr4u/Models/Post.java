@@ -9,6 +9,8 @@ import java.util.List;
  * @author Mohamed Akram
  * @version 1.0
  * @since 17-12-2021
+ *
+ * carries useful data of the post that is used across the application
  */
 public class Post {
     private String postId;
