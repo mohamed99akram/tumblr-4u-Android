@@ -96,7 +96,7 @@ public class SocketBackgroundService extends Service {
         });
         mSocket.on("update-notification-list", args -> {
             for (Object arg : args) {
-                Log.i(TAG, (String) arg);
+                addNotification("notification", arg.toString().substring(arg.toString().indexOf("content")));
             }
         });
         mSocket.on("test1", args -> {
