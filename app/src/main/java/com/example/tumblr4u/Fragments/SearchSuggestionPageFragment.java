@@ -19,7 +19,10 @@ import com.example.tumblr4u.View.SearchActivity;
 
 import java.util.ArrayList;
 
-
+/**
+ * This class represent the suggestion page fragment that show the data suggested
+ * when someone search a word
+ * */
 public class SearchSuggestionPageFragment extends Fragment {
 
     private View mRoot;
@@ -40,6 +43,11 @@ public class SearchSuggestionPageFragment extends Fragment {
         mContainer = (LinearLayout) mRoot.findViewById(R.id.search_suggestions_hash_tags_container);
         mSearchActivity = (SearchActivity) getActivity();
     }
+
+    /**
+     * Get the suggested results array and display it in the list
+     * @param data List of the suggested words
+     * */
     public void setData(ArrayList<String> data){
         removeContainerChild();
         LinearLayout layout;
@@ -56,6 +64,10 @@ public class SearchSuggestionPageFragment extends Fragment {
             mContainer.addView(layout);
         }
     }
+
+    /**
+     * Removes the layout children in case of new list to be displayed
+     * */
     public void removeContainerChild(){
         mContainer.removeAllViews();
     }
