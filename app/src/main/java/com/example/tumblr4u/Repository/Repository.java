@@ -215,10 +215,24 @@ public class Repository {
         return apiInterface.makeComment("Bearer "+token, blogId, postId, commentRequest);
     }
 
+    /**
+     * Gets the suggested words related to the search word by calling the api interface
+     * to make this request
+     * @param token The token of the user
+     * @param searchWord The search word
+     * @return Request handler that listen to upcoming response
+     * */
     public Call<SuggestedDataResponse> dataBaseGetSuggestedItems(String token, String searchWord){
         return apiInterface.getSuggestedItems("Bearer " + token, searchWord);
     }
 
+    /**
+     * Gets the posts related to the search word by calling the api interface
+     * to make this request
+     * @param token The token of the user
+     * @param searchWord The search word
+     * @return Request handler that listen to upcoming response
+     * */
     public Call<ResultDataResponse> dataBaseGetResultPosts(String token, String searchWord){
         return apiInterface.getResultPosts("Bearer" + token, searchWord);
     }
