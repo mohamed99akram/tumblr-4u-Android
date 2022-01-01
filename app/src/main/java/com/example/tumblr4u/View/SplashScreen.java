@@ -8,6 +8,9 @@ import android.os.Handler;
 
 import com.example.tumblr4u.R;
 
+/**
+ * Splash screen begin at the start of the program and disappear within seconds
+ * */
 public class SplashScreen extends AppCompatActivity {
 
     @Override
