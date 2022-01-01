@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tumblr4u.R;
 
+/**
+ * This fragment represents the search page is now no longer used
+ * as it replaced with search activity
+ * */
 public class SearchFragment extends Fragment {
 
     private View root;
