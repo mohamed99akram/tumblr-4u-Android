@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Result data response object corresponding to the json response
+ * This api is the result posts related to search word
+ * */
 public class ResultDataResponse {
     @SerializedName("resultPostHashTag")
     @Expose
