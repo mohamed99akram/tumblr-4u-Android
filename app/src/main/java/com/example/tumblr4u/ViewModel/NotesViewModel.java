@@ -24,7 +24,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/**
+ * ViewModel of NotesActivity
+ * extends AndroidViewModel to access token, blog id
+ * This class links NotesActivity to database to get comments & publish comments
+ * */
 public class NotesViewModel extends AndroidViewModel {
 
     private Repository mRepository = Repository.INSTANTIATE();
@@ -37,23 +41,17 @@ public class NotesViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /**
+     * Get comments from database for a specific post
+     * blogId only is provided each comment. So, for each comment, retrieve its blogName, blogAvatar
+     * So, it will take longer time
+     * @param post the post to get comments for
+     *
+     * */
     public void getComments(Post post) {
         this.mPost = post;
         mPostId = mPost.getPostId();
-//        mPostId = "61ae667d8b4d5620ce937992"; // TODO remove this
-//        mRepository.getNotes(Prefs.getToken(getApplication()), mPostId).enqueue(
-//                new Callback<NotesResponse>() {
-//                    @Override
-//                    public void onResponse(Call<NotesResponse> call,
-//                            Response<NotesResponse> response) {
-//                        if (response.isSuccessful()) {
-//                            if (response.body() == null) {
-//                                Log.e(TAG, "response body = null");
-//                                return;
-//                            }
-        // Get comments from notes
-//                            List<Note> allNotes =
-//                                    response.body().getRes().getNotes();
+
         List<Note> allNotes = mPost.getNotes();
 
         List<Comment> tempCommentsList = new ArrayList<>();
@@ -83,7 +81,6 @@ public class NotesViewModel extends AndroidViewModel {
                         || comment.getBlogId().isEmpty()) {
                     comment.setBlogId("dummy"); // if it is null -> error
                 }
-//                comment.setBlogId("61ae81b91b9ee885f03a6866");// TODO remove this line
                 try {
                     // execute and get response
                     Response<BlogResponse>
@@ -114,6 +111,12 @@ public class NotesViewModel extends AndroidViewModel {
         }).start();
     }
 
+    /**
+     * add a comment as text for some specific post
+     *
+     * @param post post to add comment for
+     * @param commentText text to add as a comment for that post
+     * */
     public void makeComment(Post post, String commentText) {
         mRepository.makeComment(
                 Prefs.getToken(getApplication()),
@@ -152,37 +155,5 @@ public class NotesViewModel extends AndroidViewModel {
                 Log.e(TAG, t.getMessage());
             }
         });
-//        ).enqueue(new Callback<CommentResponse>() {
-//            @Override
-//            public void onResponse(Call<CommentResponse> call, Response<CommentResponse>
-//            response) {
-//                if (response.isSuccessful()) {
-//                    if (response.body() != null) {
-//                        Log.i(TAG, "response = " + response.body().getRes().getMessege());
-//                        List<Comment> tempList = commentsList.getValue();
-//                        Log.i(TAG, "commentsList.size() before = "+commentsList.getValue().size
-//                        ());
-//                        tempList.add(new Comment(
-//                                Prefs.getMyBlogId(getApplication()),
-//                                Prefs.getMyBlogName(getApplication()),
-//                                "",
-//                                commentText,
-//                                null // TODO make it not null || if null go to your blog
-//                        ));
-//                        commentsList.setValue(tempList);
-//                        Log.i(TAG, "commentsList.size() after = "+commentsList.getValue().size());
-//                    } else {
-//                        Log.e(TAG, "response body = null");
-//                    }
-//                } else {
-//                    Log.e(TAG, "response is not successful");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CommentResponse> call, Throwable t) {
-//                Log.e(TAG, t.getMessage());
-//            }
-//        });
     }
 }

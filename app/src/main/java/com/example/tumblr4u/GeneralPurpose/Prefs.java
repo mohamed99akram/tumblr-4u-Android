@@ -21,9 +21,6 @@ public class Prefs {
      */
     public static void storeToken(Application application, String token) {
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
-//        SharedPreferences userDetails = application.getSharedPreferences(
-//                application.getString(R.string.userDetails),
-//                Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = userDetails.edit();
         edit.putString(application.getString(R.string.Token), token);
         edit.apply();
@@ -39,9 +36,6 @@ public class Prefs {
      */
     public static void storeMyBlogId(Application application, String myBlogId) {
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
-//        SharedPreferences userDetails = application.getSharedPreferences(
-//                application.getString(R.string.userDetails),
-//                Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = userDetails.edit();
         edit.putString(application.getString(R.string.myBlogId), myBlogId);
         edit.apply();
@@ -57,24 +51,16 @@ public class Prefs {
 
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(context);
         return userDetails.getString(context.getString(R.string.myBlogId),"");
-//        return context.getSharedPreferences(
-//                context.getString(R.string.userDetails),
-//                Context.MODE_PRIVATE)
-//                .getString(context.getString(R.string.myBlogId),
-//                        "234352");
     }
     /**
-     *
+     * get my blog Id from sharedPreferences
+     * Call this function from ViewModel and pass the application to it
+     * @param application the application provided from ViewModel - needs to make ViewModel extend
+     *                    AndroidViewModel
      * */
     public static String getMyBlogId(Application application){
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
         return userDetails.getString(application.getString(R.string.myBlogId),"");
-//        return application.getSharedPreferences(
-//                application.getString(R.string.userDetails),
-//                Context.MODE_PRIVATE).getString(
-//                        application.getString(R.string.myBlogId),
-//                "234352"
-//        );
     }
     /**
      * Return Token of the user call this function in the ViewModel to pass data to Repository and
@@ -86,13 +72,11 @@ public class Prefs {
     public static String getToken(Application application) {
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
         return userDetails.getString(application.getString(R.string.Token),"");
-//        return application.getSharedPreferences(
-//                application.getString(R.string.Token),
-//                Application.MODE_PRIVATE
-//        ).getString(application.getString(R.string.Token), "Token");
     }
     /**
      * Store my Blog Name
+     * @param application application object provided from ViewModel
+     * @param myBlogName value to be stored in SharedPreferences
      * */
     public static void storeMyBlogName(Application application, String myBlogName) {
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);
@@ -101,7 +85,8 @@ public class Prefs {
         edit.apply();
     }
     /**
-     *
+     * Get blog name
+     * @param application application object provided from ViewModel
      * */
     public static String getMyBlogName(Application application){
         SharedPreferences userDetails = PreferenceManager.getDefaultSharedPreferences(application);

@@ -62,12 +62,5 @@ public class PostEditor extends PostData {
     @Override
     public String getData() {
         return innerHtml;
-//        if(mViewType == IMAGE_TYPE){
-//            return mImageBase64;
-//        }
-//        else if(mViewType==TEXT_TYPE){
-//            return innerHtml;
-//        }
-//        return innerHtml;
     }
 }

@@ -65,15 +65,7 @@ public class WritePostDataAdapter extends ArrayAdapter<PostData> {
         return editor;
     }
 
-//    @Override
-//    public long getItemId(int position) {
-//        return (long)position;
-//    }
 
-//    @Override
-//    public int getViewTypeCount() {
-//        return getCount();
-//    }
 
     @Override
     public int getItemViewType(int position) {

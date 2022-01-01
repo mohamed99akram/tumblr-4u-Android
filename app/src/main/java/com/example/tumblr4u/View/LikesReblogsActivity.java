@@ -15,7 +15,11 @@ import com.example.tumblr4u.Models.Post;
 import com.example.tumblr4u.R;
 import com.example.tumblr4u.ViewModel.LikesReblogsViewModel;
 import com.google.gson.Gson;
-
+/**
+ * class to show likes and reblogs.
+ * it gets its data from NotesActivity -> a post object sent as json string, then converted to post
+ * java object
+ * */
 public class LikesReblogsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LikesReblogsViewModel mLikesReblogsViewModel;

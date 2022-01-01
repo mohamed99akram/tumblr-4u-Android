@@ -36,6 +36,7 @@ import retrofit2.Response;
  * @author Mohamed Akram
  * @version 1.0
  * @since 20-12-2021
+ * Extends AndroidViewModel to access token, blogId
  */
 public class HomeFragmentViewModel extends AndroidViewModel {
     private Repository repository = Repository.INSTANTIATE();
@@ -51,23 +52,30 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         super(application);
     }
 
-
+    /**
+     * <p>
+     * This function retrieves dashboard
+     * </p>
+     * interesting data returned from dashboard: myBlogId and posts to show
+     * for each post: its blogId is also important
+     * <p>
+     *     Not all post's data is ready to be shown. Missing is blogName, NotesCount.
+     * </p>
+     * <p>
+     *     So, for each post, go get its notes and its blog to have access to blogName, notesCount
+     * </p>
+     * THAT'S why it takes so long
+     *
+     * In order to send a bunch of requests, create a thread and send requests with execute.
+     * It executes send request in the calling thread (synchronous)
+     *
+     * TODO: ask backend to give you ready data
+     * TODO: retrieve posts one by one and show what becomes ready instead of loading everything
+     *      then showing
+     * */
     public void getposts() {
 
-        //--------- delete this ---------
-        // this should be set when the user chooses the current blog or when the user signs in
-//        Prefs.storeMyBlogId(getApplication(), "1");
-        // testing data
-//        tempList.add(new Post("1", "1", "type", "<h1>post 1</h1>", null, 34, "", "akram"));
-//        tempList.add(new Post("2", "1", "type", "<h1>post 2</h1>", null, 12, "", "akram"));
-//        tempList.add(new Post("3", "4", "type", "<h1>post 3</h1>", null, 45, "", "akram"));
-//        tempList.add(new Post("4", "3", "type", "<h1>post 4</h1>"
-//                + "<br>"
-//                ,
-//                null, 12, "", "akram"));
-//        tempList.add(new Post("5", "2", "type", "<h1>post 5</h1>", null, 56, "", "akram"));
-//
-//        postsList.setValue(tempList);
+
         Log.i(TAG, "Token in " + TAG + " = " + Prefs.getToken(getApplication()));
         repository.requestHomePosts(Prefs.getToken(getApplication())).enqueue(
                 new Callback<HomePostsResponse>() {
@@ -189,6 +197,17 @@ public class HomeFragmentViewModel extends AndroidViewModel {
         );
     }
 
+    /**
+     * Press like button for some post (if liked -> removes like & else: add like)
+     * <p>
+     *     First: connect to socket and send that you pressed like
+     * </p>
+     * <p>
+     *     Second: send like request to repository.
+     * </p>
+     * @param post the post to add lieke to.
+     *             Needed: postId of that post
+     * */
     public void pressLikeButton(Post post) {
         // ---------- emit like to socket ---------
         try {
@@ -198,9 +217,7 @@ public class HomeFragmentViewModel extends AndroidViewModel {
             Log.i(TAG, jsonObject.toString());
             mSocket.emit("like", jsonObject);
             mSocket.connect();
-//            String sentPostIdJSON = "{ \"postId\":\""+postId+"\"}";
-//            Log.i(TAG, sentPostIdJSON);
-//            mSocket.emit("like", sentPostIdJSON);
+
         } catch (URISyntaxException | JSONException e) {
             e.printStackTrace();
         }
